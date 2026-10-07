@@ -1,0 +1,2776 @@
+{
+  "schemaVersion": 1,
+  "purpose": "exploratory harness smoke; not capability qualification",
+  "mode": "real",
+  "performanceClaimEligible": false,
+  "startedAt": "2026-10-07T22:08:21.554Z",
+  "hardware": {
+    "platform": "linux",
+    "arch": "x64",
+    "release": "6.17.0-1022-azure",
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "logicalCpus": 4,
+    "totalMemoryBytes": 16766414848,
+    "node": "v24.21.0"
+  },
+  "sourceCommit": "2d8844d20f3bdd1871315fda14d68f289a35fdce",
+  "sources": {
+    "src/cli.mjs": "98851671cfd662e951129c22f4c49d437abcb8b4c11aed042a6d90375f15fe08",
+    "src/runner.mjs": "69e1f2245ad05a858e819ffcdb98873db2be1fb3f9cb249981bd94f12e7e7c67",
+    "src/workspace.mjs": "b3da6b1757b4395d11e058ee01b6615bbbc53a9e9b41609378cd248f23915be0",
+    "src/llama-adapter.mjs": "99ea0b196e5455ee4806fc4928b120f60b2c941b1a16b34586e73116db8a5209",
+    "src/scoring.mjs": "9b3bd31da05f818ff55f62b611d2730a81ca3efaba65f3de633917e11837573b",
+    "fixtures/smoke.mjs": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177"
+  },
+  "modelProfile": {
+    "mode": "real",
+    "protocol": "action-loop-v2",
+    "model": "gguf-smoke-5f1adbd6-ab4b-4b45-8e8d-601ecbdbd75e",
+    "maxTokens": 256,
+    "seed": 42,
+    "temperature": 0,
+    "cachePrompt": false,
+    "deadlineMs": 30000,
+    "maxTurns": 12,
+    "sourceHashes": {
+      "src/cli.mjs": "98851671cfd662e951129c22f4c49d437abcb8b4c11aed042a6d90375f15fe08",
+      "src/runner.mjs": "69e1f2245ad05a858e819ffcdb98873db2be1fb3f9cb249981bd94f12e7e7c67",
+      "src/workspace.mjs": "b3da6b1757b4395d11e058ee01b6615bbbc53a9e9b41609378cd248f23915be0",
+      "src/llama-adapter.mjs": "99ea0b196e5455ee4806fc4928b120f60b2c941b1a16b34586e73116db8a5209",
+      "src/scoring.mjs": "9b3bd31da05f818ff55f62b611d2730a81ca3efaba65f3de633917e11837573b",
+      "fixtures/smoke.mjs": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177"
+    }
+  },
+  "design": {
+    "tasks": [
+      {
+        "id": "smoke-ttl-boundary",
+        "version": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+        "clusterId": "smoke-ttl-boundary",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-preserve-zero",
+        "version": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+        "clusterId": "smoke-preserve-zero",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-empty-guard",
+        "version": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+        "clusterId": "smoke-empty-guard",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-two-file-rename",
+        "version": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+        "clusterId": "smoke-two-file-rename",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-config-change",
+        "version": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+        "clusterId": "smoke-config-change",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-copy-before-sort",
+        "version": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+        "clusterId": "smoke-copy-before-sort",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-grounded-answer",
+        "version": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+        "clusterId": "smoke-grounded-answer",
+        "stratum": "general",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-missing-information",
+        "version": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+        "clusterId": "smoke-missing-information",
+        "stratum": "general",
+        "deadlineMs": 30000
+      }
+    ],
+    "strataWeights": {
+      "coding": 0.8,
+      "general": 0.2
+    },
+    "repeats": 1,
+    "systemVersions": {
+      "baseline": "5dfa580edf9b7754ab43d2cef8658ae10053bd1817601eafc55e1c337f410edd",
+      "candidate": "61a6d3c02e53921aee6e2d48d66cea20f8974280be2cd9aaee59dda233130567"
+    },
+    "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+    "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177"
+  },
+  "conditions": {
+    "order": "counterbalanced by task and repeat; deterministic",
+    "prefillCache": "disabled on every request",
+    "warmup": "one completion before measurement; cold start excluded",
+    "baseline": "sequential model-selected tools with filenames initially",
+    "candidate": "same loop with prompt-mentioned files preloaded with versions",
+    "preparationTime": "included",
+    "privateGradingTime": "excluded",
+    "memory": "Node process RSS only; llama-server memory not measured here"
+  },
+  "runs": [
+    {
+      "system": "baseline",
+      "systemVersion": "5dfa580edf9b7754ab43d2cef8658ae10053bd1817601eafc55e1c337f410edd",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-ttl-boundary",
+      "taskVersion": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 18187.7804
+    },
+    {
+      "system": "candidate",
+      "systemVersion": "61a6d3c02e53921aee6e2d48d66cea20f8974280be2cd9aaee59dda233130567",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-ttl-boundary",
+      "taskVersion": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 19833.510198
+    },
+    {
+      "system": "candidate",
+      "systemVersion": "61a6d3c02e53921aee6e2d48d66cea20f8974280be2cd9aaee59dda233130567",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-preserve-zero",
+      "taskVersion": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 20658.761602000006
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "5dfa580edf9b7754ab43d2cef8658ae10053bd1817601eafc55e1c337f410edd",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-preserve-zero",
+      "taskVersion": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 18975.039484000008
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "5dfa580edf9b7754ab43d2cef8658ae10053bd1817601eafc55e1c337f410edd",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-empty-guard",
+      "taskVersion": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 8989.968755999987
+    },
+    {
+      "system": "candidate",
+      "systemVersion": "61a6d3c02e53921aee6e2d48d66cea20f8974280be2cd9aaee59dda233130567",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-empty-guard",
+      "taskVersion": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 9852.078687000001
+    },
+    {
+      "system": "candidate",
+      "systemVersion": "61a6d3c02e53921aee6e2d48d66cea20f8974280be2cd9aaee59dda233130567",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-two-file-rename",
+      "taskVersion": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.816787999982
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "5dfa580edf9b7754ab43d2cef8658ae10053bd1817601eafc55e1c337f410edd",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-two-file-rename",
+      "taskVersion": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.051921999984
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "5dfa580edf9b7754ab43d2cef8658ae10053bd1817601eafc55e1c337f410edd",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-config-change",
+      "taskVersion": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30000.547196
+    },
+    {
+      "system": "candidate",
+      "systemVersion": "61a6d3c02e53921aee6e2d48d66cea20f8974280be2cd9aaee59dda233130567",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-config-change",
+      "taskVersion": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 21346.882524000015
+    },
+    {
+      "system": "candidate",
+      "systemVersion": "61a6d3c02e53921aee6e2d48d66cea20f8974280be2cd9aaee59dda233130567",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-copy-before-sort",
+      "taskVersion": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 22212.960773
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "5dfa580edf9b7754ab43d2cef8658ae10053bd1817601eafc55e1c337f410edd",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-copy-before-sort",
+      "taskVersion": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 20721.224013
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "5dfa580edf9b7754ab43d2cef8658ae10053bd1817601eafc55e1c337f410edd",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-grounded-answer",
+      "taskVersion": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 17153.573563999962
+    },
+    {
+      "system": "candidate",
+      "systemVersion": "61a6d3c02e53921aee6e2d48d66cea20f8974280be2cd9aaee59dda233130567",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-grounded-answer",
+      "taskVersion": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 18128.114231000014
+    },
+    {
+      "system": "candidate",
+      "systemVersion": "61a6d3c02e53921aee6e2d48d66cea20f8974280be2cd9aaee59dda233130567",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-missing-information",
+      "taskVersion": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 17982.40899300005
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "5dfa580edf9b7754ab43d2cef8658ae10053bd1817601eafc55e1c337f410edd",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-missing-information",
+      "taskVersion": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 17149.503851999936
+    }
+  ],
+  "outcomes": [
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "preparationMs": 0.010239000000183296,
+      "taskId": "smoke-ttl-boundary",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 18187.7804,
+      "status": "finished",
+      "answer": "done.",
+      "snapshot": {
+        "src/cache.js": "export function expired(entry, now) {\n  return now >= entry.expiresAt;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/cache.js": {
+          "version": 2,
+          "sha256": "9034c3bdc8f5f35294a765c4d938e9455d5d558a3eb8815a519ff52bd3459219",
+          "bytes": 73
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.6691430000000764,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 8947.609934,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/cache.js",
+            "expectedVersion": 1,
+            "oldText": "return now > entry.expiresAt;",
+            "newText": "return now >= entry.expiresAt;"
+          },
+          "usage": {
+            "prompt_tokens": 508,
+            "completion_tokens": 40,
+            "total_tokens": 548
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 8948.150867,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/cache.js",
+              "content": "export function expired(entry, now) {\n  return now >= entry.expiresAt;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 8948.460437000002,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 18187.103683999998,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "done."
+          },
+          "usage": {
+            "prompt_tokens": 597,
+            "completion_tokens": 11,
+            "total_tokens": 608
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 18187.547533999998,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1105,
+        "completion_tokens": 51,
+        "total_tokens": 1156
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": false
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.4363369999991846,
+      "observerErrors": [],
+      "runnerStatus": "finished",
+      "nodeRssBytes": 68902912
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "preparationMs": 0.08269500000096741,
+      "taskId": "smoke-ttl-boundary",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 19833.510198,
+      "status": "finished",
+      "answer": "Changed expired function to include equality.",
+      "snapshot": {
+        "src/cache.js": "export function expired(entry, now) {\n  return now >= entry.expiresAt;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/cache.js": {
+          "version": 2,
+          "sha256": "9034c3bdc8f5f35294a765c4d938e9455d5d558a3eb8815a519ff52bd3459219",
+          "bytes": 73
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.17727100000047358,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 9657.798331999998,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/cache.js",
+            "expectedVersion": 1,
+            "oldText": "return now > entry.expiresAt;",
+            "newText": "return now >= entry.expiresAt;"
+          },
+          "usage": {
+            "prompt_tokens": 546,
+            "completion_tokens": 40,
+            "total_tokens": 586
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 9658.249807,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/cache.js",
+              "content": "export function expired(entry, now) {\n  return now >= entry.expiresAt;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 9658.512929000004,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 19832.787555000003,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "Changed expired function to include equality."
+          },
+          "usage": {
+            "prompt_tokens": 635,
+            "completion_tokens": 16,
+            "total_tokens": 651
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 19833.098768000003,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1181,
+        "completion_tokens": 56,
+        "total_tokens": 1237
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": false
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.23206499999650987,
+      "observerErrors": [],
+      "runnerStatus": "finished",
+      "nodeRssBytes": 80830464
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "preparationMs": 0.023264000003109686,
+      "taskId": "smoke-preserve-zero",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 20658.761602000006,
+      "status": "finished",
+      "answer": "Changed limit to 10.",
+      "snapshot": {
+        "src/options.js": "export function getLimit(options) {\n  const limit = options.limit ?? 10;\n  return limit;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/options.js": {
+          "version": 2,
+          "sha256": "60fa4c15b7a141b2f1fdd9e9fb402c28e731d4d76abaa971cef60d1b4bbed566",
+          "bytes": 91
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.13620500000251923,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 10114.157042000006,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/options.js",
+            "expectedVersion": 1,
+            "oldText": "const limit = options.limit || 10;",
+            "newText": "const limit = options.limit ?? 10;"
+          },
+          "usage": {
+            "prompt_tokens": 561,
+            "completion_tokens": 46,
+            "total_tokens": 607
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 10114.531133000004,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/options.js",
+              "content": "export function getLimit(options) {\n  const limit = options.limit ?? 10;\n  return limit;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 10114.734864000005,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 20658.050290000006,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "Changed limit to 10."
+          },
+          "usage": {
+            "prompt_tokens": 663,
+            "completion_tokens": 16,
+            "total_tokens": 679
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 20658.390787000004,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1224,
+        "completion_tokens": 62,
+        "total_tokens": 1286
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": false
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.24741399999766145,
+      "observerErrors": [],
+      "runnerStatus": "finished",
+      "nodeRssBytes": 81354752
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "preparationMs": 0.004709000000730157,
+      "taskId": "smoke-preserve-zero",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 18975.039484000008,
+      "status": "finished",
+      "answer": "Changed limit to 10.",
+      "snapshot": {
+        "src/options.js": "export function getLimit(options) {\n  const limit = options.limit ?? 10;\n  return limit;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/options.js": {
+          "version": 2,
+          "sha256": "60fa4c15b7a141b2f1fdd9e9fb402c28e731d4d76abaa971cef60d1b4bbed566",
+          "bytes": 91
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.12996299999940675,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 9268.738629,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/options.js",
+            "expectedVersion": 1,
+            "oldText": "const limit = options.limit || 10;",
+            "newText": "const limit = options.limit ?? 10;"
+          },
+          "usage": {
+            "prompt_tokens": 516,
+            "completion_tokens": 46,
+            "total_tokens": 562
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 9269.105255000002,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/options.js",
+              "content": "export function getLimit(options) {\n  const limit = options.limit ?? 10;\n  return limit;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 9269.299828999996,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 18974.180605999994,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "Changed limit to 10."
+          },
+          "usage": {
+            "prompt_tokens": 618,
+            "completion_tokens": 16,
+            "total_tokens": 634
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 18974.623053999996,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1134,
+        "completion_tokens": 62,
+        "total_tokens": 1196
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": false
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.2089609999966342,
+      "observerErrors": [],
+      "runnerStatus": "finished",
+      "nodeRssBytes": 81747968
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "preparationMs": 0.0045479999971576035,
+      "taskId": "smoke-empty-guard",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 8989.968755999987,
+      "status": "adapter_error",
+      "answer": "",
+      "snapshot": {
+        "src/mean.js": "export function mean(values) {\n  return values.reduce((sum, value) => sum + value, 0) / values.length;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/mean.js": {
+          "version": 1,
+          "sha256": "5ff2c1dbe8dc1921da53f2d528fc97acc1d5ad456799dd789f84bc6d215b3a56",
+          "bytes": 105
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.14225599999190308,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 8989.342202999993,
+          "type": "execution_error",
+          "status": "adapter_error",
+          "message": "Invalid action field: oldText"
+        },
+        {
+          "seq": 2,
+          "atMs": 8989.745688999988,
+          "type": "submission",
+          "status": "adapter_error",
+          "turns": 1,
+          "provisional": false
+        }
+      ],
+      "usage": {},
+      "turns": 1,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "adapter_error",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "runnerStatus": "adapter_error",
+      "nodeRssBytes": 81747968
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "preparationMs": 0.039363999996567145,
+      "taskId": "smoke-empty-guard",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 9852.078687000001,
+      "status": "adapter_error",
+      "answer": "",
+      "snapshot": {
+        "src/mean.js": "export function mean(values) {\n  return values.reduce((sum, value) => sum + value, 0) / values.length;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/mean.js": {
+          "version": 1,
+          "sha256": "5ff2c1dbe8dc1921da53f2d528fc97acc1d5ad456799dd789f84bc6d215b3a56",
+          "bytes": 105
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.12112700000579935,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 9851.060759999993,
+          "type": "execution_error",
+          "status": "adapter_error",
+          "message": "Invalid action field: oldText"
+        },
+        {
+          "seq": 2,
+          "atMs": 9851.613215000005,
+          "type": "submission",
+          "status": "adapter_error",
+          "turns": 1,
+          "provisional": false
+        }
+      ],
+      "usage": {},
+      "turns": 1,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "adapter_error",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "runnerStatus": "adapter_error",
+      "nodeRssBytes": 81879040
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "preparationMs": 0.02876399998785928,
+      "taskId": "smoke-two-file-rename",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.816787999982,
+      "status": "deadline",
+      "answer": "",
+      "snapshot": {
+        "src/main.js": "import { retryDelay } from \"./retry.js\";\nexport const delay = retryDelay(2);\n",
+        "src/retry.js": "export function backoffDelay(attempt) {\n  return attempt * 100;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/main.js": {
+          "version": 1,
+          "sha256": "38f57e6c78b2f3780fd4eba405ad4587df71db92d821e3bcf8d3d469fb5a9add",
+          "bytes": 77
+        },
+        "src/retry.js": {
+          "version": 2,
+          "sha256": "e455be2b61ec1a3e32ddef584b1caff367caaea7874049885f805f233295abfa",
+          "bytes": 66
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.11064700000861194,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 9977.183716,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/retry.js",
+            "expectedVersion": 1,
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 591,
+            "completion_tokens": 32,
+            "total_tokens": 623
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 9977.685666999998,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/retry.js",
+              "content": "export function backoffDelay(attempt) {\n  return attempt * 100;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 9977.98161100001,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 21235.835483000003,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "replace_text",
+            "path": "src/main.js",
+            "expectedVersion": 2,
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 675,
+            "completion_tokens": 31,
+            "total_tokens": 706
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 21236.283072000006,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "STALE_VERSION: read again"
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 21236.598412000007,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 30000.780817000006,
+          "type": "execution_error",
+          "status": "deadline",
+          "message": "deadline"
+        },
+        {
+          "seq": 8,
+          "atMs": 30001.369309000016,
+          "type": "submission",
+          "status": "deadline",
+          "turns": 3,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1266,
+        "completion_tokens": 63,
+        "total_tokens": 1329
+      },
+      "turns": 3,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "deadline",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "runnerStatus": "deadline",
+      "nodeRssBytes": 82010112
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "preparationMs": 0.004317999992053956,
+      "taskId": "smoke-two-file-rename",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.051921999984,
+      "status": "deadline",
+      "answer": "",
+      "snapshot": {
+        "src/main.js": "import { retryDelay } from \"./retry.js\";\nexport const delay = retryDelay(2);\n",
+        "src/retry.js": "export function backoffDelay(attempt) {\n  return attempt * 100;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/main.js": {
+          "version": 1,
+          "sha256": "38f57e6c78b2f3780fd4eba405ad4587df71db92d821e3bcf8d3d469fb5a9add",
+          "bytes": 77
+        },
+        "src/retry.js": {
+          "version": 2,
+          "sha256": "e455be2b61ec1a3e32ddef584b1caff367caaea7874049885f805f233295abfa",
+          "bytes": 66
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.11911299999337643,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 11816.045267000009,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/retry.js",
+            "expectedVersion": 1,
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 515,
+            "completion_tokens": 52,
+            "total_tokens": 567
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 11816.453302000009,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/retry.js",
+              "content": "export function backoffDelay(attempt) {\n  return attempt * 100;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 11817.115082000004,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 21917.687691,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "replace_text",
+            "path": "src/main.js",
+            "expectedVersion": 2,
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 599,
+            "completion_tokens": 31,
+            "total_tokens": 630
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 21918.21280499999,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "STALE_VERSION: read again"
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 21918.546589999984,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 29999.943945999985,
+          "type": "execution_error",
+          "status": "deadline",
+          "message": "deadline"
+        },
+        {
+          "seq": 8,
+          "atMs": 30000.482254000002,
+          "type": "submission",
+          "status": "deadline",
+          "turns": 3,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1114,
+        "completion_tokens": 83,
+        "total_tokens": 1197
+      },
+      "turns": 3,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "deadline",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "runnerStatus": "deadline",
+      "nodeRssBytes": 82141184
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "preparationMs": 0.004889000003458932,
+      "taskId": "smoke-config-change",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30000.547196,
+      "status": "deadline",
+      "answer": "",
+      "snapshot": {
+        "config.json": "{\n  \"timeoutMs\": 3000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "config.json": {
+          "version": 1,
+          "sha256": "ca7531167f928b7bbd2f58fa1e14adfeafa31fd7f330211f39c0c5b4b6aac2c7",
+          "bytes": 59
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.11671899998327717,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 10931.795996,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "config.json",
+            "expectedVersion": 1,
+            "oldText": "\"timeoutMs\": 3000\"",
+            "newText": "\"timeoutMs\": 5000\""
+          },
+          "usage": {
+            "prompt_tokens": 511,
+            "completion_tokens": 45,
+            "total_tokens": 556
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 10932.205212,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: no match"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 10932.45749499998,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 21254.14521799999,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "replace_text",
+            "path": "config.json",
+            "expectedVersion": 1,
+            "oldText": "\"timeoutMs\": 3000\"",
+            "newText": "\"timeoutMs\": 5000\""
+          },
+          "usage": {
+            "prompt_tokens": 581,
+            "completion_tokens": 45,
+            "total_tokens": 626
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 21254.547561999992,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: no match"
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 21254.821073999978,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 29999.52999099999,
+          "type": "execution_error",
+          "status": "deadline",
+          "message": "deadline"
+        },
+        {
+          "seq": 8,
+          "atMs": 30000.135804999998,
+          "type": "submission",
+          "status": "deadline",
+          "turns": 3,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1092,
+        "completion_tokens": 90,
+        "total_tokens": 1182
+      },
+      "turns": 3,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "deadline",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "runnerStatus": "deadline",
+      "nodeRssBytes": 82403328
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "preparationMs": 0.04593600000953302,
+      "taskId": "smoke-config-change",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 21346.882524000015,
+      "status": "finished",
+      "answer": "Changed timeoutMs from 3000 to 5000.",
+      "snapshot": {
+        "config.json": "{\n  \"timeoutMs\": 5000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "config.json": {
+          "version": 2,
+          "sha256": "df18beb85a110f38b1d005f9af9eae2c460e01ac268cf360e9502d0197f939b9",
+          "bytes": 59
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.1107579999952577,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 10595.016544999991,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "config.json",
+            "expectedVersion": 1,
+            "oldText": "3000",
+            "newText": "5000"
+          },
+          "usage": {
+            "prompt_tokens": 559,
+            "completion_tokens": 33,
+            "total_tokens": 592
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 10595.589326999994,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "config.json",
+              "content": "{\n  \"timeoutMs\": 5000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 10595.866897,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 21346.143229999987,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "Changed timeoutMs from 3000 to 5000."
+          },
+          "usage": {
+            "prompt_tokens": 651,
+            "completion_tokens": 25,
+            "total_tokens": 676
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 21346.565069999982,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1210,
+        "completion_tokens": 58,
+        "total_tokens": 1268
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": false
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.1424059999990277,
+      "observerErrors": [],
+      "runnerStatus": "finished",
+      "nodeRssBytes": 82534400
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "preparationMs": 0.025076999998418614,
+      "taskId": "smoke-copy-before-sort",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 22212.960773,
+      "status": "finished",
+      "answer": "Changed return values.sort((a, b) => a - b); to return [...values].sort((a, b) => a - b);.",
+      "snapshot": {
+        "src/sort.js": "export function ascending(values) {\n  return [...values].sort((a, b) => a - b);\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/sort.js": {
+          "version": 2,
+          "sha256": "4d4ea2bf6815f7056b81709e5f3fa63fcd26977fdea6712637c1887a55c29966",
+          "bytes": 82
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.10065899998880923,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 10561.70347399998,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/sort.js",
+            "expectedVersion": 1,
+            "oldText": "return values.sort((a, b) => a - b);",
+            "newText": "return [...values].sort((a, b) => a - b);"
+          },
+          "usage": {
+            "prompt_tokens": 568,
+            "completion_tokens": 55,
+            "total_tokens": 623
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 10562.25475599998,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/sort.js",
+              "content": "export function ascending(values) {\n  return [...values].sort((a, b) => a - b);\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 10562.675182999985,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 22212.00125599999,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "Changed return values.sort((a, b) => a - b); to return [...values].sort((a, b) => a - b);."
+          },
+          "usage": {
+            "prompt_tokens": 679,
+            "completion_tokens": 40,
+            "total_tokens": 719
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 22212.536988999986,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1247,
+        "completion_tokens": 95,
+        "total_tokens": 1342
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": false
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.17996700000367127,
+      "observerErrors": [],
+      "runnerStatus": "finished",
+      "nodeRssBytes": 82665472
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "preparationMs": 0.001752999989548698,
+      "taskId": "smoke-copy-before-sort",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 20721.224013,
+      "status": "finished",
+      "answer": "Changed return values.sort((a, b) => a - b); to return [...values].sort((a, b) => a - b);.",
+      "snapshot": {
+        "src/sort.js": "export function ascending(values) {\n  return [...values].sort((a, b) => a - b);\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/sort.js": {
+          "version": 2,
+          "sha256": "4d4ea2bf6815f7056b81709e5f3fa63fcd26977fdea6712637c1887a55c29966",
+          "bytes": 82
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.09614999999757856,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 9813.565052999998,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/sort.js",
+            "expectedVersion": 1,
+            "oldText": "return values.sort((a, b) => a - b);",
+            "newText": "return [...values].sort((a, b) => a - b);"
+          },
+          "usage": {
+            "prompt_tokens": 525,
+            "completion_tokens": 55,
+            "total_tokens": 580
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 9814.352305999986,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/sort.js",
+              "content": "export function ascending(values) {\n  return [...values].sort((a, b) => a - b);\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 9815.095105999993,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 20720.293520000007,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "Changed return values.sort((a, b) => a - b); to return [...values].sort((a, b) => a - b);."
+          },
+          "usage": {
+            "prompt_tokens": 636,
+            "completion_tokens": 40,
+            "total_tokens": 676
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 20720.887171999988,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1161,
+        "completion_tokens": 95,
+        "total_tokens": 1256
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": false
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.15823600001749583,
+      "observerErrors": [],
+      "runnerStatus": "finished",
+      "nodeRssBytes": 82796544
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "preparationMs": 0.0020539999823085964,
+      "taskId": "smoke-grounded-answer",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 17153.573563999962,
+      "status": "finished",
+      "answer": "Version: 2.4.1;Status: paused",
+      "snapshot": {
+        "notes/release.txt": "Product: Comet\nVersion: 2.4.1\nStatus: paused\nOwner: Ada\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "notes/release.txt": {
+          "version": 1,
+          "sha256": "a77d4087fbc36e4f0f90fad9b56da3e82d2c5a9be237f2d495d0ee01041c1068",
+          "bytes": 56
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.1451320000051055,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 7863.391284000012,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "read_file",
+            "path": "notes/release.txt"
+          },
+          "usage": {
+            "prompt_tokens": 497,
+            "completion_tokens": 13,
+            "total_tokens": 510
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 7864.161977000011,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/release.txt",
+              "content": "Product: Comet\nVersion: 2.4.1\nStatus: paused\nOwner: Ada\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 7864.514636999986,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 17152.132967000012,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "Version: 2.4.1;Status: paused"
+          },
+          "usage": {
+            "prompt_tokens": 560,
+            "completion_tokens": 21,
+            "total_tokens": 581
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 17153.07357800001,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1057,
+        "completion_tokens": 34,
+        "total_tokens": 1091
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": false
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.18087899999227375,
+      "observerErrors": [],
+      "runnerStatus": "finished",
+      "nodeRssBytes": 85155840
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "preparationMs": 0.02912399999331683,
+      "taskId": "smoke-grounded-answer",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 18128.114231000014,
+      "status": "finished",
+      "answer": "Version: 2.4.1;Status: paused",
+      "snapshot": {
+        "notes/release.txt": "Product: Comet\nVersion: 2.4.1\nStatus: paused\nOwner: Ada\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "notes/release.txt": {
+          "version": 1,
+          "sha256": "a77d4087fbc36e4f0f90fad9b56da3e82d2c5a9be237f2d495d0ee01041c1068",
+          "bytes": 56
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.0942769999965094,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 8447.271874000027,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "read_file",
+            "path": "notes/release.txt"
+          },
+          "usage": {
+            "prompt_tokens": 536,
+            "completion_tokens": 13,
+            "total_tokens": 549
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 8447.775887000025,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/release.txt",
+              "content": "Product: Comet\nVersion: 2.4.1\nStatus: paused\nOwner: Ada\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 8448.099453000003,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 18127.04167300003,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "Version: 2.4.1;Status: paused"
+          },
+          "usage": {
+            "prompt_tokens": 599,
+            "completion_tokens": 21,
+            "total_tokens": 620
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 18127.634463000053,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1135,
+        "completion_tokens": 34,
+        "total_tokens": 1169
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": false
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.2126179999904707,
+      "observerErrors": [],
+      "runnerStatus": "finished",
+      "nodeRssBytes": 85286912
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "preparationMs": 0.023173000023234636,
+      "taskId": "smoke-missing-information",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 17982.40899300005,
+      "status": "finished",
+      "answer": "2023-04-15",
+      "snapshot": {
+        "notes/project.txt": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "notes/project.txt": {
+          "version": 1,
+          "sha256": "c87dbb2e1f6e3f9a5a6ac9dcfea97019a42d1621e9aacb9978fb883b7d263b22",
+          "bytes": 42
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.10087900003418326,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 8435.616096000012,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 535,
+            "completion_tokens": 13,
+            "total_tokens": 548
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 8436.604537000007,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 8437.115724000032,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 17981.47541700001,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "2023-04-15"
+          },
+          "usage": {
+            "prompt_tokens": 589,
+            "completion_tokens": 19,
+            "total_tokens": 608
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 17982.006821000017,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1124,
+        "completion_tokens": 32,
+        "total_tokens": 1156
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": false
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.503041000047233,
+      "observerErrors": [],
+      "runnerStatus": "finished",
+      "nodeRssBytes": 85286912
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "preparationMs": 0.0018729999428614974,
+      "taskId": "smoke-missing-information",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 17149.503851999936,
+      "status": "finished",
+      "answer": "2023-04-15",
+      "snapshot": {
+        "notes/project.txt": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "notes/project.txt": {
+          "version": 1,
+          "sha256": "c87dbb2e1f6e3f9a5a6ac9dcfea97019a42d1621e9aacb9978fb883b7d263b22",
+          "bytes": 42
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.09468700003344566,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 8025.754562999995,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 505,
+            "completion_tokens": 13,
+            "total_tokens": 518
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 8026.406192000024,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 8026.905285999994,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 17148.631681,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "2023-04-15"
+          },
+          "usage": {
+            "prompt_tokens": 559,
+            "completion_tokens": 19,
+            "total_tokens": 578
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 17149.10835200001,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1064,
+        "completion_tokens": 32,
+        "total_tokens": 1096
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": false
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.15999899996677414,
+      "observerErrors": [],
+      "runnerStatus": "finished",
+      "nodeRssBytes": 85286912
+    }
+  ],
+  "currentTask": null,
+  "score": {
+    "systems": {
+      "baseline": {
+        "complete": true,
+        "elapsedComplete": true,
+        "meanObservedElapsedMs": 20347.055977733322,
+        "acceptedRate": 0,
+        "cost": 0.9999999999999999,
+        "cdf": [],
+        "t50Ms": null,
+        "t50Status": "unreached",
+        "perTask": [
+          {
+            "taskId": "smoke-ttl-boundary",
+            "stratum": "coding",
+            "clusterId": "smoke-ttl-boundary",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 18187.7804,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-preserve-zero",
+            "stratum": "coding",
+            "clusterId": "smoke-preserve-zero",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 18975.039484000008,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-empty-guard",
+            "stratum": "coding",
+            "clusterId": "smoke-empty-guard",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 8989.968755999987,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-two-file-rename",
+            "stratum": "coding",
+            "clusterId": "smoke-two-file-rename",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 30001.051921999984,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-config-change",
+            "stratum": "coding",
+            "clusterId": "smoke-config-change",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 30000.547196,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-copy-before-sort",
+            "stratum": "coding",
+            "clusterId": "smoke-copy-before-sort",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 20721.224013,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-grounded-answer",
+            "stratum": "general",
+            "clusterId": "smoke-grounded-answer",
+            "weight": 0.1,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 17153.573563999962,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-missing-information",
+            "stratum": "general",
+            "clusterId": "smoke-missing-information",
+            "weight": 0.1,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 17149.503851999936,
+            "acceptedRate": 0,
+            "cost": 1
+          }
+        ],
+        "perStratum": {
+          "coding": {
+            "complete": true,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          "general": {
+            "complete": true,
+            "acceptedRate": 0,
+            "cost": 1
+          }
+        }
+      },
+      "candidate": {
+        "complete": true,
+        "elapsedComplete": true,
+        "meanObservedElapsedMs": 20131.853732000007,
+        "acceptedRate": 0,
+        "cost": 0.9999999999999999,
+        "cdf": [],
+        "t50Ms": null,
+        "t50Status": "unreached",
+        "perTask": [
+          {
+            "taskId": "smoke-ttl-boundary",
+            "stratum": "coding",
+            "clusterId": "smoke-ttl-boundary",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 19833.510198,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-preserve-zero",
+            "stratum": "coding",
+            "clusterId": "smoke-preserve-zero",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 20658.761602000006,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-empty-guard",
+            "stratum": "coding",
+            "clusterId": "smoke-empty-guard",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 9852.078687000001,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-two-file-rename",
+            "stratum": "coding",
+            "clusterId": "smoke-two-file-rename",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 30001.816787999982,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-config-change",
+            "stratum": "coding",
+            "clusterId": "smoke-config-change",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 21346.882524000015,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-copy-before-sort",
+            "stratum": "coding",
+            "clusterId": "smoke-copy-before-sort",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 22212.960773,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-grounded-answer",
+            "stratum": "general",
+            "clusterId": "smoke-grounded-answer",
+            "weight": 0.1,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 18128.114231000014,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-missing-information",
+            "stratum": "general",
+            "clusterId": "smoke-missing-information",
+            "weight": 0.1,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 17982.40899300005,
+            "acceptedRate": 0,
+            "cost": 1
+          }
+        ],
+        "perStratum": {
+          "coding": {
+            "complete": true,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          "general": {
+            "complete": true,
+            "acceptedRate": 0,
+            "cost": 1
+          }
+        }
+      }
+    },
+    "pairedGroups": [
+      {
+        "task": {
+          "id": "smoke-ttl-boundary",
+          "version": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+          "clusterId": "smoke-ttl-boundary",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-ttl-boundary",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 18187.7804,
+              "invalidReason": null
+            },
+            "candidate": {
+              "system": "candidate",
+              "taskId": "smoke-ttl-boundary",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 19833.510198,
+              "invalidReason": null
+            }
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-preserve-zero",
+          "version": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+          "clusterId": "smoke-preserve-zero",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-preserve-zero",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 18975.039484000008,
+              "invalidReason": null
+            },
+            "candidate": {
+              "system": "candidate",
+              "taskId": "smoke-preserve-zero",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 20658.761602000006,
+              "invalidReason": null
+            }
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-empty-guard",
+          "version": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+          "clusterId": "smoke-empty-guard",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-empty-guard",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 8989.968755999987,
+              "invalidReason": null
+            },
+            "candidate": {
+              "system": "candidate",
+              "taskId": "smoke-empty-guard",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 9852.078687000001,
+              "invalidReason": null
+            }
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-two-file-rename",
+          "version": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+          "clusterId": "smoke-two-file-rename",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-two-file-rename",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 30001.051921999984,
+              "invalidReason": null
+            },
+            "candidate": {
+              "system": "candidate",
+              "taskId": "smoke-two-file-rename",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 30001.816787999982,
+              "invalidReason": null
+            }
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-config-change",
+          "version": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+          "clusterId": "smoke-config-change",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-config-change",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 30000.547196,
+              "invalidReason": null
+            },
+            "candidate": {
+              "system": "candidate",
+              "taskId": "smoke-config-change",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 21346.882524000015,
+              "invalidReason": null
+            }
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-copy-before-sort",
+          "version": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+          "clusterId": "smoke-copy-before-sort",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-copy-before-sort",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 20721.224013,
+              "invalidReason": null
+            },
+            "candidate": {
+              "system": "candidate",
+              "taskId": "smoke-copy-before-sort",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 22212.960773,
+              "invalidReason": null
+            }
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-grounded-answer",
+          "version": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+          "clusterId": "smoke-grounded-answer",
+          "stratum": "general",
+          "deadlineMs": 30000
+        },
+        "weight": 0.1,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-grounded-answer",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 17153.573563999962,
+              "invalidReason": null
+            },
+            "candidate": {
+              "system": "candidate",
+              "taskId": "smoke-grounded-answer",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 18128.114231000014,
+              "invalidReason": null
+            }
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-missing-information",
+          "version": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+          "clusterId": "smoke-missing-information",
+          "stratum": "general",
+          "deadlineMs": 30000
+        },
+        "weight": 0.1,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-missing-information",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 17149.503851999936,
+              "invalidReason": null
+            },
+            "candidate": {
+              "system": "candidate",
+              "taskId": "smoke-missing-information",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 17982.40899300005,
+              "invalidReason": null
+            }
+          }
+        ]
+      }
+    ],
+    "pairedOutcomes": {
+      "bothAccepted": 0,
+      "baselineOnly": 0,
+      "candidateOnly": 0,
+      "neitherAccepted": 0.9999999999999999,
+      "missingOrInvalid": 0
+    },
+    "comparison": {
+      "ready": true,
+      "qualityDelta": 0,
+      "costDelta": 0,
+      "t50Ratio": null,
+      "ratioStatus": "unreached",
+      "confidenceInterval": null,
+      "inference": "Point estimates only; no statistical decision."
+    }
+  },
+  "updatedAt": "2026-10-07T22:13:50.120Z",
+  "warmup": {
+    "elapsedMs": 7301.134379,
+    "action": {
+      "type": "finish",
+      "answer": "ready"
+    }
+  },
+  "complete": true,
+  "finishedAt": "2026-10-07T22:13:50.120Z"
+}

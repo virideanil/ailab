@@ -62,4 +62,16 @@ The interface uses warm charcoal, parchment, muted jade and copper, system sans 
 
 Start with the [architecture and roadmap](docs/research/architecture.md), [evaluation contract](docs/research/evaluation-contract.md), and [frontier experiments](docs/research/frontier-experiments.md). The architecture document links the five mechanism dossiers. These are research snapshots and proposals, not implemented feature claims.
 
-[Recorded validation and real-model outcomes](RESULTS.md) distinguish passing infrastructure checks from task acceptance. Both real 0.5B protocol revisions accepted no tasks; this is a starting measurement, not a qualified coding assistant.
+[Recorded validation and real-model outcomes](RESULTS.md) distinguish passing infrastructure checks from task acceptance. Both 0.5B protocol revisions and the 1.5B control accepted no complete tasks under the fixed contract. The 1.5B control produced seven correct coding artifacts but failed final-answer requirements. This is a starting measurement, not a qualified coding assistant.
+
+## Inspect the measured evidence
+
+The complete reports and provenance for the first three real-model experiments are in [docs/validation](docs/validation). To view the recorded 1.5B run in the observatory:
+
+```sh
+npm run dashboard -- --artifacts docs/validation/003
+```
+
+This shows actual recorded measurements and failed outcomes. Start a new experiment with the normal artifacts directory for live telemetry.
+
+[Verified desktop screenshot](docs/images/observatory-desktop.png) — captured during the explicitly labeled scripted browser test. Its numbers are harness checks. The real GGUF outcomes and remaining quality gates are in [RESULTS.md](RESULTS.md).

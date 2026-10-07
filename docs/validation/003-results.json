@@ -1,0 +1,952 @@
+{
+  "schemaVersion": 1,
+  "experiment": "003",
+  "protocol": "action-loop-v2",
+  "recordedAt": "2026-10-07",
+  "sourceCommit": "2d8844d20f3bdd1871315fda14d68f289a35fdce",
+  "ciRunUrl": "https://github.com/virideanil/ailab/actions/runs/37694118751",
+  "model": "Qwen2.5-Coder-1.5B-Instruct Q4_K_M",
+  "runtime": "llama.cpp b11429 CPU",
+  "modelSha256": "cc324af070c2ecbfd324a30884d2f951a7ff756aba85cb811a6ec436933bb046",
+  "runtimeSha256": "f6d25dde8f51133143d1453da4fd5f73b145127177612a283bf7995957af3392",
+  "evidenceScope": "Task summaries and bounded diagnostic excerpts extracted from GitHub job logs. Times here are rounded milliseconds. Full precision reports, snapshots, provenance and server log are in the linked CI artifacts.",
+  "summary": {
+    "mode": "real",
+    "complete": true,
+    "comparison": {
+      "ready": true,
+      "qualityDelta": 0,
+      "costDelta": 0,
+      "t50Ratio": null,
+      "ratioStatus": "unreached",
+      "confidenceInterval": null,
+      "inference": "Point estimates only; no statistical decision."
+    },
+    "accepted": {
+      "baseline": 0,
+      "candidate": 0
+    },
+    "output": "/home/runner/work/ailab/ailab/artifacts/real.json"
+  },
+  "outcomes": [
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-ttl-boundary",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 18188,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done.",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": true
+          },
+          {
+            "name": "exact final answer",
+            "passed": false
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 8947.609934,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "replace_text",
+              "path": "src/cache.js",
+              "expectedVersion": 1,
+              "oldText": "return now > entry.expiresAt;",
+              "newText": "return now >= entry.expiresAt;"
+            },
+            "usage": {
+              "prompt_tokens": 508,
+              "completion_tokens": 40,
+              "total_tokens": 548
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 18187.103683999998,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done."
+            },
+            "usage": {
+              "prompt_tokens": 597,
+              "completion_tokens": 11,
+              "total_tokens": 608
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-ttl-boundary",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 19834,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "Changed expired function to include equality.",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": true
+          },
+          {
+            "name": "exact final answer",
+            "passed": false
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 9657.798331999998,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "replace_text",
+              "path": "src/cache.js",
+              "expectedVersion": 1,
+              "oldText": "return now > entry.expiresAt;",
+              "newText": "return now >= entry.expiresAt;"
+            },
+            "usage": {
+              "prompt_tokens": 546,
+              "completion_tokens": 40,
+              "total_tokens": 586
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 19832.787555000003,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "Changed expired function to include equality."
+            },
+            "usage": {
+              "prompt_tokens": 635,
+              "completion_tokens": 16,
+              "total_tokens": 651
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-preserve-zero",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 20659,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "Changed limit to 10.",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": true
+          },
+          {
+            "name": "exact final answer",
+            "passed": false
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 10114.157042000006,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "replace_text",
+              "path": "src/options.js",
+              "expectedVersion": 1,
+              "oldText": "const limit = options.limit || 10;",
+              "newText": "const limit = options.limit ?? 10;"
+            },
+            "usage": {
+              "prompt_tokens": 561,
+              "completion_tokens": 46,
+              "total_tokens": 607
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 20658.050290000006,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "Changed limit to 10."
+            },
+            "usage": {
+              "prompt_tokens": 663,
+              "completion_tokens": 16,
+              "total_tokens": 679
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-preserve-zero",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 18975,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "Changed limit to 10.",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": true
+          },
+          {
+            "name": "exact final answer",
+            "passed": false
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 9268.738629,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "replace_text",
+              "path": "src/options.js",
+              "expectedVersion": 1,
+              "oldText": "const limit = options.limit || 10;",
+              "newText": "const limit = options.limit ?? 10;"
+            },
+            "usage": {
+              "prompt_tokens": 516,
+              "completion_tokens": 46,
+              "total_tokens": 562
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 18974.180605999994,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "Changed limit to 10."
+            },
+            "usage": {
+              "prompt_tokens": 618,
+              "completion_tokens": 16,
+              "total_tokens": 634
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-empty-guard",
+      "status": "adapter_error",
+      "accepted": false,
+      "elapsedMs": 8990,
+      "turns": 1,
+      "diagnostic": {
+        "answer": "",
+        "checks": [],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 8989.342202999993,
+            "type": "execution_error",
+            "status": "adapter_error",
+            "message": "Invalid action field: oldText"
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-empty-guard",
+      "status": "adapter_error",
+      "accepted": false,
+      "elapsedMs": 9852,
+      "turns": 1,
+      "diagnostic": {
+        "answer": "",
+        "checks": [],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 9851.060759999993,
+            "type": "execution_error",
+            "status": "adapter_error",
+            "message": "Invalid action field: oldText"
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-two-file-rename",
+      "status": "deadline",
+      "accepted": false,
+      "elapsedMs": 30002,
+      "turns": 3,
+      "diagnostic": {
+        "answer": "",
+        "checks": [],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 9977.183716,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "replace_text",
+              "path": "src/retry.js",
+              "expectedVersion": 1,
+              "oldText": "retryDelay",
+              "newText": "backoffDelay"
+            },
+            "usage": {
+              "prompt_tokens": 591,
+              "completion_tokens": 32,
+              "total_tokens": 623
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 21235.835483000003,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "replace_text",
+              "path": "src/main.js",
+              "expectedVersion": 2,
+              "oldText": "retryDelay",
+              "newText": "backoffDelay"
+            },
+            "usage": {
+              "prompt_tokens": 675,
+              "completion_tokens": 31,
+              "total_tokens": 706
+            }
+          },
+          {
+            "seq": 7,
+            "atMs": 30000.780817000006,
+            "type": "execution_error",
+            "status": "deadline",
+            "message": "deadline"
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-two-file-rename",
+      "status": "deadline",
+      "accepted": false,
+      "elapsedMs": 30001,
+      "turns": 3,
+      "diagnostic": {
+        "answer": "",
+        "checks": [],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 11816.045267000009,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "replace_text",
+              "path": "src/retry.js",
+              "expectedVersion": 1,
+              "oldText": "retryDelay",
+              "newText": "backoffDelay"
+            },
+            "usage": {
+              "prompt_tokens": 515,
+              "completion_tokens": 52,
+              "total_tokens": 567
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 21917.687691,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "replace_text",
+              "path": "src/main.js",
+              "expectedVersion": 2,
+              "oldText": "retryDelay",
+              "newText": "backoffDelay"
+            },
+            "usage": {
+              "prompt_tokens": 599,
+              "completion_tokens": 31,
+              "total_tokens": 630
+            }
+          },
+          {
+            "seq": 7,
+            "atMs": 29999.943945999985,
+            "type": "execution_error",
+            "status": "deadline",
+            "message": "deadline"
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-config-change",
+      "status": "deadline",
+      "accepted": false,
+      "elapsedMs": 30001,
+      "turns": 3,
+      "diagnostic": {
+        "answer": "",
+        "checks": [],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 10931.795996,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "replace_text",
+              "path": "config.json",
+              "expectedVersion": 1,
+              "oldText": "\"timeoutMs\": 3000\"",
+              "newText": "\"timeoutMs\": 5000\""
+            },
+            "usage": {
+              "prompt_tokens": 511,
+              "completion_tokens": 45,
+              "total_tokens": 556
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 21254.14521799999,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "replace_text",
+              "path": "config.json",
+              "expectedVersion": 1,
+              "oldText": "\"timeoutMs\": 3000\"",
+              "newText": "\"timeoutMs\": 5000\""
+            },
+            "usage": {
+              "prompt_tokens": 581,
+              "completion_tokens": 45,
+              "total_tokens": 626
+            }
+          },
+          {
+            "seq": 7,
+            "atMs": 29999.52999099999,
+            "type": "execution_error",
+            "status": "deadline",
+            "message": "deadline"
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-config-change",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 21347,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "Changed timeoutMs from 3000 to 5000.",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": true
+          },
+          {
+            "name": "exact final answer",
+            "passed": false
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 10595.016544999991,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "replace_text",
+              "path": "config.json",
+              "expectedVersion": 1,
+              "oldText": "3000",
+              "newText": "5000"
+            },
+            "usage": {
+              "prompt_tokens": 559,
+              "completion_tokens": 33,
+              "total_tokens": 592
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 21346.143229999987,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "Changed timeoutMs from 3000 to 5000."
+            },
+            "usage": {
+              "prompt_tokens": 651,
+              "completion_tokens": 25,
+              "total_tokens": 676
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-copy-before-sort",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 22213,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "Changed return values.sort((a, b) => a - b); to return [...values].sort((a, b) => a - b);.",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": true
+          },
+          {
+            "name": "exact final answer",
+            "passed": false
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 10561.70347399998,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "replace_text",
+              "path": "src/sort.js",
+              "expectedVersion": 1,
+              "oldText": "return values.sort((a, b) => a - b);",
+              "newText": "return [...values].sort((a, b) => a - b);"
+            },
+            "usage": {
+              "prompt_tokens": 568,
+              "completion_tokens": 55,
+              "total_tokens": 623
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 22212.00125599999,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "Changed return values.sort((a, b) => a - b); to return [...values].sort((a, b) => a - b);."
+            },
+            "usage": {
+              "prompt_tokens": 679,
+              "completion_tokens": 40,
+              "total_tokens": 719
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-copy-before-sort",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 20721,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "Changed return values.sort((a, b) => a - b); to return [...values].sort((a, b) => a - b);.",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": true
+          },
+          {
+            "name": "exact final answer",
+            "passed": false
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 9813.565052999998,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "replace_text",
+              "path": "src/sort.js",
+              "expectedVersion": 1,
+              "oldText": "return values.sort((a, b) => a - b);",
+              "newText": "return [...values].sort((a, b) => a - b);"
+            },
+            "usage": {
+              "prompt_tokens": 525,
+              "completion_tokens": 55,
+              "total_tokens": 580
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 20720.293520000007,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "Changed return values.sort((a, b) => a - b); to return [...values].sort((a, b) => a - b);."
+            },
+            "usage": {
+              "prompt_tokens": 636,
+              "completion_tokens": 40,
+              "total_tokens": 676
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-grounded-answer",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 17154,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "Version: 2.4.1;Status: paused",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": true
+          },
+          {
+            "name": "exact final answer",
+            "passed": false
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 7863.391284000012,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "read_file",
+              "path": "notes/release.txt"
+            },
+            "usage": {
+              "prompt_tokens": 497,
+              "completion_tokens": 13,
+              "total_tokens": 510
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 17152.132967000012,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "Version: 2.4.1;Status: paused"
+            },
+            "usage": {
+              "prompt_tokens": 560,
+              "completion_tokens": 21,
+              "total_tokens": 581
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-grounded-answer",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 18128,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "Version: 2.4.1;Status: paused",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": true
+          },
+          {
+            "name": "exact final answer",
+            "passed": false
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 8447.271874000027,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "read_file",
+              "path": "notes/release.txt"
+            },
+            "usage": {
+              "prompt_tokens": 536,
+              "completion_tokens": 13,
+              "total_tokens": 549
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 18127.04167300003,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "Version: 2.4.1;Status: paused"
+            },
+            "usage": {
+              "prompt_tokens": 599,
+              "completion_tokens": 21,
+              "total_tokens": 620
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-missing-information",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 17982,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "2023-04-15",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": true
+          },
+          {
+            "name": "exact final answer",
+            "passed": false
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 8435.616096000012,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "read_file",
+              "path": "notes/project.txt"
+            },
+            "usage": {
+              "prompt_tokens": 535,
+              "completion_tokens": 13,
+              "total_tokens": 548
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 17981.47541700001,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "2023-04-15"
+            },
+            "usage": {
+              "prompt_tokens": 589,
+              "completion_tokens": 19,
+              "total_tokens": 608
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-missing-information",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 17150,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "2023-04-15",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": true
+          },
+          {
+            "name": "exact final answer",
+            "passed": false
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 8025.754562999995,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "read_file",
+              "path": "notes/project.txt"
+            },
+            "usage": {
+              "prompt_tokens": 505,
+              "completion_tokens": 13,
+              "total_tokens": 518
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 17148.631681,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "2023-04-15"
+            },
+            "usage": {
+              "prompt_tokens": 559,
+              "completion_tokens": 19,
+              "total_tokens": 578
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "kovan-source",
+      "url": "https://github.com/virideanil/ailab/actions/runs/37694118751/artifacts/11514652307",
+      "digest": "sha256:4c97f12292db991b88e4e46b45368a9696266aa05e34d4463aa7ddbb251a8066",
+      "expiresAt": "2026-11-06T22:13:58Z"
+    },
+    {
+      "name": "visual-observatory",
+      "url": "https://github.com/virideanil/ailab/actions/runs/37694118751/artifacts/11514636605",
+      "digest": "sha256:0ab750f40353ecd038964a59a0c8bd7fbc867e9376959c2e69b068c9faaa829f",
+      "expiresAt": "2026-11-06T22:08:28Z"
+    },
+    {
+      "name": "real-gguf-results",
+      "url": "https://github.com/virideanil/ailab/actions/runs/37694118751/artifacts/11514059879",
+      "digest": "sha256:7a3b4c1fd8e331565174e40a8b7680aa7c2fd3947a579f9b8a605bd69e792d39",
+      "expiresAt": "2026-11-06T22:13:50Z"
+    },
+    {
+      "name": "harness-ubuntu-latest",
+      "url": "https://github.com/virideanil/ailab/actions/runs/37694118751/artifacts/11514014269",
+      "digest": "sha256:c4d7c28d09c8ddae002f35a3a2e8672c9add1493e8fba826fea3c9047589671d",
+      "expiresAt": "2026-10-21T22:07:44Z"
+    },
+    {
+      "name": "harness-macos-latest",
+      "url": "https://github.com/virideanil/ailab/actions/runs/37694118751/artifacts/11513834883",
+      "digest": "sha256:5f9cb219fb95b76bab4c7ef3e3f7319ae11419e4634e26997dc45709f63f372e",
+      "expiresAt": "2026-10-21T22:07:52Z"
+    }
+  ],
+  "modelRevision": "2ab9f8f42af02fc212effaef7c4850c885e965f4",
+  "hardware": {
+    "platform": "linux",
+    "arch": "x64",
+    "release": "6.17.0-1022-azure",
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "logicalCpus": 4,
+    "totalMemoryBytes": 16766414848,
+    "node": "v24.21.0"
+  }
+}
