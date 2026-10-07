@@ -1,4 +1,6 @@
 import { spawn } from "node:child_process";
+import { parseArgs } from "node:util";
+import { modelProfiles } from "../src/model-profiles.mjs";
 import { createHash, randomUUID } from "node:crypto";
 import { createReadStream, openSync, writeSync, closeSync } from "node:fs";
 import { mkdir, mkdtemp, open, readFile, readdir, rm, writeFile } from "node:fs/promises";
@@ -9,15 +11,17 @@ import { fileURLToPath } from "node:url";
 import { setTimeout as delay } from "node:timers/promises";
 
   if(process.platform!=="linux"||process.arch!=="x64"||Number(process.versions.node.split(".")[0])<24)throw new Error("Requires Linux x64 and Node24+");
+  const { values } = parseArgs({ options: { profile: { type: "string", default: "coder-0.5b" } } });
+  if (!Object.hasOwn(modelProfiles, values.profile)) throw new Error("Unknown GGUF profile: " + values.profile);
+  const modelProfile = modelProfiles[values.profile];
   const root=fileURLToPath(new URL("../",import.meta.url)),artifacts=join(root,"artifacts");
   await mkdir(artifacts,{recursive:true});
   const work=await mkdtemp(join(tmpdir(),"gguf-smoke-")),output=join(artifacts,"real.json"),provenanceFile=join(artifacts,"real-provenance.json");
   const controller=new AbortController(),owned=new Set(),MiB=1024*1024;
-  const MODEL_REPO="Qwen/Qwen2.5-Coder-0.5B-Instruct-GGUF",MODEL_FILE="qwen2.5-coder-0.5b-instruct-q4_k_m.gguf";
-  const MODEL_SHA="1d9614638d18024d0fbb36575a15f1302a3adf044df10345688ec4f6e1c4ff32";
+  const { repository: MODEL_REPO, filename: MODEL_FILE, sha256: MODEL_SHA, revision: MODEL_REVISION, bytes: MODEL_BYTES } = modelProfile;
   const ARCHIVE_SHA="f6d25dde8f51133143d1453da4fd5f73b145127177612a283bf7995957af3392";
   const ARCHIVE_URL="https://github.com/ggml-org/llama.cpp/releases/download/b11429/llama-b11429-bin-ubuntu-x64.tar.gz";
-  const provenance={startedAt:new Date().toISOString(),node:process.version,platform:process.platform,arch:process.arch,runtimeTag:"b11429",runtimeArchiveSha256:ARCHIVE_SHA,modelRepository:MODEL_REPO,modelFile:MODEL_FILE,modelSha256:MODEL_SHA,status:"running",qualityGate:false};
+  const provenance={startedAt:new Date().toISOString(),node:process.version,platform:process.platform,arch:process.arch,runtimeTag:"b11429",runtimeArchiveSha256:ARCHIVE_SHA,modelProfile:values.profile,modelRepository:MODEL_REPO,modelRevision:MODEL_REVISION,modelFile:MODEL_FILE,modelSha256:MODEL_SHA,expectedModelBytes:MODEL_BYTES,status:"running",qualityGate:false};
   let logFd=null,logBytes=0;
   function signalGroup(record,signal){if(!record.child.pid)return;try{process.kill(-record.child.pid,signal);}catch(e){if(e.code!=="ESRCH")throw e;}}
   function groupExists(record){if(!record.child.pid)return false;try{process.kill(-record.child.pid,0);return true;}catch(e){if(e.code==="ESRCH")return false;throw e;}}
@@ -67,7 +71,6 @@ import { setTimeout as delay } from "node:timers/promises";
     },360000);}finally{await file.close();}
     if(hash.digest("hex")!==digest)throw new Error("SHA-256 mismatch");return bytes;
   }
-  async function metadata(url){const chunks=[];await consume(url,2*MiB,c=>{chunks.push(Buffer.from(c));},60000);return JSON.parse(Buffer.concat(chunks).toString("utf8"));}
   async function findServers(dir){
     const found=[];for(const e of await readdir(dir,{withFileTypes:true})){const p=join(dir,e.name);if(e.isDirectory())found.push(...await findServers(p));else if(e.isFile()&&e.name==="llama-server")found.push(p);}return found;
   }
@@ -83,14 +86,11 @@ import { setTimeout as delay } from "node:timers/promises";
   const hardTimer=setTimeout(()=>{for(const r of owned){try{signalGroup(r,"SIGKILL");}catch{}}console.error("Hard smoke deadline");process.exit(124);},15*60000);
   for(const signal of ["SIGINT","SIGTERM"])process.once(signal,()=>controller.abort(new Error(`Received ${signal}`)));
   try{
-    console.log("Resolving pinned GGUF metadata");
-    const meta=await metadata(`https://huggingface.co/api/models/${MODEL_REPO}?blobs=true`);
-    const file=meta.siblings?.find(s=>s.rfilename===MODEL_FILE);
-    if(!/^[a-f0-9]{40}$/.test(meta.sha??"")||file?.lfs?.sha256!==MODEL_SHA)throw new Error("HF metadata does not match model pin");
-    provenance.modelRevision=meta.sha;
+    console.log("Using immutable GGUF profile: " + values.profile);
     const archive=join(work,"runtime.tar.gz"),model=join(work,MODEL_FILE);
     provenance.runtimeDownloadBytes=await download(ARCHIVE_URL,archive,ARCHIVE_SHA,64*MiB);
-    provenance.modelDownloadBytes=await download(`https://huggingface.co/${MODEL_REPO}/resolve/${meta.sha}/${MODEL_FILE}`,model,MODEL_SHA,600*MiB);
+    provenance.modelDownloadBytes=await download(`https://huggingface.co/${MODEL_REPO}/resolve/${MODEL_REVISION}/${MODEL_FILE}`,model,MODEL_SHA,MODEL_BYTES);
+    if (provenance.modelDownloadBytes !== MODEL_BYTES) throw new Error("Model byte size mismatch");
     await command("/usr/bin/tar",["--extract","--gzip","--file",archive,"--directory",work,"--no-same-owner","--no-same-permissions"],60000);
     const servers=await findServers(work);if(servers.length!==1)throw new Error("Expected exactly one llama-server");
     const binary=servers[0],hash=createHash("sha256");for await(const chunk of createReadStream(binary))hash.update(chunk);

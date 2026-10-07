@@ -17,3 +17,13 @@ The six coding tasks per arm ended with unchanged files, often after listing fil
 [Permanent result summaries](docs/validation/001-results.json) preserve the outcome counts, rounded task timings and bounded failure excerpts. Complete reports and server logs are CI artifacts with a 30-day retention period; source and this summary remain in Git.
 
 Next diagnostic experiment: revise only the shared action protocol with explicit operation semantics and one unrelated worked example. Keep the model, tasks, evaluator, cache policy and deadlines fixed. This is development-set calibration, not held-out evidence.
+
+## Experiment 002 — action protocol v2
+
+Tested source: [cc7aaa4](https://github.com/virideanil/ailab/commit/cc7aaa46c4cab6d9f6ab812a26f2d978ef7fb8b4). [CI run](https://github.com/virideanil/ailab/actions/runs/37693107601). [Registered change](docs/experiments/002-action-protocol.md). [Permanent summaries](docs/validation/002-results.json).
+
+All Linux, hosted macOS, browser, GGUF lifecycle and packaging checks passed again. **Task acceptance remained 0/8 baseline and 0/8 candidate.** All 16 measurements were valid. T50 remained unreached; no speed ratio exists.
+
+The more explicit protocol induced edits, but did not establish useful task completion. Failures included repeated or reverted edits, stale version guesses, invented exact strings, repeated reads and final-answer format violations. Those are retained failures. No evaluator was relaxed. This development-set revision is not an improvement in accepted-task quality and should not be promoted as one.
+
+Next control: compare the same protocol and limits with the officially pinned 1.5B model. This changes the model profile; it does not silently replace the failed 0.5B evidence.

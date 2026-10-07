@@ -8,7 +8,7 @@ Eight explicit harness tasks compare a sequential tool loop with the same model 
 
 Both arms use identical model settings, tool contracts, deadlines and private evaluators. Task order is counterbalanced. Context preparation counts toward time; private audit does not. Prompt caching is disabled in this first experiment, including within-task reuse. This is a deliberately simple baseline, not the best tuned conventional baseline required for final qualification.
 
-The GGUF CI job downloads a SHA-256-pinned llama.cpp b11429 Linux CPU runtime and official Qwen2.5-Coder-0.5B-Instruct Q4_K_M model, verifies both, runs a local server, measures both arms, and stops owned processes. This small model tests integration; weak answers remain failed outcomes.
+The GGUF CI job downloads a SHA-256-pinned llama.cpp b11429 Linux CPU runtime and official Qwen2.5-Coder-1.5B-Instruct Q4_K_M control model, verifies both, runs a local server, measures both arms, and stops owned processes. Curated 0.5B and 1.5B profiles test integration and protocol reliability; weak answers remain failed outcomes.
 
 ## Run
 
@@ -29,7 +29,7 @@ node src/cli.mjs --endpoint http://127.0.0.1:8080 --model local --out artifacts/
 
 The adapter uses the server's chat template and constrained JSON output. A replacement GGUF must support chat completion and this grammar; format compatibility is not a promise of model competence. No hosted API or credentials are required. Run one client at a time.
 
-On Linux x64, `npm run test:gguf` provisions the pinned smoke runtime/model automatically. This download helper is Linux-only. On a Mac, install a trusted llama.cpp build with Metal support, choose a GGUF that fits unified memory, start `llama-server --model /absolute/path/model.gguf --alias local --host 127.0.0.1 --port 8080 --ctx-size 4096 --parallel 1`, then run the command above. Do not use Linux binaries on macOS.
+On Linux x64, `npm run test:gguf -- --profile coder-1.5b` provisions the pinned CPU runtime and 1.5B model automatically. `--profile coder-0.5b` selects the original smaller control (also the helper's default). Both profiles verify immutable revision, exact bytes and SHA-256. This download helper is Linux-only. On a Mac, install a trusted llama.cpp build with Metal support, choose a GGUF that fits unified memory, start `llama-server --model /absolute/path/model.gguf --alias local --host 127.0.0.1 --port 8080 --ctx-size 4096 --parallel 1`, then run the command above. Do not use Linux binaries on macOS.
 
 ## Evidence and boundaries
 
@@ -62,4 +62,4 @@ The interface uses warm charcoal, parchment, muted jade and copper, system sans 
 
 Start with the [architecture and roadmap](docs/research/architecture.md), [evaluation contract](docs/research/evaluation-contract.md), and [frontier experiments](docs/research/frontier-experiments.md). The architecture document links the five mechanism dossiers. These are research snapshots and proposals, not implemented feature claims.
 
-[Recorded validation and real-model outcomes](RESULTS.md) distinguish passing infrastructure checks from task acceptance. The first real 0.5B model run accepted no tasks; this is a starting measurement, not a qualified coding assistant.
+[Recorded validation and real-model outcomes](RESULTS.md) distinguish passing infrastructure checks from task acceptance. Both real 0.5B protocol revisions accepted no tasks; this is a starting measurement, not a qualified coding assistant.
