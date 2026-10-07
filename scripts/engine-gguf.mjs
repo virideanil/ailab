@@ -23,7 +23,7 @@ import { setTimeout as delay } from "node:timers/promises";
   const ARCHIVE_SHA="f6d25dde8f51133143d1453da4fd5f73b145127177612a283bf7995957af3392";
   const ARCHIVE_URL="https://github.com/ggml-org/llama.cpp/releases/download/b11429/llama-b11429-bin-ubuntu-x64.tar.gz";
   const provenance={startedAt:new Date().toISOString(),node:process.version,platform:process.platform,arch:process.arch,runtimeTag:"b11429",runtimeSourceCommit:"d81235049384534c167caea52b85a694f6103d14",suite:values.suite,arm:values.arm,draft:values.draft,runtimeArchiveSha256:ARCHIVE_SHA,modelProfile:values.profile,modelRepository:MODEL_REPO,modelRevision:MODEL_REVISION,modelFile:MODEL_FILE,modelSha256:MODEL_SHA,expectedModelBytes:MODEL_BYTES,status:"running",qualityGate:false};
-  let logFd=null,logBytes=0,memoryTimer=null;
+  let logFd=null,logBytes=0,memoryTimer=null,metricsEndpoint=null;
   provenance.serverPeakRssBytes=0;provenance.memoryScope="owned llama-server process, /proc status VmHWM; excludes OS, host engine, private verifier";
   function signalGroup(record,signal){if(!record.child.pid)return;try{process.kill(-record.child.pid,signal);}catch(e){if(e.code!=="ESRCH")throw e;}}
   function groupExists(record){if(!record.child.pid)return false;try{process.kill(-record.child.pid,0);return true;}catch(e){if(e.code==="ESRCH")return false;throw e;}}
@@ -98,8 +98,8 @@ import { setTimeout as delay } from "node:timers/promises";
     const binary=servers[0],hash=createHash("sha256");for await(const chunk of createReadStream(binary))hash.update(chunk);
     provenance.serverBinarySha256=hash.digest("hex");
     const alias=`gguf-smoke-${randomUUID()}`,port=await freePort(),endpoint=`http://127.0.0.1:${port}`;
-    const args=["--model",model,"--alias",alias,"--host","127.0.0.1","--port",String(port),"--ctx-size","4096","--threads","4","--threads-batch","4","--parallel","1","--n-gpu-layers","0","--jinja","--cache-ram","0","--no-cache-idle-slots","--spec-type",values.draft?"ngram-simple":"none",...(values.draft?["--spec-ngram-simple-size-n","4","--spec-ngram-simple-size-m","16"]:[])];
-    provenance.serverArguments=args;provenance.endpoint=endpoint;
+    const args=["--model",model,"--alias",alias,"--host","127.0.0.1","--port",String(port),"--ctx-size","4096","--threads","4","--threads-batch","4","--parallel","1","--n-gpu-layers","0","--jinja","--metrics","--cache-ram","0","--no-cache-idle-slots","--spec-type",values.draft?"ngram-simple":"none",...(values.draft?["--spec-ngram-simple-size-n","4","--spec-ngram-simple-size-m","16"]:[])];
+    provenance.serverArguments=args;provenance.endpoint=endpoint;metricsEndpoint=endpoint+"/metrics";
     logFd=openSync(join(artifacts,"llama-server.log"),"w");
     const server=launch(binary,args,{stdio:["ignore","pipe","pipe"],env:{...process.env,LD_LIBRARY_PATH:dirname(binary),OMP_NUM_THREADS:"4",OPENBLAS_NUM_THREADS:"4"}});
     memoryTimer=setInterval(async()=>{
@@ -126,12 +126,22 @@ import { setTimeout as delay } from "node:timers/promises";
     provenance.inferenceThreads=4;provenance.batchThreads=4;
     try{provenance.cpuQuota=(await readFile("/sys/fs/cgroup/cpu.max","utf8")).trim();}catch{provenance.cpuQuota=null;}
     if(typeof props.chat_template!=="string"||!props.chat_template)throw new Error("Empty embedded chat template");
+    try{
+      const metrics=await fetch(metricsEndpoint,{signal:AbortSignal.timeout(3000)});
+      provenance.serverMetricsBefore=metrics.ok?(await metrics.text()).slice(0,65536):null;
+    }catch(error){provenance.metricsBeforeError=error.message;}
+    provenance.metricsScope="isolated server, entire CLI invocation including warmup; final snapshot may exclude an unreleased active request";
     await writeFile(provenanceFile,JSON.stringify(provenance,null,2));await rm(output,{force:true});
     await command(process.execPath,["src/engine-cli.mjs","--endpoint",endpoint,"--model",alias,"--out",output,"--profile",values.profile,"--suite",values.suite,"--arm",values.arm,"--shard",values.shard,"--shards",values.shards,"--repeats",values.repeats,...(values["system-label"]?["--system-label",values["system-label"]]:[])],30*60000);
     const report=JSON.parse(await readFile(output,"utf8"));provenance.qualityGate=report.qualityGate;provenance.status="completed";
   }catch(e){provenance.status="infrastructure_failed";provenance.error=e.message;process.exitCode=1;console.error(e.message);}
   finally{
     clearInterval(memoryTimer);
+    if(metricsEndpoint)try{
+      const metrics=await fetch(metricsEndpoint,{signal:AbortSignal.timeout(3000)});
+      provenance.serverMetricsAfter=metrics.ok?(await metrics.text()).slice(0,65536):null;
+      provenance.serverMetricsCapturedAt=new Date().toISOString();
+    }catch(error){provenance.metricsAfterError=error.message;}
     const cleanup=await Promise.allSettled([...owned].map(stop));
     provenance.cleanupErrors=cleanup.filter(r=>r.status==="rejected").map(r=>r.reason.message);
     if(provenance.cleanupErrors.length){provenance.status="cleanup_failed";process.exitCode=1;}
