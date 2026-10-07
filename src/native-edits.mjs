@@ -9,7 +9,7 @@ const INTRINSICS=[
  "interface IteratorReturnResult<T> {done:true;value:T;}",
  "type IteratorResult<T,TReturn=any>=IteratorYieldResult<T>|IteratorReturnResult<TReturn>;",
  "interface Iterator<T,TReturn=any,TNext=any> {next(...args:[]|[TNext]):IteratorResult<T,TReturn>;}",
- "interface Iterable<T> {[Symbol.iterator]():Iterator<T>;}",
+ "interface Iterable<T,TReturn=any,TNext=any> {[Symbol.iterator]():Iterator<T,TReturn,TNext>;}",
  "interface Object {}","interface Function {}","interface CallableFunction extends Function {}","interface NewableFunction extends Function {}",
  "interface IArguments {length:number;[n:number]:any;callee:Function;}",
  "interface String {readonly length:number;trim():string;toLowerCase():string;replace(search:string|RegExp,replacement:string):string;split(separator:string):string[];}",
