@@ -73,7 +73,7 @@ import { createWorkspace } from "./workspace.mjs";
         gate();turns++;emit("model_request",{turn:turns});let response;
         try{
           response=await abortable(Promise.resolve().then(()=>{gate();return adapter.next({task:freeze({id:task.id,prompt:task.prompt}),messages:immutable(messages),signal:controller.signal,turn:turns});}),controller.signal);
-        }catch(e){if(e instanceof Stop)throw e;throw new Stop("adapter_error",errorText(e));}
+        }catch(e){if(e instanceof Stop)throw e;if(e?.response)emit("rejected_model_response",{turn:turns,response:e.response});throw new Stop("adapter_error",errorText(e));}
         gate();if(!plain(response))throw new Stop("protocol_error","Malformed adapter response");
         const action=checkedAction(response.action),reportedUsage=addUsage(usage,response.usage);
         emit("model_response",{turn:turns,action,usage:reportedUsage});

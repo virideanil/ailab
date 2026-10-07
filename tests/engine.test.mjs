@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { runEngineTask } from "../src/engine.mjs";
 import { createWorkspace } from "../src/workspace.mjs";
 import { fixtures } from "../fixtures/smoke.mjs";
-import { compileContract,finishContract } from "../src/task-contract.mjs";
+import { compileContract,finishContract,compileAnswerFormat,validAnswer } from "../src/task-contract.mjs";
 
 const task={id:"independent",stratum:"coding",prompt:"Repair a.mjs",files:{"a.mjs":""},maxTurns:6,deadlineMs:1000,outputContract:{kind:"literal",value:"done"}};
 function adapter(actions,seen=[]){let i=0;return {kind:"fake",async next(input){seen.push(input);return {action:actions[i++]};}};}
@@ -84,4 +84,16 @@ test("evidence questions cannot submit a guessed abstention before inspecting su
  assert.equal(out.accepted,true);assert.equal(out.turns,4);
  assert.ok(out.events.some(e=>e.reply?.error?.message.includes("READ_REQUIRED")));
  assert.equal(seen[1].messages.at(-1).role,"tool");
+});
+
+test("public format validators reject prose and malformed values without consulting an oracle",()=>{
+ const rows=[
+  ["Output exactly PROVIDER_ID|TOTAL_CENTS.",["Z9|123"],["Z9|12.3","Z9","Z9|123|extra"]],
+  ["Output only the integer total, or UNKNOWN if data is missing.",["104","UNKNOWN"],["104.0","Total: 104","maybe"]],
+  ["Output only YYYY-MM-DD.",["2028-02-29"],["2027-02-29","2028-2-29"]],
+  ["Output LOW if below, HIGH if above, otherwise UNKNOWN.",["LOW","HIGH","UNKNOWN"],["MIDDLE","LOW because"]],
+  ["Output exactly RUBRIC_ID|PASS or RUBRIC_ID|FAIL; output UNKNOWN if required evidence is missing.",["R9|PASS","R2|FAIL","UNKNOWN"],["R9|MAYBE","PASS"]],
+  ["Output only the selected flight ID, or NONE if none qualifies.",["FL9","NONE"],["Flight FL9"]]
+ ];
+ for(const [prompt,good,bad]of rows){const format=compileAnswerFormat(prompt);assert.ok(format,prompt);for(const v of good)assert.equal(validAnswer(format,v),true,prompt+v);for(const v of bad)assert.equal(validAnswer(format,v),false,prompt+v);}
 });

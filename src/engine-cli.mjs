@@ -37,7 +37,7 @@ for(const p of ["src/engine.mjs","src/workspace.mjs","src/proposal-adapter.mjs",
  sources[p]=sha(await readFile(new URL("../"+p,import.meta.url),"utf8"));
 const sampling=v.profile==="qwen3-4b"?{temperature:0.7,top_p:0.8,top_k:20,min_p:0,presence_penalty:1.5,chat_template_kwargs:{enable_thinking:false}}:{temperature:0};
 const taskSetVersion=manifest?sha({manifest:manifest.sha256,fixtureSource:sources["fixtures/pilot.mjs"]}):sources["fixtures/smoke.mjs"],deadlineMs=v.suite==="smoke"?120000:30000;
-const modelProfile={mode:v.fake?"fake":"real",protocol:"native-tools-v2",profile:v.profile,model:v.profile,maxTokens:512,seed:42,sampling,cachePrompt:"within-task",deadlineMs};
+const modelProfile={mode:v.fake?"fake":"real",protocol:"native-tools-v3",profile:v.profile,model:v.profile,maxTokens:512,seed:42,sampling,cachePrompt:"within-task",deadlineMs};
 const systemVersions=Object.fromEntries(["baseline","candidate"].map(system=>[system,sha({sources,modelProfile,system,arm:v.arm})]));
 const evaluatorVersion=manifest?sha({source:sources["src/behavioral-evaluator.mjs"],image:evaluator.provenance,manifest:taskSetVersion}):taskSetVersion;
 const design={tasks:fixtures.map(f=>({id:f.task.id,version:sha(f.task),clusterId:f.clusterId??f.task.id,stratum:f.task.stratum??f.stratum,deadlineMs})),strataWeights:v.suite==="native"?{coding:1}:{coding:0.8,general:0.2},repeats,systemVersions,evaluatorVersion,taskSetVersion};
@@ -61,8 +61,15 @@ const adapters={};
 if(!v.fake){
  for(const system of systems)adapters[system]=createProposalAdapter({baseUrl:v.endpoint,model:v.model,sampling,native:system==="candidate"&&v.arm==="native"});
  const start=performance.now();
- const warm=await adapters[systems[0]].next({messages:[{role:"user",content:'Call finish with answer ready.'}],turn:1,signal:AbortSignal.timeout(60000)});
- report.warmup={elapsedMs:performance.now()-start,usage:warm.usage};
+ try{
+  const response=await fetch(new URL("/completion",v.endpoint),{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({prompt:"Warmup",n_predict:1,temperature:0,seed:42,cache_prompt:false}),signal:AbortSignal.timeout(60000)});
+  if(!response.ok)throw Error("Warmup HTTP "+response.status);
+  const warm=await response.json();
+  report.warmup={elapsedMs:performance.now()-start,timings:warm.timings,success:true,kind:"one-token hardware warmup without tools"};
+ }catch(error){
+  report.warmup={elapsedMs:performance.now()-start,success:false,error:error.message,response:error.response??null};
+ }
+ await save();
 }
 for(let repeat=0;repeat<repeats;repeat++)for(let i=0;i<fixtures.length;i++){
  const fixture=fixtures[i],order=paired&&(i+shard+repeat)%2?[...systems].reverse():systems;

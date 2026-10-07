@@ -1,0 +1,578 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Exploratory engine pilot; no qualified speed claim",
+  "mode": "real",
+  "performanceClaimEligible": false,
+  "startedAt": "2026-10-07T23:31:25.555Z",
+  "sourceCommit": "5405c0f5e33cbec388cdbbdc52402552dfa988b2",
+  "sources": {
+    "src/engine.mjs": "b37207b77edb8d6cee78ad0dfa867e58271036070cb1686aa0f8cb68dafdfb91",
+    "src/workspace.mjs": "a12fc71ec8f64a9631bcbbe52d261c3311bccea0dbd9f5d1ef751c53ed59f2c0",
+    "src/proposal-adapter.mjs": "4842054d0a1a557646ce0b9f1a5eac0fae7717525030b42449c767e442a538a5",
+    "src/task-contract.mjs": "e66606bfb4aa12e30fd7ebbdf84901cf999a65649020e9f190267e0f5061baa0",
+    "src/engine-cli.mjs": "c211ab04aa11d27cc5f5032520737879d550f165c148c50be80d79841281650f",
+    "src/scoring.mjs": "9b3bd31da05f818ff55f62b611d2730a81ca3efaba65f3de633917e11837573b",
+    "fixtures/smoke.mjs": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177"
+  },
+  "modelProfile": {
+    "mode": "real",
+    "protocol": "native-tools-v2",
+    "profile": "coder-1.5b",
+    "model": "coder-1.5b",
+    "maxTokens": 512,
+    "seed": 42,
+    "sampling": {
+      "temperature": 0
+    },
+    "cachePrompt": "within-task",
+    "deadlineMs": 120000
+  },
+  "design": {
+    "tasks": [
+      {
+        "id": "smoke-ttl-boundary",
+        "version": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+        "clusterId": "smoke-ttl-boundary",
+        "stratum": "coding",
+        "deadlineMs": 120000
+      },
+      {
+        "id": "smoke-preserve-zero",
+        "version": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+        "clusterId": "smoke-preserve-zero",
+        "stratum": "coding",
+        "deadlineMs": 120000
+      },
+      {
+        "id": "smoke-empty-guard",
+        "version": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+        "clusterId": "smoke-empty-guard",
+        "stratum": "coding",
+        "deadlineMs": 120000
+      },
+      {
+        "id": "smoke-two-file-rename",
+        "version": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+        "clusterId": "smoke-two-file-rename",
+        "stratum": "coding",
+        "deadlineMs": 120000
+      },
+      {
+        "id": "smoke-config-change",
+        "version": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+        "clusterId": "smoke-config-change",
+        "stratum": "coding",
+        "deadlineMs": 120000
+      },
+      {
+        "id": "smoke-copy-before-sort",
+        "version": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+        "clusterId": "smoke-copy-before-sort",
+        "stratum": "coding",
+        "deadlineMs": 120000
+      },
+      {
+        "id": "smoke-grounded-answer",
+        "version": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+        "clusterId": "smoke-grounded-answer",
+        "stratum": "general",
+        "deadlineMs": 120000
+      },
+      {
+        "id": "smoke-missing-information",
+        "version": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+        "clusterId": "smoke-missing-information",
+        "stratum": "general",
+        "deadlineMs": 120000
+      }
+    ],
+    "strataWeights": {
+      "coding": 0.8,
+      "general": 0.2
+    },
+    "repeats": 1,
+    "systemVersions": {
+      "baseline": "3be550be1d6f192d8ba045f2588d2744f5dc0271817c2730c99cd423160e88f9",
+      "candidate": "24cbbcbb0fd43848a255c9df2079a31c5eecadc3cf8b45031c0b67e7182d58c8"
+    },
+    "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+    "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177"
+  },
+  "suite": "smoke",
+  "arm": "baseline",
+  "systems": [
+    "baseline"
+  ],
+  "shard": 0,
+  "shards": 1,
+  "hardware": {
+    "platform": "linux",
+    "arch": "x64",
+    "release": "6.17.0-1022-azure",
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "logicalCpus": 4,
+    "totalMemoryBytes": 16766414848,
+    "node": "v24.21.0"
+  },
+  "conditions": {
+    "prefillCache": "off on first request of every task; on subsequently",
+    "warmup": "one request excluded",
+    "order": "single arm block",
+    "baseline": "sequential observed-file proposals",
+    "candidate": "baseline",
+    "privateGradingTime": "excluded",
+    "preparationTime": "included",
+    "hostContract": "identical across arms",
+    "memory": "Node RSS per outcome; owned server peak RSS in provenance"
+  },
+  "runs": [],
+  "outcomes": [],
+  "currentTask": null,
+  "score": {
+    "systems": {
+      "baseline": {
+        "complete": false,
+        "elapsedComplete": false,
+        "meanObservedElapsedMs": null,
+        "acceptedRate": null,
+        "cost": null,
+        "cdf": null,
+        "t50Ms": null,
+        "t50Status": "incomplete",
+        "perTask": [
+          {
+            "taskId": "smoke-ttl-boundary",
+            "stratum": "coding",
+            "clusterId": "smoke-ttl-boundary",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-preserve-zero",
+            "stratum": "coding",
+            "clusterId": "smoke-preserve-zero",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-empty-guard",
+            "stratum": "coding",
+            "clusterId": "smoke-empty-guard",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-two-file-rename",
+            "stratum": "coding",
+            "clusterId": "smoke-two-file-rename",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-config-change",
+            "stratum": "coding",
+            "clusterId": "smoke-config-change",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-copy-before-sort",
+            "stratum": "coding",
+            "clusterId": "smoke-copy-before-sort",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-grounded-answer",
+            "stratum": "general",
+            "clusterId": "smoke-grounded-answer",
+            "weight": 0.1,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-missing-information",
+            "stratum": "general",
+            "clusterId": "smoke-missing-information",
+            "weight": 0.1,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          }
+        ],
+        "perStratum": {
+          "coding": {
+            "complete": false,
+            "acceptedRate": null,
+            "cost": null
+          },
+          "general": {
+            "complete": false,
+            "acceptedRate": null,
+            "cost": null
+          }
+        }
+      },
+      "candidate": {
+        "complete": false,
+        "elapsedComplete": false,
+        "meanObservedElapsedMs": null,
+        "acceptedRate": null,
+        "cost": null,
+        "cdf": null,
+        "t50Ms": null,
+        "t50Status": "incomplete",
+        "perTask": [
+          {
+            "taskId": "smoke-ttl-boundary",
+            "stratum": "coding",
+            "clusterId": "smoke-ttl-boundary",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-preserve-zero",
+            "stratum": "coding",
+            "clusterId": "smoke-preserve-zero",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-empty-guard",
+            "stratum": "coding",
+            "clusterId": "smoke-empty-guard",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-two-file-rename",
+            "stratum": "coding",
+            "clusterId": "smoke-two-file-rename",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-config-change",
+            "stratum": "coding",
+            "clusterId": "smoke-config-change",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-copy-before-sort",
+            "stratum": "coding",
+            "clusterId": "smoke-copy-before-sort",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-grounded-answer",
+            "stratum": "general",
+            "clusterId": "smoke-grounded-answer",
+            "weight": 0.1,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-missing-information",
+            "stratum": "general",
+            "clusterId": "smoke-missing-information",
+            "weight": 0.1,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          }
+        ],
+        "perStratum": {
+          "coding": {
+            "complete": false,
+            "acceptedRate": null,
+            "cost": null
+          },
+          "general": {
+            "complete": false,
+            "acceptedRate": null,
+            "cost": null
+          }
+        }
+      }
+    },
+    "pairedGroups": [
+      {
+        "task": {
+          "id": "smoke-ttl-boundary",
+          "version": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+          "clusterId": "smoke-ttl-boundary",
+          "stratum": "coding",
+          "deadlineMs": 120000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": null,
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-preserve-zero",
+          "version": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+          "clusterId": "smoke-preserve-zero",
+          "stratum": "coding",
+          "deadlineMs": 120000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": null,
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-empty-guard",
+          "version": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+          "clusterId": "smoke-empty-guard",
+          "stratum": "coding",
+          "deadlineMs": 120000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": null,
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-two-file-rename",
+          "version": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+          "clusterId": "smoke-two-file-rename",
+          "stratum": "coding",
+          "deadlineMs": 120000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": null,
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-config-change",
+          "version": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+          "clusterId": "smoke-config-change",
+          "stratum": "coding",
+          "deadlineMs": 120000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": null,
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-copy-before-sort",
+          "version": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+          "clusterId": "smoke-copy-before-sort",
+          "stratum": "coding",
+          "deadlineMs": 120000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": null,
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-grounded-answer",
+          "version": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+          "clusterId": "smoke-grounded-answer",
+          "stratum": "general",
+          "deadlineMs": 120000
+        },
+        "weight": 0.1,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": null,
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-missing-information",
+          "version": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+          "clusterId": "smoke-missing-information",
+          "stratum": "general",
+          "deadlineMs": 120000
+        },
+        "weight": 0.1,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": null,
+            "candidate": null
+          }
+        ]
+      }
+    ],
+    "pairedOutcomes": {
+      "bothAccepted": 0,
+      "baselineOnly": 0,
+      "candidateOnly": 0,
+      "neitherAccepted": 0,
+      "missingOrInvalid": 0.9999999999999999
+    },
+    "comparison": {
+      "ready": false,
+      "qualityDelta": null,
+      "costDelta": null,
+      "t50Ratio": null,
+      "ratioStatus": "incomplete",
+      "confidenceInterval": null,
+      "inference": "Point estimates only; no statistical decision."
+    }
+  },
+  "updatedAt": "2026-10-07T23:31:25.558Z"
+}

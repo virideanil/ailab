@@ -16,7 +16,7 @@ test("native tools preserve trained transcript, task-local cache and host-owned 
   assert.equal(out.accepted,true);
   assert.deepEqual(requests.map(r=>r.cache_prompt),[false,true,true]);
   assert.equal(requests[0].chat_template_kwargs.enable_thinking,false);
-  assert.equal(requests[0].tool_choice,"required");assert.equal(requests[0].parallel_tool_calls,false);
+  assert.equal(requests[0].tool_choice,"auto");assert.equal(requests[0].parallel_tool_calls,false);
   assert.equal(Object.hasOwn(requests[0],"response_format"),false);
   assert.deepEqual(requests[0].tools,requests[2].tools);
   assert.equal(requests[2].messages.filter(m=>m.role==="user").length,1);
