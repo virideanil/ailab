@@ -5,8 +5,10 @@ const EXTENSIONS=new Map([[".mjs",ts.Extension.Mjs],[".js",ts.Extension.Js],[".m
 const INTRINSICS=[
  "interface Symbol {}",
  "interface SymbolConstructor {readonly iterator:unique symbol;}","declare const Symbol:SymbolConstructor;",
- "interface IteratorResult<T> {done?:boolean;value:T;}",
- "interface Iterator<T> {next(...args:[]|[unknown]):IteratorResult<T>;}",
+ "interface IteratorYieldResult<T> {done?:false;value:T;}",
+ "interface IteratorReturnResult<T> {done:true;value:T;}",
+ "type IteratorResult<T,TReturn=any>=IteratorYieldResult<T>|IteratorReturnResult<TReturn>;",
+ "interface Iterator<T,TReturn=any,TNext=any> {next(...args:[]|[TNext]):IteratorResult<T,TReturn>;}",
  "interface Iterable<T> {[Symbol.iterator]():Iterator<T>;}",
  "interface Object {}","interface Function {}","interface CallableFunction extends Function {}","interface NewableFunction extends Function {}",
  "interface IArguments {length:number;[n:number]:any;callee:Function;}",
