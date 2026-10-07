@@ -1,0 +1,224 @@
+name: Kovan frozen engine pilot
+on:
+  push:
+    paths:
+      - "src/engine*.mjs"
+      - "src/proposal-adapter.mjs"
+      - "src/task-contract.mjs"
+      - "src/behavioral-evaluator.mjs"
+      - "src/native-edits.mjs"
+      - "src/model-profiles.mjs"
+      - "fixtures/pilot.mjs"
+      - "scripts/pilot-check.mjs"
+      - "scripts/engine-gguf.mjs"
+      - "scripts/select-baseline.mjs"
+      - "scripts/draft-pair.mjs"
+      - "scripts/aggregate-pilot.mjs"
+      - ".github/workflows/engine-pilot.yml"
+permissions:
+  contents: read
+concurrency:
+  group: engine-pilot-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  admission:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      image: ${{ steps.image.outputs.digest }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Pull and freeze evaluator image
+        id: image
+        run: |
+          docker pull node:24-bookworm-slim
+          DIGEST=$(docker image inspect node:24-bookworm-slim --format '{{index .RepoDigests 0}}')
+          echo "digest=$DIGEST" >> "$GITHUB_OUTPUT"
+          echo "EVALUATOR_IMAGE=$DIGEST" >> "$GITHUB_ENV"
+      - name: Unit tests and real Docker isolation tests
+        env:
+          RUN_DOCKER_EVALUATOR_TESTS: "1"
+        run: npm test
+      - name: Original smoke through new engine with explicit gold script
+        run: node src/engine-cli.mjs --fake --suite smoke --arm context --out artifacts/engine-fake.json
+      - name: Validate all fresh references and failing starters
+        run: node scripts/pilot-check.mjs
+      - run: node scripts/export-evidence.mjs
+        if: always()
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pilot-admission
+          path: artifacts
+          retention-days: 30
+  tournament:
+    needs: admission
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [coder-1.5b, qwen3-4b, coder-3b-research]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Unchanged smoke checks on pinned conventional model
+        run: node scripts/engine-gguf.mjs --profile "${{ matrix.profile }}" --suite smoke --arm baseline
+      - run: node scripts/export-evidence.mjs
+        if: always()
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tournament-${{ matrix.profile }}
+          path: artifacts
+          retention-days: 30
+  select:
+    needs: tournament
+    if: always() && needs.tournament.result != 'skipped'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      profile: ${{ steps.select.outputs.profile }}
+      qualified: ${{ steps.select.outputs.qualified }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: tournament-*
+          path: tournament
+      - id: select
+        run: node scripts/select-baseline.mjs
+      - run: node scripts/export-evidence.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: baseline-selection
+          path: artifacts
+          retention-days: 30
+  context:
+    needs: [admission, select]
+    if: needs.select.outputs.qualified == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
+    env:
+      EVALUATOR_IMAGE: ${{ needs.admission.outputs.image }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - run: npm install --ignore-scripts --no-audit --no-fund
+      - run: docker pull "$EVALUATOR_IMAGE"
+      - name: Fresh pilot with paired context reuse
+        run: node scripts/engine-gguf.mjs --profile "${{ needs.select.outputs.profile }}" --suite pilot --arm context --shard "${{ matrix.shard }}" --shards 6
+      - run: node scripts/export-evidence.mjs
+        if: always()
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: context-${{ matrix.shard }}
+          path: artifacts
+          retention-days: 30
+  native:
+    needs: [admission, select]
+    if: needs.select.outputs.qualified == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      EVALUATOR_IMAGE: ${{ needs.admission.outputs.image }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - run: npm install --ignore-scripts --no-audit --no-fund
+      - run: docker pull "$EVALUATOR_IMAGE"
+      - name: Isolated native rename experiment on frozen eligible tasks
+        run: node scripts/engine-gguf.mjs --profile "${{ needs.select.outputs.profile }}" --suite native --arm native --repeats 3
+      - run: node scripts/export-evidence.mjs
+        if: always()
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-0
+          path: artifacts
+          retention-days: 30
+  drafting:
+    needs: [admission, select]
+    if: needs.select.outputs.qualified == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
+    env:
+      EVALUATOR_IMAGE: ${{ needs.admission.outputs.image }}
+      MODEL_PROFILE: ${{ needs.select.outputs.profile }}
+      PILOT_SHARD: ${{ matrix.shard }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - run: npm install --ignore-scripts --no-audit --no-fund
+      - run: docker pull "$EVALUATOR_IMAGE"
+      - name: Same-host isolated prompt-lookup drafting blocks
+        run: node scripts/draft-pair.mjs
+      - run: node scripts/export-evidence.mjs
+        if: always()
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: drafting-${{ matrix.shard }}
+          path: artifacts
+          retention-days: 30
+  aggregate:
+    needs: [context, native, drafting]
+    if: always() && needs.context.result != 'skipped'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - uses: actions/download-artifact@v4
+        with:
+          path: results
+      - run: node scripts/aggregate-pilot.mjs
+      - run: node scripts/export-evidence.mjs
+        if: always()
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pilot-comparison
+          path: artifacts
+          retention-days: 30

@@ -56,7 +56,14 @@ import { createWorkspace } from "./workspace.mjs";
       workspace=createWorkspace(task.files,workspaceLimits);contract=compileContract(task);gate();
       messages.push({role:"user",content:task.prompt+"\n\nAvailable files:\n"+JSON.stringify([...workspace.list()].sort())+(task.initialContext===undefined?"":"\n\nInitial context:\n"+task.initialContext)});
       if(contextReuse){
-        const initial=workspace.list().filter(path=>task.prompt.includes(path)).map(path=>workspace.read(path));
+        const paths=workspace.list(),named=paths.filter(path=>task.prompt.includes(path));
+        const selected=named.length?named:(paths.length<=3?paths:[]);
+        const initial=[];let contextBytes=0;
+        for(const path of selected){
+          const file=workspace.read(path),size=Buffer.byteLength(file.content,"utf8");
+          if(contextBytes+size>8192)continue;
+          initial.push(file);contextBytes+=size;
+        }
         for(const file of initial)observed.set(file.path,file.version);
         if(initial.length)messages[0].content+="\nCurrent observed files:\n"+JSON.stringify(initial);
         emit("context_reuse",{files:initial.map(({path,version})=>({path,version}))});
@@ -109,7 +116,7 @@ import { createWorkspace } from "./workspace.mjs";
               if(!native)throw new Error("UNAVAILABLE_TOOL");
               if(contract.readOnly)throw new Error("READ_ONLY");
               const {proposeRename}=await import("./native-edits.mjs");
-              const proposal=proposeRename(workspace.snapshot(),action);
+              const proposal=proposeRename(workspace.snapshot(),{path:action.path,oldName:action.oldName,newName:action.newName});
               const changes=proposal.changes.map(change=>{
                 const current=workspace.read(change.path);
                 if(observed.get(current.path)!==current.version)throw new Error("READ_REQUIRED: "+current.path);
