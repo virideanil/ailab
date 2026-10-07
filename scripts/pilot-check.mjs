@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
-import {mkdir,writeFile} from "node:fs/promises";
+import {createHash} from "node:crypto";
+import {mkdir,writeFile,readFile} from "node:fs/promises";
 import {pilotFixtures,pilotManifest} from "../fixtures/pilot.mjs";
 import {createBehavioralEvaluator} from "../src/behavioral-evaluator.mjs";
 const evaluator=await createBehavioralEvaluator({image:process.env.EVALUATOR_IMAGE||"node:24-bookworm-slim"});
+const fixtureSourceSha256=createHash("sha256").update(await readFile(new URL("../fixtures/pilot.mjs",import.meta.url))).digest("hex");
 const results=[];
 for(const f of pilotFixtures){
  assert.deepEqual(Object.keys(f.task).sort(),["deadlineMs","files","id","maxTurns","outputContract","prompt","stratum"]);
@@ -14,5 +16,5 @@ for(const f of pilotFixtures){
  assert.equal(bad.accepted,false,"Starter accepted "+f.task.id);
 }
 await mkdir("artifacts",{recursive:true});
-await writeFile("artifacts/pilot-admission.json",JSON.stringify({manifest:pilotManifest,evaluator:evaluator.provenance,results},null,2));
-console.log("PILOT_ADMISSION:"+JSON.stringify({manifest:pilotManifest,referencesPassed:results.length,startersRejected:results.length,evaluator:evaluator.provenance}));
+await writeFile("artifacts/pilot-admission.json",JSON.stringify({fixtureSourceSha256,manifest:pilotManifest,evaluator:evaluator.provenance,results},null,2));
+console.log("PILOT_ADMISSION:"+JSON.stringify({fixtureSourceSha256,manifest:pilotManifest,referencesPassed:results.length,startersRejected:results.length,evaluator:evaluator.provenance}));

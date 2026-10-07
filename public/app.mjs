@@ -18,7 +18,9 @@
     const c=element("div",null,"metric metric-card");c.append(element("div",label,"label"),element("div",value,"value"));if(detail)c.append(element("div",detail,"unit"));return c;
   }
   const outcomesOf=r=>list(r?.outcomes).filter(v=>v&&typeof v==="object");
+  const systemsOf=r=>Array.isArray(r?.systems)?["baseline","candidate"].filter(s=>r.systems.includes(s)):["baseline","candidate"];
   function assignedCount(r,system){
+    if(!systemsOf(r).includes(system))return 0;
     const tasks=r?.design?.tasks,repeats=r?.design?.repeats;
     if(Array.isArray(tasks)&&Number.isSafeInteger(repeats)&&repeats>0)return tasks.length*repeats;
     return null;
@@ -28,7 +30,7 @@
     const a=assignedCount(r,"baseline"),b=assignedCount(r,"candidate"),total=number(a)&&number(b)?a+b:null;
     const cards=[metric("Completed",outcomes.length,"Observed task results"),metric("Accepted",accepted,"Results passing the evaluator"),metric("Invalid audits",invalid,"Separate from product failures")];
     if(total!==null)cards.push(metric("Remaining",Math.max(0,total-outcomes.length),`${total} assigned runs`));
-    for(const system of ["baseline","candidate"]){
+    for(const system of systemsOf(r)){
       const stats=r?.score?.systems?.[system],label=system==="baseline"?"Baseline":"Candidate",pending=r.complete!==true&&!r.finishedAt;
       cards.push(metric(`${label} acceptance`,number(stats?.acceptedRate)?percentage(stats.acceptedRate):pending?"Pending":"Unavailable",number(stats?.acceptedRate)?"Weighted acceptance":"Awaiting a complete valid measurement"));
       cards.push(metric(`${label} t50`,number(stats?.t50Ms)?milliseconds(stats.t50Ms):stats?.t50Status==="unreached"?"Not reached":pending?"Pending":"Unavailable","Half of assigned weighted tasks accepted"));
@@ -41,9 +43,9 @@
     const c=r?.score?.comparison,pending=r.complete!==true&&!r.finishedAt;
     const quality=number(c?.qualityDelta)?`${(c.qualityDelta*100).toFixed(1)} percentage points`:pending?"Awaiting complete run":"Unavailable";
     const ratio=number(c?.t50Ratio)?c.t50Ratio.toFixed(3)+"×":pending?"Awaiting complete run":"Unavailable";
-    container.replaceChildren(element("p",`Acceptance change: ${quality}. Exploratory t50 ratio: ${ratio}.`,"muted"));
+    container.replaceChildren(element("p",systemsOf(r).length===1?"Single-arm control. The curve shows measured acceptance over time.":`Acceptance change: ${quality}. Exploratory t50 ratio: ${ratio}.`,"muted"));
     const outcomes=outcomesOf(r),tasks=list(r.design?.tasks),weights=r.design?.strataWeights,repeats=r.design?.repeats;
-    const groups=["baseline","candidate"].map(system=>({system,assigned:assignedCount(r,system),outcomes:outcomes.filter(o=>o.system===system)}));
+    const groups=systemsOf(r).map(system=>({system,assigned:assignedCount(r,system),outcomes:outcomes.filter(o=>o.system===system)}));
     const timed=outcomes.filter(o=>number(o.elapsedMs)&&o.elapsedMs>=0);
     const weightsValid=weights&&Object.values(weights).every(w=>number(w)&&w>0)&&Math.abs(Object.values(weights).reduce((a,b)=>a+b,0)-1)<1e-10&&Number.isSafeInteger(repeats)&&repeats>0;
     if(!timed.length||!weightsValid||groups.some(g=>!number(g.assigned)||g.assigned<1)){
@@ -68,10 +70,10 @@
         path+=` H ${x(o.elapsedMs)} V ${y(Math.min(1,mass))}`;
       }
       path+=` H ${x(maxTime)}`;
-      svg.append(svgElement("path",{d:path,fill:"none",stroke:index?"#a7c7b0":"#c99774","stroke-width":3,"stroke-dasharray":index?"none":"6 4"}));
+      svg.append(svgElement("path",{d:path,fill:"none",stroke:g.system==="candidate"?"#a7c7b0":"#c99774","stroke-width":3,"stroke-dasharray":g.system==="candidate"?"none":"6 4"}));
     }
-    container.append(svg,element("p",`Dashed copper: baseline. Solid jade: candidate. Fixed weights: ${Object.entries(weights).map(([k,v])=>`${k} ${Math.round(v*100)}%`).join(" · ")}. All assignments remain in the denominator.`,"chart-legend"));
-    container.append(element("p","Point estimates only. This small smoke suite does not establish a performance gain.","muted"));
+    container.append(svg,element("p",`${systemsOf(r).map(s=>s==="baseline"?"Dashed copper: baseline.":"Solid jade: candidate.").join(" ")} Fixed weights: ${Object.entries(weights).map(([k,v])=>`${k} ${Math.round(v*100)}%`).join(" · ")}. All assignments remain in the denominator.`,"chart-legend"));
+    container.append(element("p","Point estimates only. This exploratory experiment does not establish a performance gain.","muted"));
   }
   function renderRows(r={}){
     const body=nodes["task-list"];if(!body)return;
@@ -135,7 +137,7 @@
     if(nodes["mode-badge"])nodes["mode-badge"].dataset.mode=text(r.mode);
     put("completion-badge",r.complete===true?"Complete":r.currentTask?"Running · measured so far":"Measured so far · incomplete");
     put("provenance",fake?"Scripted adapter test. These measurements exercise the harness; they are not AI model performance.":r.mode==="real"?"Real model run. Interpret results with the recorded hardware and run configuration.":"This report does not declare whether a real model was used.");
-    const provenance=element("details");provenance.append(element("summary","Model, source and measurement conditions"),element("pre",json({modelProfile:r.modelProfile,sourceCommit:r.sourceCommit,sources:r.sources,conditions:r.conditions}),"code-block"));nodes.provenance?.append(provenance);
+    const provenance=element("details");provenance.append(element("summary","Model, source and measurement conditions"),element("pre",json({suite:r.suite,arm:r.arm,systems:r.systems,manifest:r.manifest,evaluatorProvenance:r.evaluatorProvenance,decision:r.decision,modelProfile:r.modelProfile,sourceCommit:r.sourceCommit,sources:r.sources,conditions:r.conditions}),"code-block"));nodes.provenance?.append(provenance);
     nodes.hardware?.replaceChildren(element("pre",json(r.hardware??"Hardware not reported"),"code-block"));
     if(state.receivedAt){put("updated-at",`Received ${state.receivedAt.toLocaleTimeString()}`);nodes["updated-at"]?.setAttribute("datetime",state.receivedAt.toISOString());}
     renderSummary(r);renderComparison(r);renderRows(r);renderInspector(r);renderLive();

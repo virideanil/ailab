@@ -17,7 +17,7 @@ for(const experiment of ["context","native","drafting"]){
  }
  const runs=reports.flatMap(r=>r.runs),score=scoreExperiment(design,runs);
  const complete=reports.length===expectedShards&&reports.every(r=>r.complete);
- const aggregate={...first,shard:null,design,runs,outcomes:reports.flatMap(r=>r.outcomes),score,complete,
+ const aggregate={...first,currentTask:null,shardStatus:reports.map(r=>({shard:r.shard,complete:r.complete,lastActiveTask:r.currentTask})),shard:null,design,runs,outcomes:reports.flatMap(r=>r.outcomes),score,complete,
  hardware:reports.map(r=>({shard:r.shard,...r.hardware})),conditions:{...first.conditions,aggregation:"Each baseline/candidate pair runs on the same shard host. Different shards may use different CPUs."},
  decision:{promoted:false,reason:!complete?"Missing or invalid evidence":score.comparison.qualityDelta<0?"Observed quality regression":"Exploratory point estimates require independent confirmation; no automatic promotion"},finishedAt:new Date().toISOString()};
  await writeFile("artifacts/"+experiment+".json",JSON.stringify(aggregate,null,2));

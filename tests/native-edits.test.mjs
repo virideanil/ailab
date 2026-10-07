@@ -72,3 +72,11 @@ test("frozen native pilot proposals update every declared caller",async()=>{
   assert.deepEqual(result.changes.map(c=>c.path).sort(),["src/helper.mjs","src/report.mjs","src/task.mjs"],fixture.task.id);
  }
 });
+
+test("unchanged JS rest forwarding permits a semantic rename",()=>{
+ const output=contents(rename({"src/main.mjs":"export function oldName(value){return value;}","src/use.mjs":'import {oldName} from "./main.mjs";export function use(...args){return oldName(...args);}'}));
+ assert.equal(output["src/use.mjs"],'import {newName} from "./main.mjs";export function use(...args){return newName(...args);}');
+});
+test("rest forwarding never bypasses lexical capture checks",()=>{
+ refused(()=>rename({"src/main.mjs":"export function oldName(value){return value;}","src/use.mjs":'import {oldName} from "./main.mjs";export function use(newName,...args){return oldName(...args);}'}));
+});

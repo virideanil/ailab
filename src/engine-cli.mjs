@@ -36,7 +36,7 @@ const sources={};
 for(const p of ["src/engine.mjs","src/workspace.mjs","src/proposal-adapter.mjs","src/task-contract.mjs","src/engine-cli.mjs","src/scoring.mjs","fixtures/smoke.mjs",...(manifest?["fixtures/pilot.mjs","src/behavioral-evaluator.mjs"]:[]),...(v.arm==="native"?["src/native-edits.mjs"]:[])])
  sources[p]=sha(await readFile(new URL("../"+p,import.meta.url),"utf8"));
 const sampling=v.profile==="qwen3-4b"?{temperature:0.7,top_p:0.8,top_k:20,min_p:0,presence_penalty:1.5,chat_template_kwargs:{enable_thinking:false}}:{temperature:0};
-const taskSetVersion=manifest?.sha256??sources["fixtures/smoke.mjs"],deadlineMs=30000;
+const taskSetVersion=manifest?sha({manifest:manifest.sha256,fixtureSource:sources["fixtures/pilot.mjs"]}):sources["fixtures/smoke.mjs"],deadlineMs=30000;
 const modelProfile={mode:v.fake?"fake":"real",protocol:"host-proposals-v1",profile:v.profile,model:v.profile,maxTokens:512,seed:42,sampling,cachePrompt:"within-task",deadlineMs};
 const systemVersions=Object.fromEntries(["baseline","candidate"].map(system=>[system,sha({sources,modelProfile,system,arm:v.arm})]));
 const evaluatorVersion=manifest?sha({source:sources["src/behavioral-evaluator.mjs"],image:evaluator.provenance,manifest:taskSetVersion}):taskSetVersion;
@@ -45,13 +45,13 @@ const paired=v.arm==="context"||v.arm==="native";
 const systems=paired?["baseline","candidate"]:[v["system-label"]||"baseline"];
 const report={schemaVersion:1,purpose:"Exploratory engine pilot; no qualified speed claim",mode:modelProfile.mode,performanceClaimEligible:false,
  startedAt:new Date().toISOString(),sourceCommit:process.env.GITHUB_SHA??null,sources,modelProfile,design,manifest,
- suite:v.suite,arm:v.arm,shard,shards,evaluatorProvenance:evaluator?.provenance,
+ suite:v.suite,arm:v.arm,systems,shard,shards,evaluatorProvenance:evaluator?.provenance,
  hardware:{platform:os.platform(),arch:os.arch(),release:os.release(),cpu:os.cpus()[0]?.model,logicalCpus:os.availableParallelism(),totalMemoryBytes:os.totalmem(),node:process.version},
  conditions:{prefillCache:"off on first request of every task; on subsequently",warmup:"one request excluded",order:paired?"counterbalanced by task/repeat":"single arm block",baseline:"sequential observed-file proposals",candidate:v.arm,privateGradingTime:"excluded",preparationTime:"included",hostContract:"identical across arms",memory:"Node RSS per outcome; owned server peak RSS in provenance"},
  runs:[],outcomes:[],currentTask:null};
 await mkdir(dirname(v.out),{recursive:true});let queue=Promise.resolve();
 function save(){
- if(paired)report.score=scoreExperiment(design,report.runs);
+ report.score=scoreExperiment(design,report.runs);
  report.updatedAt=new Date().toISOString();
  const content=JSON.stringify(report,null,2)+"\n";
  queue=queue.then(async()=>{await writeFile(v.out+".tmp",content);await rename(v.out+".tmp",v.out);});return queue;

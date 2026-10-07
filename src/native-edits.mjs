@@ -3,12 +3,17 @@ import {posix} from "node:path";
 const ROOT="/__kovan__/",LIB=ROOT+"__native_intrinsics__.d.ts";
 const EXTENSIONS=new Map([[".mjs",ts.Extension.Mjs],[".js",ts.Extension.Js],[".mts",ts.Extension.Mts],[".ts",ts.Extension.Ts]]);
 const INTRINSICS=[
+ "interface Symbol {}",
+ "interface SymbolConstructor {readonly iterator:unique symbol;}","declare const Symbol:SymbolConstructor;",
+ "interface IteratorResult<T> {done?:boolean;value:T;}",
+ "interface Iterator<T> {next(...args:[]|[unknown]):IteratorResult<T>;}",
+ "interface Iterable<T> {[Symbol.iterator]():Iterator<T>;}",
  "interface Object {}","interface Function {}","interface CallableFunction extends Function {}","interface NewableFunction extends Function {}",
  "interface IArguments {length:number;[n:number]:any;callee:Function;}",
  "interface String {readonly length:number;trim():string;toLowerCase():string;replace(search:string|RegExp,replacement:string):string;split(separator:string):string[];}",
  "interface Number {}","interface Boolean {}","interface RegExp {}",
- "interface Array<T> {length:number;[n:number]:T;slice(start?:number,end?:number):T[];map<U>(fn:(value:T,index:number,array:T[])=>U):U[];filter(fn:(value:T,index:number,array:T[])=>unknown):T[];sort(compare?:(a:T,b:T)=>number):this;join(separator?:string):string;}",
- "interface ReadonlyArray<T> {readonly length:number;readonly [n:number]:T;slice(start?:number,end?:number):T[];map<U>(fn:(value:T,index:number,array:readonly T[])=>U):U[];filter(fn:(value:T,index:number,array:readonly T[])=>unknown):T[];join(separator?:string):string;}",
+ "interface Array<T> extends Iterable<T> {length:number;[n:number]:T;slice(start?:number,end?:number):T[];map<U>(fn:(value:T,index:number,array:T[])=>U):U[];filter(fn:(value:T,index:number,array:T[])=>unknown):T[];sort(compare?:(a:T,b:T)=>number):this;join(separator?:string):string;}",
+ "interface ReadonlyArray<T> extends Iterable<T> {readonly length:number;readonly [n:number]:T;slice(start?:number,end?:number):T[];map<U>(fn:(value:T,index:number,array:readonly T[])=>U):U[];filter(fn:(value:T,index:number,array:readonly T[])=>unknown):T[];join(separator?:string):string;}",
  "type PropertyKey=string|number|symbol;","declare const String:{(value?:any):string};",
  "declare const Object:{hasOwn(value:object,key:PropertyKey):boolean};","declare const Math:{min(...values:number[]):number};"
 ].join("\n");
@@ -77,10 +82,49 @@ function project(sourceFiles){
  };
  return ts.createLanguageService(host,ts.createDocumentRegistry(true,ROOT.slice(0,-1)));
 }
-function diagnostics(service,files){
- const all=service.getCompilerOptionsDiagnostics();
- for(const path of [...files.keys(),LIB])all.push(...service.getSyntacticDiagnostics(path),...service.getSemanticDiagnostics(path));
- if(all.length){const first=all[0];refuse("TS"+first.code+": "+ts.flattenDiagnosticMessageText(first.messageText," ").slice(0,240));}
+function failDiagnostic(d){refuse("TS"+d.code+": "+ts.flattenDiagnosticMessageText(d.messageText," ").slice(0,240));}
+function restDiagnostic(d){
+ if(d.code!==2556||!d.file||scriptKind(d.file.fileName)!==ts.ScriptKind.JS||!Number.isSafeInteger(d.start)||!Number.isSafeInteger(d.length)||d.start<0||d.length<1)return null;
+ let spread;
+ function visit(node){
+  if(node.pos>d.start||node.end<d.start+d.length)return;
+  if(ts.isSpreadElement(node)&&(ts.isCallExpression(node.parent)||ts.isNewExpression(node.parent)))spread=node;
+  ts.forEachChild(node,visit);
+ }
+ visit(d.file);if(!spread)return null;
+ const spreadStart=spread.getStart(d.file),spreadLength=spread.end-spreadStart;
+ if(d.start<spreadStart||d.start+d.length>spread.end)return null;
+ return {fileName:d.file.fileName,code:d.code,category:d.category,message:ts.flattenDiagnosticMessageText(d.messageText," "),start:d.start,length:d.length,text:d.file.text.slice(d.start,d.start+d.length),spreadStart,spreadLength,spreadText:d.file.text.slice(spreadStart,spread.end)};
+}
+function diagnosticKey(d){return JSON.stringify([d.fileName,d.code,d.category,d.message,d.start,d.length,d.text,d.spreadStart,d.spreadLength,d.spreadText]);}
+function mappedUntouchedSpan(start,length,spans){
+ let mapped=start;
+ for(const span of spans){
+  if(span.start+span.length<=start)mapped+=span.replacement.length-span.length;
+  else if(span.start<start+length)refuse("rename overlaps an existing unsupported rest call");
+ }
+ return mapped;
+}
+// Permit only unchanged preexisting JS rest-forwarding diagnostics; syntax and other semantics must pass.
+function diagnostics(service,files,baseline=null,edits=new Map()){
+ const fatal=[...service.getCompilerOptionsDiagnostics()],semantic=[];
+ for(const path of [...files.keys(),LIB]){fatal.push(...service.getSyntacticDiagnostics(path));semantic.push(...service.getSemanticDiagnostics(path));}
+ if(fatal.length)failDiagnostic(fatal[0]);
+ const current=semantic.map(d=>{const entry=restDiagnostic(d);if(!entry)failDiagnostic(d);return entry;});
+ if(baseline===null)return current;
+ const expected=new Map();
+ for(const original of baseline){
+  const spans=edits.get(original.fileName)??[];
+  const mapped={...original,start:mappedUntouchedSpan(original.start,original.length,spans),spreadStart:mappedUntouchedSpan(original.spreadStart,original.spreadLength,spans)};
+  const key=diagnosticKey(mapped);expected.set(key,(expected.get(key)??0)+1);
+ }
+ for(const entry of current){
+  const key=diagnosticKey(entry),count=expected.get(key)??0;
+  if(!count)refuse("rename introduced or changed a semantic diagnostic");
+  if(count===1)expected.delete(key);else expected.set(key,count-1);
+ }
+ if(expected.size)refuse("rename changed an existing unsupported rest-call diagnostic");
+ return current;
 }
 function binding(sourceFile,name){
  const found=[];
@@ -115,7 +159,7 @@ export function proposeRename(snapshot,options){
  const files=prepare(snapshot),fileName=ROOT+path;if(!files.has(fileName))refuse("requested source file is unavailable");
  const service=project(files);
  try{
-  diagnostics(service,files);
+  const diagnosticBaseline=diagnostics(service,files);
   const program=service.getProgram(),sourceFile=program?.getSourceFile(fileName);if(!sourceFile)refuse("source unavailable");
   const selected=binding(sourceFile,oldName),position=selected.getStart(sourceFile);
   const info=service.getRenameInfo(fileName,position,PREFERENCES);if(!info.canRename||info.fileToRename)refuse("binding cannot be renamed");
@@ -140,7 +184,7 @@ export function proposeRename(snapshot,options){
    if(Buffer.byteLength(content)>65536)refuse("replacement byte limit");
    updated.set(target,content);changes.push({path:target.slice(ROOT.length),content});
   }
-  const after=project(updated);try{diagnostics(after,updated);}finally{after.dispose();}
+  const after=project(updated);try{diagnostics(after,updated,diagnosticBaseline,edits);}finally{after.dispose();}
   return {changes,locations:seen.size};
  }catch(error){if(error?.code==="NATIVE_RENAME_REFUSED")throw error;refuse("TypeScript could not produce a safe proposal");}finally{service.dispose();}
 }
