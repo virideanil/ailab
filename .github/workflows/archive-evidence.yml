@@ -1,0 +1,73 @@
+name: Preserve experiment evidence
+on:
+  push:
+    branches: ["codex/evidence-archive"]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - experiment: "001"
+            run: "37692515198"
+            sha: "5d54d925f8702e978a34b297fe8ff805d1a84d82"
+          - experiment: "002"
+            run: "37693107601"
+            sha: "cc7aaa46c4cab6d9f6ab812a26f2d978ef7fb8b4"
+          - experiment: "003"
+            run: "37694118751"
+            sha: "2d8844d20f3bdd1871315fda14d68f289a35fdce"
+    steps:
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - name: Verify source run and wait for completion
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ matrix.run }}
+          EXPECTED_SHA: ${{ matrix.sha }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { setTimeout as delay } from "node:timers/promises";
+          const deadline=Date.now()+9*60_000;
+          for(;;){
+            const response=await fetch("https://api.github.com/repos/virideanil/ailab/actions/runs/"+process.env.RUN_ID,{
+              headers:{Authorization:"Bearer "+process.env.GH_TOKEN,Accept:"application/vnd.github+json"},
+              signal:AbortSignal.timeout(15000)
+            });
+            if(!response.ok)throw new Error("Run lookup HTTP "+response.status);
+            const run=await response.json();
+            if(run.head_sha!==process.env.EXPECTED_SHA)throw new Error("Unexpected source commit");
+            if(run.status==="completed"){
+              console.log("ARCHIVE_SOURCE:"+JSON.stringify({run:run.id,sha:run.head_sha,conclusion:run.conclusion}));
+              break;
+            }
+            if(Date.now()>deadline)throw new Error("Source run did not complete");
+            await delay(20000);
+          }
+          NODE
+      - uses: actions/download-artifact@v4
+        with:
+          name: real-gguf-results
+          path: evidence
+          github-token: ${{ github.token }}
+          repository: virideanil/ailab
+          run-id: ${{ matrix.run }}
+      - name: Emit verified evidence for permanent repository capture
+        env:
+          EXPECTED_SHA: ${{ matrix.sha }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile } from "node:fs/promises";
+          for(const name of ["real.json","real-provenance.json"]){
+            const data=JSON.parse(await readFile("evidence/"+name,"utf8"));
+            if(name==="real.json"&&(data.sourceCommit!==process.env.EXPECTED_SHA||data.mode!=="real"))throw new Error("Report identity mismatch");
+            console.log("EVIDENCE_JSON:"+JSON.stringify({name,data}));
+          }
+          console.log("EVIDENCE_TEXT:"+JSON.stringify({name:"llama-server.log",content:await readFile("evidence/llama-server.log","utf8")}));
+          NODE
