@@ -87,11 +87,30 @@ import { createHash } from "node:crypto";
       const result=output(Object.freeze({path,content,version}));
       files.set(path,next);total=nextTotal;return result;
     }
+    function applyChanges(changes){
+      if(!Array.isArray(changes)||!changes.length)fail("INVALID_INPUT","nonempty changes required");
+      const pending=new Map();let nextTotal=total;
+      for(const change of changes){
+        const args=Object.fromEntries(entries(change,"change"));
+        if(Object.keys(args).sort().join(",")!=="content,expectedVersion,path")fail("INVALID_INPUT","change fields");
+        const {path,f}=get(args.path);
+        if(pending.has(path))fail("DUPLICATE_PATH",path);
+        if(args.expectedVersion!==f.version)fail("STALE_VERSION","read again");
+        if(args.content===f.content)fail("NO_CHANGE",path);
+        if(!Number.isSafeInteger(f.version+1))fail("VERSION_LIMIT","exhausted");
+        const next=file(args.content,f.version+1);pending.set(path,next);
+        nextTotal+=next.bytes-f.bytes;
+      }
+      if(!Number.isSafeInteger(nextTotal)||nextTotal>limits.maxTotalBytes)fail("TOTAL_LIMIT","changes too large");
+      const result=output(Object.freeze([...pending].map(([path,f])=>Object.freeze({path,content:f.content,version:f.version}))));
+      for(const [path,f] of pending)files.set(path,f);
+      total=nextTotal;return result;
+    }
     function snapshot(){return output(Object.freeze(Object.fromEntries(paths().map(p=>[p,files.get(p).content]))));}
     function manifest(){return output(Object.freeze(Object.fromEntries(paths().map(p=>{
       const{version,sha256,bytes}=files.get(p);return[p,Object.freeze({version,sha256,bytes})];
     }))));}
-    return Object.freeze({list,read,search,replaceText,snapshot,manifest});
+    return Object.freeze({list,read,search,replaceText,applyChanges,snapshot,manifest});
   }
 
 export { createWorkspace };

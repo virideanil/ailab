@@ -1,14 +1,6 @@
-name: Kovan engine validation
+name: Historical protocol reproduction
 on:
-  push:
-    paths:
-      - "src/**"
-      - "public/**"
-      - "fixtures/**"
-      - "scripts/**"
-      - "tests/**"
-      - "package.json"
-      - ".github/workflows/**"
+  workflow_dispatch:
 permissions:
   contents: read
 concurrency:
@@ -29,7 +21,6 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: "24"
-      - run: npm install --ignore-scripts --no-audit --no-fund
       - name: Unit and adversarial tests
         run: npm test
       - name: Explicit fake end-to-end smoke
@@ -40,6 +31,25 @@ jobs:
           name: harness-${{ matrix.os }}
           path: artifacts
           retention-days: 14
+  gguf:
+    needs: unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - name: Real pinned CPU GGUF experiment
+        run: npm run test:gguf -- --profile coder-1.5b
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: real-gguf-results
+          path: artifacts
+          retention-days: 30
   browser:
     needs: unit
     runs-on: ubuntu-latest
@@ -66,7 +76,7 @@ jobs:
           path: artifacts
           retention-days: 30
   package:
-    needs: [unit, browser]
+    needs: [unit, gguf, browser]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

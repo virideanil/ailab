@@ -11,5 +11,8 @@
     "test:smoke": "node src/cli.mjs --fake --out artifacts/fake.json",
     "test:gguf": "node scripts/gguf-smoke.mjs",
     "dashboard": "node src/dashboard.mjs"
+  },
+  "dependencies": {
+    "typescript": "5.9.3"
   }
 }
