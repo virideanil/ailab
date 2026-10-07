@@ -33,7 +33,7 @@ const sources = Object.fromEntries(await Promise.all(sourceFiles.map(async p =>
 const taskSetVersion = sources["fixtures/smoke.mjs"];
 const mode = values.fake ? "fake" : "real";
 const modelProfile = {
-  mode, model: values.model, maxTokens: 256, seed: 42, temperature: 0,
+  mode, protocol: "action-loop-v2", model: values.model, maxTokens: 256, seed: 42, temperature: 0,
   cachePrompt: false, deadlineMs, maxTurns: 12, sourceHashes: sources,
 };
 const systemVersions = Object.fromEntries(["baseline", "candidate"].map(system =>
