@@ -57,3 +57,22 @@ test("read-only evidence refuses mutations and keeps its initial data",async()=>
   const out=await runEngineTask({task:t,adapter:adapter([{type:"read_file",path:"facts.txt"},{type:"write_file",path:"facts.txt",content:"fiction"},{type:"finish",answer:"UNKNOWN"}]),evaluate:({snapshot,answer})=>({accepted:snapshot["facts.txt"]==="unavailable"&&answer==="UNKNOWN",checks:[]})});
   assert.equal(out.accepted,true);assert.equal(out.edits,0);
 });
+
+test("duplicate applied replacement is diagnosed without a second version change",async()=>{
+ const out=await runEngineTask({task:{...task,files:{"a.mjs":"alpha"}},adapter:adapter([
+  {type:"read_file",path:"a.mjs"},
+  {type:"replace_text",path:"a.mjs",oldText:"alpha",newText:"beta"},
+  {type:"replace_text",path:"a.mjs",oldText:"alpha",newText:"beta"},
+  {type:"finish",answer:"done"}]),evaluate:({snapshot})=>({accepted:snapshot["a.mjs"]==="beta",checks:[]})});
+ assert.equal(out.accepted,true);assert.equal(out.edits,1);assert.equal(out.manifest["a.mjs"].version,2);
+ assert.ok(out.events.some(e=>e.reply?.error?.message.includes("ALREADY_APPLIED")));
+});
+test("same transformation remains usable after a distinct later revision",async()=>{
+ const out=await runEngineTask({task:{...task,maxTurns:6,files:{"a.mjs":"alpha"}},adapter:adapter([
+  {type:"read_file",path:"a.mjs"},
+  {type:"replace_text",path:"a.mjs",oldText:"alpha",newText:"beta"},
+  {type:"write_file",path:"a.mjs",content:"alpha!"},
+  {type:"replace_text",path:"a.mjs",oldText:"alpha",newText:"beta"},
+  {type:"finish",answer:"done"}]),evaluate:({snapshot})=>({accepted:snapshot["a.mjs"]==="beta!",checks:[]})});
+ assert.equal(out.accepted,true);assert.equal(out.manifest["a.mjs"].version,4);
+});

@@ -1,0 +1,3372 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Exploratory engine pilot; no qualified speed claim",
+  "mode": "real",
+  "performanceClaimEligible": false,
+  "startedAt": "2026-10-07T23:13:36.605Z",
+  "sourceCommit": "71a08c5761f65cc64a8e32da255f7d9eac0a1610",
+  "sources": {
+    "src/engine.mjs": "0fabc868bb4bb6d3489540af2f4bb617cc5bc793d78deaf22c48378af66627d6",
+    "src/workspace.mjs": "a12fc71ec8f64a9631bcbbe52d261c3311bccea0dbd9f5d1ef751c53ed59f2c0",
+    "src/proposal-adapter.mjs": "366c6984d6d9874af8c75cbc0f96d43143fd2efb283a3093a88731129e5fc8db",
+    "src/task-contract.mjs": "f5e555226608c92b0b9dcf271a3822532ccd9c594ef51b868b34af4860701405",
+    "src/engine-cli.mjs": "fcc1f69f46fd744072b4293fb6810b37e244db5d335bbc241ea33f324fb66856",
+    "src/scoring.mjs": "9b3bd31da05f818ff55f62b611d2730a81ca3efaba65f3de633917e11837573b",
+    "fixtures/smoke.mjs": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177"
+  },
+  "modelProfile": {
+    "mode": "real",
+    "protocol": "host-proposals-v1",
+    "profile": "coder-3b-research",
+    "model": "coder-3b-research",
+    "maxTokens": 512,
+    "seed": 42,
+    "sampling": {
+      "temperature": 0
+    },
+    "cachePrompt": "within-task",
+    "deadlineMs": 30000
+  },
+  "design": {
+    "tasks": [
+      {
+        "id": "smoke-ttl-boundary",
+        "version": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+        "clusterId": "smoke-ttl-boundary",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-preserve-zero",
+        "version": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+        "clusterId": "smoke-preserve-zero",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-empty-guard",
+        "version": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+        "clusterId": "smoke-empty-guard",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-two-file-rename",
+        "version": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+        "clusterId": "smoke-two-file-rename",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-config-change",
+        "version": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+        "clusterId": "smoke-config-change",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-copy-before-sort",
+        "version": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+        "clusterId": "smoke-copy-before-sort",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-grounded-answer",
+        "version": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+        "clusterId": "smoke-grounded-answer",
+        "stratum": "general",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-missing-information",
+        "version": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+        "clusterId": "smoke-missing-information",
+        "stratum": "general",
+        "deadlineMs": 30000
+      }
+    ],
+    "strataWeights": {
+      "coding": 0.8,
+      "general": 0.2
+    },
+    "repeats": 1,
+    "systemVersions": {
+      "baseline": "bbc95bc3be8da1af0b16d493ad0373728086e79350fc15e74f9bfa62e416504d",
+      "candidate": "c81eacded55fa65b1ae2c490c42114ee35180d3d3de69f7544755ffc381c95b1"
+    },
+    "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+    "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177"
+  },
+  "suite": "smoke",
+  "arm": "baseline",
+  "systems": [
+    "baseline"
+  ],
+  "shard": 0,
+  "shards": 1,
+  "hardware": {
+    "platform": "linux",
+    "arch": "x64",
+    "release": "6.17.0-1022-azure",
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "logicalCpus": 4,
+    "totalMemoryBytes": 16766414848,
+    "node": "v24.21.0"
+  },
+  "conditions": {
+    "prefillCache": "off on first request of every task; on subsequently",
+    "warmup": "one request excluded",
+    "order": "single arm block",
+    "baseline": "sequential observed-file proposals",
+    "candidate": "baseline",
+    "privateGradingTime": "excluded",
+    "preparationTime": "included",
+    "hostContract": "identical across arms",
+    "memory": "Node RSS per outcome; owned server peak RSS in provenance"
+  },
+  "runs": [
+    {
+      "system": "baseline",
+      "systemVersion": "bbc95bc3be8da1af0b16d493ad0373728086e79350fc15e74f9bfa62e416504d",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-ttl-boundary",
+      "taskVersion": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 23086.200633999997
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "bbc95bc3be8da1af0b16d493ad0373728086e79350fc15e74f9bfa62e416504d",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-preserve-zero",
+      "taskVersion": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 24620.280878
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "bbc95bc3be8da1af0b16d493ad0373728086e79350fc15e74f9bfa62e416504d",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-empty-guard",
+      "taskVersion": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 13675.158353000006
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "bbc95bc3be8da1af0b16d493ad0373728086e79350fc15e74f9bfa62e416504d",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-two-file-rename",
+      "taskVersion": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 22620.379589000004
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "bbc95bc3be8da1af0b16d493ad0373728086e79350fc15e74f9bfa62e416504d",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-config-change",
+      "taskVersion": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": true,
+      "elapsedMs": 12555.91006200001
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "bbc95bc3be8da1af0b16d493ad0373728086e79350fc15e74f9bfa62e416504d",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-copy-before-sort",
+      "taskVersion": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": true,
+      "elapsedMs": 15094.793277000004
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "bbc95bc3be8da1af0b16d493ad0373728086e79350fc15e74f9bfa62e416504d",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-grounded-answer",
+      "taskVersion": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": true,
+      "elapsedMs": 6175.7536760000075
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "bbc95bc3be8da1af0b16d493ad0373728086e79350fc15e74f9bfa62e416504d",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-missing-information",
+      "taskVersion": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": true,
+      "elapsedMs": 5530.788363
+    }
+  ],
+  "outcomes": [
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-ttl-boundary",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 23086.200633999997,
+      "status": "max_turns",
+      "answer": "",
+      "rawAnswer": "done",
+      "edits": 0,
+      "snapshot": {
+        "src/cache.js": "export function expired(entry, now) {\n  return now > entry.expiresAt;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/cache.js": {
+          "version": 1,
+          "sha256": "b9fbb6f287a7badafff908b424dc933677740cf48a19eda5bb3736459814a8c1",
+          "bytes": 72
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.544079000000238,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 5520.574226000001,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/cache.js",
+            "oldText": "return now > entry.expiresAt;",
+            "newText": "return now >= entry.expiresAt;"
+          },
+          "usage": {
+            "prompt_tokens": 251,
+            "completion_tokens": 51,
+            "total_tokens": 302,
+            "cache_n": 0,
+            "prompt_n": 251,
+            "prompt_ms": 2979.445,
+            "predicted_n": 51,
+            "predicted_ms": 2533.357,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 5520.895222000001,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: src/cache.js"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 5521.077073,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 7335.639777,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 359,
+            "completion_tokens": 10,
+            "total_tokens": 369,
+            "cache_n": 251,
+            "prompt_n": 108,
+            "prompt_ms": 1315.421,
+            "predicted_n": 10,
+            "predicted_ms": 486.098,
+            "cached_tokens": 251
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 7336.916037000001,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 7337.358470000001,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 8817.748607000001,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 447,
+            "completion_tokens": 10,
+            "total_tokens": 457,
+            "cache_n": 368,
+            "prompt_n": 79,
+            "prompt_ms": 1029.272,
+            "predicted_n": 10,
+            "predicted_ms": 442.649,
+            "cached_tokens": 368
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 8817.972063000001,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 8818.066595,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 10331.224071,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 535,
+            "completion_tokens": 10,
+            "total_tokens": 545,
+            "cache_n": 456,
+            "prompt_n": 79,
+            "prompt_ms": 1027.908,
+            "predicted_n": 10,
+            "predicted_ms": 477.509,
+            "cached_tokens": 456
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 10331.496231000001,
+          "type": "tool_result",
+          "turn": 4,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 12,
+          "atMs": 10331.640378,
+          "type": "model_request",
+          "turn": 5
+        },
+        {
+          "seq": 13,
+          "atMs": 11873.208194,
+          "type": "model_response",
+          "turn": 5,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 623,
+            "completion_tokens": 10,
+            "total_tokens": 633,
+            "cache_n": 544,
+            "prompt_n": 79,
+            "prompt_ms": 1078.794,
+            "predicted_n": 10,
+            "predicted_ms": 454.584,
+            "cached_tokens": 544
+          }
+        },
+        {
+          "seq": 14,
+          "atMs": 11873.449548,
+          "type": "tool_result",
+          "turn": 5,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 15,
+          "atMs": 11873.560895,
+          "type": "model_request",
+          "turn": 6
+        },
+        {
+          "seq": 16,
+          "atMs": 13391.107144,
+          "type": "model_response",
+          "turn": 6,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 711,
+            "completion_tokens": 10,
+            "total_tokens": 721,
+            "cache_n": 632,
+            "prompt_n": 79,
+            "prompt_ms": 1053.862,
+            "predicted_n": 10,
+            "predicted_ms": 456.074,
+            "cached_tokens": 632
+          }
+        },
+        {
+          "seq": 17,
+          "atMs": 13391.32228,
+          "type": "tool_result",
+          "turn": 6,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 18,
+          "atMs": 13391.403537,
+          "type": "model_request",
+          "turn": 7
+        },
+        {
+          "seq": 19,
+          "atMs": 14963.331019,
+          "type": "model_response",
+          "turn": 7,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 799,
+            "completion_tokens": 10,
+            "total_tokens": 809,
+            "cache_n": 720,
+            "prompt_n": 79,
+            "prompt_ms": 1093.01,
+            "predicted_n": 10,
+            "predicted_ms": 470.332,
+            "cached_tokens": 720
+          }
+        },
+        {
+          "seq": 20,
+          "atMs": 14963.541196,
+          "type": "tool_result",
+          "turn": 7,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 21,
+          "atMs": 14963.603941,
+          "type": "model_request",
+          "turn": 8
+        },
+        {
+          "seq": 22,
+          "atMs": 16524.171956,
+          "type": "model_response",
+          "turn": 8,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 887,
+            "completion_tokens": 10,
+            "total_tokens": 897,
+            "cache_n": 808,
+            "prompt_n": 79,
+            "prompt_ms": 1079.649,
+            "predicted_n": 10,
+            "predicted_ms": 471.74,
+            "cached_tokens": 808
+          }
+        },
+        {
+          "seq": 23,
+          "atMs": 16524.381731999998,
+          "type": "tool_result",
+          "turn": 8,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 24,
+          "atMs": 16524.554343,
+          "type": "model_request",
+          "turn": 9
+        },
+        {
+          "seq": 25,
+          "atMs": 18099.753461,
+          "type": "model_response",
+          "turn": 9,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 975,
+            "completion_tokens": 10,
+            "total_tokens": 985,
+            "cache_n": 896,
+            "prompt_n": 79,
+            "prompt_ms": 1092.569,
+            "predicted_n": 10,
+            "predicted_ms": 473.329,
+            "cached_tokens": 896
+          }
+        },
+        {
+          "seq": 26,
+          "atMs": 18099.968354999997,
+          "type": "tool_result",
+          "turn": 9,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 27,
+          "atMs": 18100.035827,
+          "type": "model_request",
+          "turn": 10
+        },
+        {
+          "seq": 28,
+          "atMs": 19791.259304,
+          "type": "model_response",
+          "turn": 10,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 1063,
+            "completion_tokens": 10,
+            "total_tokens": 1073,
+            "cache_n": 984,
+            "prompt_n": 79,
+            "prompt_ms": 1123.832,
+            "predicted_n": 10,
+            "predicted_ms": 559.259,
+            "cached_tokens": 984
+          }
+        },
+        {
+          "seq": 29,
+          "atMs": 19791.478393999998,
+          "type": "tool_result",
+          "turn": 10,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 30,
+          "atMs": 19791.6939,
+          "type": "model_request",
+          "turn": 11
+        },
+        {
+          "seq": 31,
+          "atMs": 21442.17921,
+          "type": "model_response",
+          "turn": 11,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 1151,
+            "completion_tokens": 10,
+            "total_tokens": 1161,
+            "cache_n": 1072,
+            "prompt_n": 79,
+            "prompt_ms": 1163.336,
+            "predicted_n": 10,
+            "predicted_ms": 477.876,
+            "cached_tokens": 1072
+          }
+        },
+        {
+          "seq": 32,
+          "atMs": 21442.400324,
+          "type": "tool_result",
+          "turn": 11,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 33,
+          "atMs": 21442.464079999998,
+          "type": "model_request",
+          "turn": 12
+        },
+        {
+          "seq": 34,
+          "atMs": 23085.530131,
+          "type": "model_response",
+          "turn": 12,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 1239,
+            "completion_tokens": 10,
+            "total_tokens": 1249,
+            "cache_n": 1160,
+            "prompt_n": 79,
+            "prompt_ms": 1155.769,
+            "predicted_n": 10,
+            "predicted_ms": 478.15,
+            "cached_tokens": 1160
+          }
+        },
+        {
+          "seq": 35,
+          "atMs": 23085.769913,
+          "type": "tool_result",
+          "turn": 12,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 36,
+          "atMs": 23086.055043999997,
+          "type": "submission",
+          "status": "max_turns",
+          "turns": 12,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 9040,
+        "completion_tokens": 161,
+        "total_tokens": 9201,
+        "cache_n": 7891,
+        "prompt_n": 1149,
+        "prompt_ms": 15192.867,
+        "predicted_n": 161,
+        "predicted_ms": 7780.956999999999,
+        "cached_tokens": 7891
+      },
+      "turns": 12,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "max_turns",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "nodeRssBytes": 81793024
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-preserve-zero",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 24620.280878,
+      "status": "max_turns",
+      "answer": "",
+      "rawAnswer": "UNKNOWN",
+      "edits": 0,
+      "snapshot": {
+        "src/options.js": "export function getLimit(options) {\n  const limit = options.limit || 10;\n  return limit;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/options.js": {
+          "version": 1,
+          "sha256": "f6585b8892dc82b7095c9e5c06235d6c4981211de271e5caf2396bc96959e0ad",
+          "bytes": 91
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.23947199999747681,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 5929.065406999998,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/options.js",
+            "oldText": "const limit = options.limit || 10;",
+            "newText": "const limit = options.limit ?? 10;"
+          },
+          "usage": {
+            "prompt_tokens": 259,
+            "completion_tokens": 57,
+            "total_tokens": 316,
+            "cache_n": 0,
+            "prompt_n": 259,
+            "prompt_ms": 3065.713,
+            "predicted_n": 57,
+            "predicted_ms": 2857.184,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 5929.360972999999,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: src/options.js"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 5929.4743949999975,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 7861.046588000001,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 381,
+            "completion_tokens": 10,
+            "total_tokens": 391,
+            "cache_n": 259,
+            "prompt_n": 122,
+            "prompt_ms": 1475.76,
+            "predicted_n": 10,
+            "predicted_ms": 448.322,
+            "cached_tokens": 259
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 7861.293679999999,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 7861.3871309999995,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 9422.059893000001,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 477,
+            "completion_tokens": 10,
+            "total_tokens": 487,
+            "cache_n": 390,
+            "prompt_n": 87,
+            "prompt_ms": 1108.25,
+            "predicted_n": 10,
+            "predicted_ms": 445.297,
+            "cached_tokens": 390
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 9422.385824,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 9422.609019,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 11021.715275999999,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 573,
+            "completion_tokens": 10,
+            "total_tokens": 583,
+            "cache_n": 486,
+            "prompt_n": 87,
+            "prompt_ms": 1129.976,
+            "predicted_n": 10,
+            "predicted_ms": 461.651,
+            "cached_tokens": 486
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 11022.051953999999,
+          "type": "tool_result",
+          "turn": 4,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 12,
+          "atMs": 11022.195421,
+          "type": "model_request",
+          "turn": 5
+        },
+        {
+          "seq": 13,
+          "atMs": 12646.893741999997,
+          "type": "model_response",
+          "turn": 5,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 669,
+            "completion_tokens": 10,
+            "total_tokens": 679,
+            "cache_n": 582,
+            "prompt_n": 87,
+            "prompt_ms": 1154.397,
+            "predicted_n": 10,
+            "predicted_ms": 462.994,
+            "cached_tokens": 582
+          }
+        },
+        {
+          "seq": 14,
+          "atMs": 12647.254697,
+          "type": "tool_result",
+          "turn": 5,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 15,
+          "atMs": 12647.398484000001,
+          "type": "model_request",
+          "turn": 6
+        },
+        {
+          "seq": 16,
+          "atMs": 14259.327387000001,
+          "type": "model_response",
+          "turn": 6,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 765,
+            "completion_tokens": 10,
+            "total_tokens": 775,
+            "cache_n": 678,
+            "prompt_n": 87,
+            "prompt_ms": 1132.746,
+            "predicted_n": 10,
+            "predicted_ms": 471.243,
+            "cached_tokens": 678
+          }
+        },
+        {
+          "seq": 17,
+          "atMs": 14259.576373,
+          "type": "tool_result",
+          "turn": 6,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 18,
+          "atMs": 14259.671495999999,
+          "type": "model_request",
+          "turn": 7
+        },
+        {
+          "seq": 19,
+          "atMs": 15965.369253,
+          "type": "model_response",
+          "turn": 7,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 861,
+            "completion_tokens": 10,
+            "total_tokens": 871,
+            "cache_n": 774,
+            "prompt_n": 87,
+            "prompt_ms": 1156.851,
+            "predicted_n": 10,
+            "predicted_ms": 540.412,
+            "cached_tokens": 774
+          }
+        },
+        {
+          "seq": 20,
+          "atMs": 15965.610556999996,
+          "type": "tool_result",
+          "turn": 7,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 21,
+          "atMs": 15965.696326000001,
+          "type": "model_request",
+          "turn": 8
+        },
+        {
+          "seq": 22,
+          "atMs": 17611.437059,
+          "type": "model_response",
+          "turn": 8,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 957,
+            "completion_tokens": 10,
+            "total_tokens": 967,
+            "cache_n": 870,
+            "prompt_n": 87,
+            "prompt_ms": 1170.159,
+            "predicted_n": 10,
+            "predicted_ms": 467.284,
+            "cached_tokens": 870
+          }
+        },
+        {
+          "seq": 23,
+          "atMs": 17611.803612,
+          "type": "tool_result",
+          "turn": 8,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 24,
+          "atMs": 17612.020168,
+          "type": "model_request",
+          "turn": 9
+        },
+        {
+          "seq": 25,
+          "atMs": 19309.565314999996,
+          "type": "model_response",
+          "turn": 9,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 1053,
+            "completion_tokens": 10,
+            "total_tokens": 1063,
+            "cache_n": 966,
+            "prompt_n": 87,
+            "prompt_ms": 1209.908,
+            "predicted_n": 10,
+            "predicted_ms": 479.073,
+            "cached_tokens": 966
+          }
+        },
+        {
+          "seq": 26,
+          "atMs": 19309.827028999996,
+          "type": "tool_result",
+          "turn": 9,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 27,
+          "atMs": 19309.92081,
+          "type": "model_request",
+          "turn": 10
+        },
+        {
+          "seq": 28,
+          "atMs": 21042.633992,
+          "type": "model_response",
+          "turn": 10,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 1149,
+            "completion_tokens": 10,
+            "total_tokens": 1159,
+            "cache_n": 1062,
+            "prompt_n": 87,
+            "prompt_ms": 1243.509,
+            "predicted_n": 10,
+            "predicted_ms": 480.24,
+            "cached_tokens": 1062
+          }
+        },
+        {
+          "seq": 29,
+          "atMs": 21042.909496999997,
+          "type": "tool_result",
+          "turn": 10,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 30,
+          "atMs": 21043.027175,
+          "type": "model_request",
+          "turn": 11
+        },
+        {
+          "seq": 31,
+          "atMs": 22822.376512,
+          "type": "model_response",
+          "turn": 11,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 1245,
+            "completion_tokens": 10,
+            "total_tokens": 1255,
+            "cache_n": 1158,
+            "prompt_n": 87,
+            "prompt_ms": 1282.607,
+            "predicted_n": 10,
+            "predicted_ms": 487.574,
+            "cached_tokens": 1158
+          }
+        },
+        {
+          "seq": 32,
+          "atMs": 22822.640305999998,
+          "type": "tool_result",
+          "turn": 11,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 33,
+          "atMs": 22822.735588,
+          "type": "model_request",
+          "turn": 12
+        },
+        {
+          "seq": 34,
+          "atMs": 24619.678039000002,
+          "type": "model_response",
+          "turn": 12,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 1341,
+            "completion_tokens": 10,
+            "total_tokens": 1351,
+            "cache_n": 1254,
+            "prompt_n": 87,
+            "prompt_ms": 1241.821,
+            "predicted_n": 10,
+            "predicted_ms": 546.959,
+            "cached_tokens": 1254
+          }
+        },
+        {
+          "seq": 35,
+          "atMs": 24619.966773999997,
+          "type": "tool_result",
+          "turn": 12,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 36,
+          "atMs": 24620.123410999997,
+          "type": "submission",
+          "status": "max_turns",
+          "turns": 12,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 9730,
+        "completion_tokens": 167,
+        "total_tokens": 9897,
+        "cache_n": 8479,
+        "prompt_n": 1251,
+        "prompt_ms": 16371.697,
+        "predicted_n": 167,
+        "predicted_ms": 8148.233,
+        "cached_tokens": 8479
+      },
+      "turns": 12,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "max_turns",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "nodeRssBytes": 82448384
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-empty-guard",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 13675.158353000006,
+      "status": "finished",
+      "answer": "done",
+      "rawAnswer": "done",
+      "edits": 1,
+      "snapshot": {
+        "src/mean.js": "  if (values.length === 0) return null;\n\nexport function mean(values) {\n  return values.reduce((sum, value) => sum + value, 0) / values.length;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/mean.js": {
+          "version": 2,
+          "sha256": "624750db71f3bdb46ad272c3541b2181445a5fa063b80ba9b0b1d4bee7c18386",
+          "bytes": 146
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.2428970000037225,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 5160.546177000004,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "write_file",
+            "path": "src/mean.js",
+            "content": "  if (values.length === 0) return null;\n\n"
+          },
+          "usage": {
+            "prompt_tokens": 255,
+            "completion_tokens": 45,
+            "total_tokens": 300,
+            "cache_n": 0,
+            "prompt_n": 255,
+            "prompt_ms": 2959.072,
+            "predicted_n": 45,
+            "predicted_ms": 2195.31,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 5160.878028000006,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "write_file",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: src/mean.js"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 5161.021484000004,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 7129.826878,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "read_file",
+            "path": "src/mean.js"
+          },
+          "usage": {
+            "prompt_tokens": 363,
+            "completion_tokens": 14,
+            "total_tokens": 377,
+            "cache_n": 255,
+            "prompt_n": 108,
+            "prompt_ms": 1320.822,
+            "predicted_n": 14,
+            "predicted_ms": 640.806,
+            "cached_tokens": 255
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 7130.149733000006,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/mean.js",
+              "content": "export function mean(values) {\n  return values.reduce((sum, value) => sum + value, 0) / values.length;\n}\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 7130.286879000007,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 11615.248166000005,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "write_file",
+            "path": "src/mean.js",
+            "content": "  if (values.length === 0) return null;\n\nexport function mean(values) {\n  return values.reduce((sum, value) => sum + value, 0) / values.length;\n}\n"
+          },
+          "usage": {
+            "prompt_tokens": 489,
+            "completion_tokens": 62,
+            "total_tokens": 551,
+            "cache_n": 376,
+            "prompt_n": 113,
+            "prompt_ms": 1417.726,
+            "predicted_n": 62,
+            "predicted_ms": 3059.831,
+            "cached_tokens": 376
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 11615.864074000005,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "write_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/mean.js",
+              "content": "  if (values.length === 0) return null;\n\nexport function mean(values) {\n  return values.reduce((sum, value) => sum + value, 0) / values.length;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 11616.016394000006,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 13674.386309000001,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 677,
+            "completion_tokens": 10,
+            "total_tokens": 687,
+            "cache_n": 550,
+            "prompt_n": 127,
+            "prompt_ms": 1596.014,
+            "predicted_n": 10,
+            "predicted_ms": 454.767,
+            "cached_tokens": 550
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 13674.713072000006,
+          "type": "formatted_submission",
+          "rawAnswer": "done",
+          "answer": "done",
+          "contract": "literal"
+        },
+        {
+          "seq": 12,
+          "atMs": 13674.962138000003,
+          "type": "submission",
+          "status": "finished",
+          "turns": 4,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1784,
+        "completion_tokens": 131,
+        "total_tokens": 1915,
+        "cache_n": 1181,
+        "prompt_n": 603,
+        "prompt_ms": 7293.634000000001,
+        "predicted_n": 131,
+        "predicted_ms": 6350.714,
+        "cached_tokens": 1181
+      },
+      "turns": 4,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": false
+        },
+        {
+          "name": "exact final answer",
+          "passed": true
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.34228599999914877,
+      "observerErrors": [],
+      "nodeRssBytes": 82448384
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-two-file-rename",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 22620.379589000004,
+      "status": "max_turns",
+      "answer": "",
+      "rawAnswer": "UNKNOWN",
+      "edits": 0,
+      "snapshot": {
+        "src/main.js": "import { retryDelay } from \"./retry.js\";\nexport const delay = retryDelay(2);\n",
+        "src/retry.js": "export function retryDelay(attempt) {\n  return attempt * 100;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/main.js": {
+          "version": 1,
+          "sha256": "38f57e6c78b2f3780fd4eba405ad4587df71db92d821e3bcf8d3d469fb5a9add",
+          "bytes": 77
+        },
+        "src/retry.js": {
+          "version": 1,
+          "sha256": "c334efdd2678c2361755f4235364311f079dc0c659a63f99c1f5155e490a2431",
+          "bytes": 64
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.17346099999849685,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 5184.136020999998,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/retry.js",
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 258,
+            "completion_tokens": 44,
+            "total_tokens": 302,
+            "cache_n": 0,
+            "prompt_n": 258,
+            "prompt_ms": 3013.03,
+            "predicted_n": 44,
+            "predicted_ms": 2164.492,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 5184.624708000003,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: src/retry.js"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 5184.882167000003,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 6944.916274999996,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 361,
+            "completion_tokens": 10,
+            "total_tokens": 371,
+            "cache_n": 258,
+            "prompt_n": 103,
+            "prompt_ms": 1310.58,
+            "predicted_n": 10,
+            "predicted_ms": 442.211,
+            "cached_tokens": 258
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 6945.30386,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 6945.504812999992,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 8428.089374000003,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 451,
+            "completion_tokens": 10,
+            "total_tokens": 461,
+            "cache_n": 370,
+            "prompt_n": 81,
+            "prompt_ms": 1032.34,
+            "predicted_n": 10,
+            "predicted_ms": 443.189,
+            "cached_tokens": 370
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 8428.47799,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 8428.611611,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 9990.277881000002,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 541,
+            "completion_tokens": 10,
+            "total_tokens": 551,
+            "cache_n": 460,
+            "prompt_n": 81,
+            "prompt_ms": 1096.859,
+            "predicted_n": 10,
+            "predicted_ms": 457.87,
+            "cached_tokens": 460
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 9990.677152999997,
+          "type": "tool_result",
+          "turn": 4,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 12,
+          "atMs": 9990.850063999998,
+          "type": "model_request",
+          "turn": 5
+        },
+        {
+          "seq": 13,
+          "atMs": 11500.199120999998,
+          "type": "model_response",
+          "turn": 5,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 631,
+            "completion_tokens": 10,
+            "total_tokens": 641,
+            "cache_n": 550,
+            "prompt_n": 81,
+            "prompt_ms": 1046.938,
+            "predicted_n": 10,
+            "predicted_ms": 454.959,
+            "cached_tokens": 550
+          }
+        },
+        {
+          "seq": 14,
+          "atMs": 11500.609148999996,
+          "type": "tool_result",
+          "turn": 5,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 15,
+          "atMs": 11500.785554999995,
+          "type": "model_request",
+          "turn": 6
+        },
+        {
+          "seq": 16,
+          "atMs": 13091.753205,
+          "type": "model_response",
+          "turn": 6,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 721,
+            "completion_tokens": 10,
+            "total_tokens": 731,
+            "cache_n": 640,
+            "prompt_n": 81,
+            "prompt_ms": 1125.883,
+            "predicted_n": 10,
+            "predicted_ms": 457.669,
+            "cached_tokens": 640
+          }
+        },
+        {
+          "seq": 17,
+          "atMs": 13092.204775000006,
+          "type": "tool_result",
+          "turn": 6,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 18,
+          "atMs": 13092.730737999998,
+          "type": "model_request",
+          "turn": 7
+        },
+        {
+          "seq": 19,
+          "atMs": 14658.612955000004,
+          "type": "model_response",
+          "turn": 7,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 811,
+            "completion_tokens": 10,
+            "total_tokens": 821,
+            "cache_n": 730,
+            "prompt_n": 81,
+            "prompt_ms": 1081.698,
+            "predicted_n": 10,
+            "predicted_ms": 476.461,
+            "cached_tokens": 730
+          }
+        },
+        {
+          "seq": 20,
+          "atMs": 14659.005437,
+          "type": "tool_result",
+          "turn": 7,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 21,
+          "atMs": 14659.229313999997,
+          "type": "model_request",
+          "turn": 8
+        },
+        {
+          "seq": 22,
+          "atMs": 16207.076098000005,
+          "type": "model_response",
+          "turn": 8,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 901,
+            "completion_tokens": 10,
+            "total_tokens": 911,
+            "cache_n": 820,
+            "prompt_n": 81,
+            "prompt_ms": 1074.732,
+            "predicted_n": 10,
+            "predicted_ms": 465.504,
+            "cached_tokens": 820
+          }
+        },
+        {
+          "seq": 23,
+          "atMs": 16207.400987,
+          "type": "tool_result",
+          "turn": 8,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 24,
+          "atMs": 16207.587086999993,
+          "type": "model_request",
+          "turn": 9
+        },
+        {
+          "seq": 25,
+          "atMs": 17767.492073999994,
+          "type": "model_response",
+          "turn": 9,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 991,
+            "completion_tokens": 10,
+            "total_tokens": 1001,
+            "cache_n": 910,
+            "prompt_n": 81,
+            "prompt_ms": 1088.942,
+            "predicted_n": 10,
+            "predicted_ms": 462.178,
+            "cached_tokens": 910
+          }
+        },
+        {
+          "seq": 26,
+          "atMs": 17767.825505999994,
+          "type": "tool_result",
+          "turn": 9,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 27,
+          "atMs": 17767.954461,
+          "type": "model_request",
+          "turn": 10
+        },
+        {
+          "seq": 28,
+          "atMs": 19334.868996999998,
+          "type": "model_response",
+          "turn": 10,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 1081,
+            "completion_tokens": 10,
+            "total_tokens": 1091,
+            "cache_n": 1000,
+            "prompt_n": 81,
+            "prompt_ms": 1080.703,
+            "predicted_n": 10,
+            "predicted_ms": 477.469,
+            "cached_tokens": 1000
+          }
+        },
+        {
+          "seq": 29,
+          "atMs": 19335.200224999993,
+          "type": "tool_result",
+          "turn": 10,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 30,
+          "atMs": 19335.330631999997,
+          "type": "model_request",
+          "turn": 11
+        },
+        {
+          "seq": 31,
+          "atMs": 20956.984828999994,
+          "type": "model_response",
+          "turn": 11,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 1171,
+            "completion_tokens": 10,
+            "total_tokens": 1181,
+            "cache_n": 1090,
+            "prompt_n": 81,
+            "prompt_ms": 1135.982,
+            "predicted_n": 10,
+            "predicted_ms": 476.611,
+            "cached_tokens": 1090
+          }
+        },
+        {
+          "seq": 32,
+          "atMs": 20957.463481,
+          "type": "tool_result",
+          "turn": 11,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 33,
+          "atMs": 20957.680527999997,
+          "type": "model_request",
+          "turn": 12
+        },
+        {
+          "seq": 34,
+          "atMs": 22619.626653,
+          "type": "model_response",
+          "turn": 12,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 1261,
+            "completion_tokens": 10,
+            "total_tokens": 1271,
+            "cache_n": 1180,
+            "prompt_n": 81,
+            "prompt_ms": 1100.819,
+            "predicted_n": 10,
+            "predicted_ms": 552.011,
+            "cached_tokens": 1180
+          }
+        },
+        {
+          "seq": 35,
+          "atMs": 22619.966375999997,
+          "type": "tool_result",
+          "turn": 12,
+          "action": "finish",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_EDIT: propose and apply a real change before finishing"
+            }
+          }
+        },
+        {
+          "seq": 36,
+          "atMs": 22620.190514,
+          "type": "submission",
+          "status": "max_turns",
+          "turns": 12,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 9179,
+        "completion_tokens": 154,
+        "total_tokens": 9333,
+        "cache_n": 8008,
+        "prompt_n": 1171,
+        "prompt_ms": 15188.506,
+        "predicted_n": 154,
+        "predicted_ms": 7330.624,
+        "cached_tokens": 8008
+      },
+      "turns": 12,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "max_turns",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "nodeRssBytes": 82972672
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-config-change",
+      "valid": true,
+      "accepted": true,
+      "elapsedMs": 12555.91006200001,
+      "status": "finished",
+      "answer": "done",
+      "rawAnswer": "done",
+      "edits": 1,
+      "snapshot": {
+        "config.json": "{\n  \"timeoutMs\": 5000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "config.json": {
+          "version": 2,
+          "sha256": "df18beb85a110f38b1d005f9af9eae2c460e01ac268cf360e9502d0197f939b9",
+          "bytes": 59
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.16689200000837445,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 5592.178341999999,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "config.json",
+            "oldText": "\"timeoutMs\": 3000",
+            "newText": "\"timeoutMs\": 5000"
+          },
+          "usage": {
+            "prompt_tokens": 254,
+            "completion_tokens": 54,
+            "total_tokens": 308,
+            "cache_n": 0,
+            "prompt_n": 254,
+            "prompt_ms": 2913.256,
+            "predicted_n": 54,
+            "predicted_ms": 2672.537,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 5592.532816000006,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: config.json"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 5592.681721000001,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 7514.009469000011,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "read_file",
+            "path": "config.json"
+          },
+          "usage": {
+            "prompt_tokens": 368,
+            "completion_tokens": 12,
+            "total_tokens": 380,
+            "cache_n": 254,
+            "prompt_n": 114,
+            "prompt_ms": 1360.668,
+            "predicted_n": 12,
+            "predicted_ms": 553.789,
+            "cached_tokens": 254
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 7514.681412000005,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "config.json",
+              "content": "{\n  \"timeoutMs\": 3000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 7514.933622000011,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 10723.126510000002,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "replace_text",
+            "path": "config.json",
+            "oldText": "\"timeoutMs\": 3000",
+            "newText": "\"timeoutMs\": 5000"
+          },
+          "usage": {
+            "prompt_tokens": 491,
+            "completion_tokens": 38,
+            "total_tokens": 529,
+            "cache_n": 379,
+            "prompt_n": 112,
+            "prompt_ms": 1327.039,
+            "predicted_n": 38,
+            "predicted_ms": 1873.584,
+            "cached_tokens": 379
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 10723.587451,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "config.json",
+              "content": "{\n  \"timeoutMs\": 5000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 10723.938858000009,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 12554.771926000001,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 640,
+            "completion_tokens": 10,
+            "total_tokens": 650,
+            "cache_n": 528,
+            "prompt_n": 112,
+            "prompt_ms": 1358.515,
+            "predicted_n": 10,
+            "predicted_ms": 463.999,
+            "cached_tokens": 528
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 12555.238125000003,
+          "type": "formatted_submission",
+          "rawAnswer": "done",
+          "answer": "done",
+          "contract": "literal"
+        },
+        {
+          "seq": 12,
+          "atMs": 12555.578405000007,
+          "type": "submission",
+          "status": "finished",
+          "turns": 4,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1753,
+        "completion_tokens": 114,
+        "total_tokens": 1867,
+        "cache_n": 1161,
+        "prompt_n": 592,
+        "prompt_ms": 6959.478,
+        "predicted_n": 114,
+        "predicted_ms": 5563.909,
+        "cached_tokens": 1161
+      },
+      "turns": 4,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": true
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.45629400000325404,
+      "observerErrors": [],
+      "nodeRssBytes": 84283392
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-copy-before-sort",
+      "valid": true,
+      "accepted": true,
+      "elapsedMs": 15094.793277000004,
+      "status": "finished",
+      "answer": "done",
+      "rawAnswer": "done",
+      "edits": 1,
+      "snapshot": {
+        "src/sort.js": "export function ascending(values) {\n  return [...values].sort((a, b) => a - b);\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/sort.js": {
+          "version": 2,
+          "sha256": "4d4ea2bf6815f7056b81709e5f3fa63fcd26977fdea6712637c1887a55c29966",
+          "bytes": 82
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.12242299999343231,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 6537.963709000003,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/sort.js",
+            "oldText": "return values.sort((a, b) => a - b);",
+            "newText": "return [...values].sort((a, b) => a - b);"
+          },
+          "usage": {
+            "prompt_tokens": 268,
+            "completion_tokens": 68,
+            "total_tokens": 336,
+            "cache_n": 0,
+            "prompt_n": 268,
+            "prompt_ms": 3168.367,
+            "predicted_n": 68,
+            "predicted_ms": 3363.563,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 6538.378807999994,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: src/sort.js"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 6538.551225000003,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 8891.127552000005,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "read_file",
+            "path": "src/sort.js"
+          },
+          "usage": {
+            "prompt_tokens": 408,
+            "completion_tokens": 14,
+            "total_tokens": 422,
+            "cache_n": 268,
+            "prompt_n": 140,
+            "prompt_ms": 1696.351,
+            "predicted_n": 14,
+            "predicted_ms": 647.533,
+            "cached_tokens": 268
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 8891.486842999991,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/sort.js",
+              "content": "export function ascending(values) {\n  return values.sort((a, b) => a - b);\n}\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 8891.645290999993,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 13070.769014000005,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "replace_text",
+            "path": "src/sort.js",
+            "oldText": "return values.sort((a, b) => a - b);",
+            "newText": "return [...values].sort((a, b) => a - b);"
+          },
+          "usage": {
+            "prompt_tokens": 540,
+            "completion_tokens": 50,
+            "total_tokens": 590,
+            "cache_n": 421,
+            "prompt_n": 119,
+            "prompt_ms": 1541.279,
+            "predicted_n": 50,
+            "predicted_ms": 2630,
+            "cached_tokens": 421
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 13071.210601999992,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/sort.js",
+              "content": "export function ascending(values) {\n  return [...values].sort((a, b) => a - b);\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 13071.413805000004,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 15093.778303,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "finish",
+            "answer": "done"
+          },
+          "usage": {
+            "prompt_tokens": 710,
+            "completion_tokens": 10,
+            "total_tokens": 720,
+            "cache_n": 589,
+            "prompt_n": 121,
+            "prompt_ms": 1534.264,
+            "predicted_n": 10,
+            "predicted_ms": 479.633,
+            "cached_tokens": 589
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 15094.093592999998,
+          "type": "formatted_submission",
+          "rawAnswer": "done",
+          "answer": "done",
+          "contract": "literal"
+        },
+        {
+          "seq": 12,
+          "atMs": 15094.324718000003,
+          "type": "submission",
+          "status": "finished",
+          "turns": 4,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1926,
+        "completion_tokens": 142,
+        "total_tokens": 2068,
+        "cache_n": 1278,
+        "prompt_n": 648,
+        "prompt_ms": 7940.261000000001,
+        "predicted_n": 142,
+        "predicted_ms": 7120.728999999999,
+        "cached_tokens": 1278
+      },
+      "turns": 4,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": true
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.19518199999583885,
+      "observerErrors": [],
+      "nodeRssBytes": 86118400
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-grounded-answer",
+      "valid": true,
+      "accepted": true,
+      "elapsedMs": 6175.7536760000075,
+      "status": "finished",
+      "answer": "version=2.4.1;status=paused",
+      "rawAnswer": "version=2.4.1;status=pause",
+      "edits": 0,
+      "snapshot": {
+        "notes/release.txt": "Product: Comet\nVersion: 2.4.1\nStatus: paused\nOwner: Ada\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "notes/release.txt": {
+          "version": 1,
+          "sha256": "a77d4087fbc36e4f0f90fad9b56da3e82d2c5a9be237f2d495d0ee01041c1068",
+          "bytes": 56
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.31414800000493415,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 3936.173802000005,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "read_file",
+            "path": "notes/release.txt"
+          },
+          "usage": {
+            "prompt_tokens": 240,
+            "completion_tokens": 24,
+            "total_tokens": 264,
+            "cache_n": 0,
+            "prompt_n": 240,
+            "prompt_ms": 2784.947,
+            "predicted_n": 24,
+            "predicted_ms": 1144.861,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 3936.530448000005,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/release.txt",
+              "content": "Product: Comet\nVersion: 2.4.1\nStatus: paused\nOwner: Ada\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 3936.711620999995,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 6174.106239999994,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "version=2.4.1;status=pause"
+          },
+          "usage": {
+            "prompt_tokens": 340,
+            "completion_tokens": 20,
+            "total_tokens": 360,
+            "cache_n": 240,
+            "prompt_n": 100,
+            "prompt_ms": 1224.701,
+            "predicted_n": 20,
+            "predicted_ms": 1004.758,
+            "cached_tokens": 240
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 6174.931836000003,
+          "type": "formatted_submission",
+          "rawAnswer": "version=2.4.1;status=pause",
+          "answer": "version=2.4.1;status=paused",
+          "contract": "fields"
+        },
+        {
+          "seq": 6,
+          "atMs": 6175.257813999997,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 580,
+        "completion_tokens": 44,
+        "total_tokens": 624,
+        "cache_n": 240,
+        "prompt_n": 340,
+        "prompt_ms": 4009.648,
+        "predicted_n": 44,
+        "predicted_ms": 2149.619,
+        "cached_tokens": 240
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": true
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.2643849999876693,
+      "observerErrors": [],
+      "nodeRssBytes": 86118400
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-missing-information",
+      "valid": true,
+      "accepted": true,
+      "elapsedMs": 5530.788363,
+      "status": "finished",
+      "answer": "UNKNOWN",
+      "rawAnswer": "UNKNOWN",
+      "edits": 0,
+      "snapshot": {
+        "notes/project.txt": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "notes/project.txt": {
+          "version": 1,
+          "sha256": "c87dbb2e1f6e3f9a5a6ac9dcfea97019a42d1621e9aacb9978fb883b7d263b22",
+          "bytes": 42
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.32858200000191573,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 3821.0594839999976,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 248,
+            "completion_tokens": 20,
+            "total_tokens": 268,
+            "cache_n": 0,
+            "prompt_n": 248,
+            "prompt_ms": 2870.831,
+            "predicted_n": 20,
+            "predicted_ms": 943.422,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 3821.4603459999926,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 3821.6652440000034,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 5529.608018999992,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "UNKNOWN"
+          },
+          "usage": {
+            "prompt_tokens": 347,
+            "completion_tokens": 10,
+            "total_tokens": 357,
+            "cache_n": 248,
+            "prompt_n": 99,
+            "prompt_ms": 1251.319,
+            "predicted_n": 10,
+            "predicted_ms": 448.759,
+            "cached_tokens": 248
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 5530.044935999991,
+          "type": "formatted_submission",
+          "rawAnswer": "UNKNOWN",
+          "answer": "UNKNOWN",
+          "contract": "date"
+        },
+        {
+          "seq": 6,
+          "atMs": 5530.316454,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 595,
+        "completion_tokens": 30,
+        "total_tokens": 625,
+        "cache_n": 248,
+        "prompt_n": 347,
+        "prompt_ms": 4122.15,
+        "predicted_n": 30,
+        "predicted_ms": 1392.181,
+        "cached_tokens": 248
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": true
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.1941919999953825,
+      "observerErrors": [],
+      "nodeRssBytes": 86118400
+    }
+  ],
+  "currentTask": null,
+  "score": {
+    "systems": {
+      "baseline": {
+        "complete": true,
+        "elapsedComplete": true,
+        "meanObservedElapsedMs": 16057.683909633335,
+        "acceptedRate": 0.4666666666666667,
+        "cost": 0.69524715497,
+        "cdf": [
+          {
+            "tMs": 5530.788363,
+            "acceptedWeight": 0.1
+          },
+          {
+            "tMs": 6175.7536760000075,
+            "acceptedWeight": 0.2
+          },
+          {
+            "tMs": 12555.91006200001,
+            "acceptedWeight": 0.33333333333333337
+          },
+          {
+            "tMs": 15094.793277000004,
+            "acceptedWeight": 0.4666666666666667
+          }
+        ],
+        "t50Ms": null,
+        "t50Status": "unreached",
+        "perTask": [
+          {
+            "taskId": "smoke-ttl-boundary",
+            "stratum": "coding",
+            "clusterId": "smoke-ttl-boundary",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 23086.200633999997,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-preserve-zero",
+            "stratum": "coding",
+            "clusterId": "smoke-preserve-zero",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 24620.280878,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-empty-guard",
+            "stratum": "coding",
+            "clusterId": "smoke-empty-guard",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 13675.158353000006,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-two-file-rename",
+            "stratum": "coding",
+            "clusterId": "smoke-two-file-rename",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 22620.379589000004,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-config-change",
+            "stratum": "coding",
+            "clusterId": "smoke-config-change",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 12555.91006200001,
+            "acceptedRate": 1,
+            "cost": 0.41853033540000034
+          },
+          {
+            "taskId": "smoke-copy-before-sort",
+            "stratum": "coding",
+            "clusterId": "smoke-copy-before-sort",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 15094.793277000004,
+            "acceptedRate": 1,
+            "cost": 0.5031597759000002
+          },
+          {
+            "taskId": "smoke-grounded-answer",
+            "stratum": "general",
+            "clusterId": "smoke-grounded-answer",
+            "weight": 0.1,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 6175.7536760000075,
+            "acceptedRate": 1,
+            "cost": 0.20585845586666693
+          },
+          {
+            "taskId": "smoke-missing-information",
+            "stratum": "general",
+            "clusterId": "smoke-missing-information",
+            "weight": 0.1,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 5530.788363,
+            "acceptedRate": 1,
+            "cost": 0.1843596121
+          }
+        ],
+        "perStratum": {
+          "coding": {
+            "complete": true,
+            "acceptedRate": 0.3333333333333333,
+            "cost": 0.8202816852166669
+          },
+          "general": {
+            "complete": true,
+            "acceptedRate": 1,
+            "cost": 0.19510903398333346
+          }
+        }
+      },
+      "candidate": {
+        "complete": false,
+        "elapsedComplete": false,
+        "meanObservedElapsedMs": null,
+        "acceptedRate": null,
+        "cost": null,
+        "cdf": null,
+        "t50Ms": null,
+        "t50Status": "incomplete",
+        "perTask": [
+          {
+            "taskId": "smoke-ttl-boundary",
+            "stratum": "coding",
+            "clusterId": "smoke-ttl-boundary",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-preserve-zero",
+            "stratum": "coding",
+            "clusterId": "smoke-preserve-zero",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-empty-guard",
+            "stratum": "coding",
+            "clusterId": "smoke-empty-guard",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-two-file-rename",
+            "stratum": "coding",
+            "clusterId": "smoke-two-file-rename",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-config-change",
+            "stratum": "coding",
+            "clusterId": "smoke-config-change",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-copy-before-sort",
+            "stratum": "coding",
+            "clusterId": "smoke-copy-before-sort",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-grounded-answer",
+            "stratum": "general",
+            "clusterId": "smoke-grounded-answer",
+            "weight": 0.1,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-missing-information",
+            "stratum": "general",
+            "clusterId": "smoke-missing-information",
+            "weight": 0.1,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          }
+        ],
+        "perStratum": {
+          "coding": {
+            "complete": false,
+            "acceptedRate": null,
+            "cost": null
+          },
+          "general": {
+            "complete": false,
+            "acceptedRate": null,
+            "cost": null
+          }
+        }
+      }
+    },
+    "pairedGroups": [
+      {
+        "task": {
+          "id": "smoke-ttl-boundary",
+          "version": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+          "clusterId": "smoke-ttl-boundary",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-ttl-boundary",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 23086.200633999997,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-preserve-zero",
+          "version": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+          "clusterId": "smoke-preserve-zero",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-preserve-zero",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 24620.280878,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-empty-guard",
+          "version": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+          "clusterId": "smoke-empty-guard",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-empty-guard",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 13675.158353000006,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-two-file-rename",
+          "version": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+          "clusterId": "smoke-two-file-rename",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-two-file-rename",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 22620.379589000004,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-config-change",
+          "version": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+          "clusterId": "smoke-config-change",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-config-change",
+              "repeat": 0,
+              "valid": true,
+              "accepted": true,
+              "elapsedMs": 12555.91006200001,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-copy-before-sort",
+          "version": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+          "clusterId": "smoke-copy-before-sort",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-copy-before-sort",
+              "repeat": 0,
+              "valid": true,
+              "accepted": true,
+              "elapsedMs": 15094.793277000004,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-grounded-answer",
+          "version": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+          "clusterId": "smoke-grounded-answer",
+          "stratum": "general",
+          "deadlineMs": 30000
+        },
+        "weight": 0.1,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-grounded-answer",
+              "repeat": 0,
+              "valid": true,
+              "accepted": true,
+              "elapsedMs": 6175.7536760000075,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-missing-information",
+          "version": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+          "clusterId": "smoke-missing-information",
+          "stratum": "general",
+          "deadlineMs": 30000
+        },
+        "weight": 0.1,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-missing-information",
+              "repeat": 0,
+              "valid": true,
+              "accepted": true,
+              "elapsedMs": 5530.788363,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      }
+    ],
+    "pairedOutcomes": {
+      "bothAccepted": 0,
+      "baselineOnly": 0,
+      "candidateOnly": 0,
+      "neitherAccepted": 0,
+      "missingOrInvalid": 0.9999999999999999
+    },
+    "comparison": {
+      "ready": false,
+      "qualityDelta": null,
+      "costDelta": null,
+      "t50Ratio": null,
+      "ratioStatus": "incomplete",
+      "confidenceInterval": null,
+      "inference": "Point estimates only; no statistical decision."
+    }
+  },
+  "updatedAt": "2026-10-07T23:15:42.924Z",
+  "warmup": {
+    "elapsedMs": 2919.3081349999998,
+    "usage": {
+      "prompt_tokens": 205,
+      "completion_tokens": 10,
+      "total_tokens": 215,
+      "cache_n": 0,
+      "prompt_n": 205,
+      "prompt_ms": 2453.498,
+      "predicted_n": 10,
+      "predicted_ms": 437.318,
+      "cached_tokens": 0
+    }
+  },
+  "complete": true,
+  "qualityGate": false,
+  "finishedAt": "2026-10-07T23:15:42.924Z"
+}

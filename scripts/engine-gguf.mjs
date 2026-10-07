@@ -5,7 +5,7 @@ import { createHash, randomUUID } from "node:crypto";
 import { createReadStream, openSync, writeSync, closeSync } from "node:fs";
 import { mkdir, mkdtemp, open, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
-import { tmpdir } from "node:os";
+import { tmpdir, availableParallelism } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { setTimeout as delay } from "node:timers/promises";
@@ -98,10 +98,10 @@ import { setTimeout as delay } from "node:timers/promises";
     const binary=servers[0],hash=createHash("sha256");for await(const chunk of createReadStream(binary))hash.update(chunk);
     provenance.serverBinarySha256=hash.digest("hex");
     const alias=`gguf-smoke-${randomUUID()}`,port=await freePort(),endpoint=`http://127.0.0.1:${port}`;
-    const args=["--model",model,"--alias",alias,"--host","127.0.0.1","--port",String(port),"--ctx-size","4096","--threads","2","--threads-batch","2","--parallel","1","--n-gpu-layers","0","--jinja","--cache-ram","0","--no-cache-idle-slots","--spec-type",values.draft?"ngram-simple":"none",...(values.draft?["--spec-ngram-simple-size-n","4","--spec-ngram-simple-size-m","16"]:[])];
+    const args=["--model",model,"--alias",alias,"--host","127.0.0.1","--port",String(port),"--ctx-size","4096","--threads","4","--threads-batch","4","--parallel","1","--n-gpu-layers","0","--jinja","--cache-ram","0","--no-cache-idle-slots","--spec-type",values.draft?"ngram-simple":"none",...(values.draft?["--spec-ngram-simple-size-n","4","--spec-ngram-simple-size-m","16"]:[])];
     provenance.serverArguments=args;provenance.endpoint=endpoint;
     logFd=openSync(join(artifacts,"llama-server.log"),"w");
-    const server=launch(binary,args,{stdio:["ignore","pipe","pipe"],env:{...process.env,LD_LIBRARY_PATH:dirname(binary),OMP_NUM_THREADS:"2",OPENBLAS_NUM_THREADS:"2"}});
+    const server=launch(binary,args,{stdio:["ignore","pipe","pipe"],env:{...process.env,LD_LIBRARY_PATH:dirname(binary),OMP_NUM_THREADS:"4",OPENBLAS_NUM_THREADS:"4"}});
     memoryTimer=setInterval(async()=>{
       try{const status=await readFile("/proc/"+server.child.pid+"/status","utf8"),m=status.match(/^VmHWM:\s+(\d+) kB/m);if(m)provenance.serverPeakRssBytes=Math.max(provenance.serverPeakRssBytes,Number(m[1])*1024);}catch{}
     },500);
@@ -117,6 +117,15 @@ import { setTimeout as delay } from "node:timers/promises";
       await delay(250,null,{signal:controller.signal});
     }
     if(!healthy||server.closed)throw new Error("Owned server readiness timed out");
+    const propsResponse=await fetch(endpoint+"/props",{signal:AbortSignal.timeout(5000)});
+    if(!propsResponse.ok)throw new Error("Missing server template metadata");
+    const props=await propsResponse.json();
+    provenance.chatTemplate=props.chat_template;
+    provenance.chatTemplateCaps=props.chat_template_caps??null;
+    provenance.availableParallelism=availableParallelism();
+    provenance.inferenceThreads=4;provenance.batchThreads=4;
+    try{provenance.cpuQuota=(await readFile("/sys/fs/cgroup/cpu.max","utf8")).trim();}catch{provenance.cpuQuota=null;}
+    if(typeof props.chat_template!=="string"||!props.chat_template)throw new Error("Empty embedded chat template");
     await writeFile(provenanceFile,JSON.stringify(provenance,null,2));await rm(output,{force:true});
     await command(process.execPath,["src/engine-cli.mjs","--endpoint",endpoint,"--model",alias,"--out",output,"--profile",values.profile,"--suite",values.suite,"--arm",values.arm,"--shard",values.shard,"--shards",values.shards,"--repeats",values.repeats,...(values["system-label"]?["--system-label",values["system-label"]]:[])],30*60000);
     const report=JSON.parse(await readFile(output,"utf8"));provenance.qualityGate=report.qualityGate;provenance.status="completed";

@@ -1,0 +1,4152 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Exploratory engine pilot; no qualified speed claim",
+  "mode": "real",
+  "performanceClaimEligible": false,
+  "startedAt": "2026-10-07T23:13:14.628Z",
+  "sourceCommit": "71a08c5761f65cc64a8e32da255f7d9eac0a1610",
+  "sources": {
+    "src/engine.mjs": "0fabc868bb4bb6d3489540af2f4bb617cc5bc793d78deaf22c48378af66627d6",
+    "src/workspace.mjs": "a12fc71ec8f64a9631bcbbe52d261c3311bccea0dbd9f5d1ef751c53ed59f2c0",
+    "src/proposal-adapter.mjs": "366c6984d6d9874af8c75cbc0f96d43143fd2efb283a3093a88731129e5fc8db",
+    "src/task-contract.mjs": "f5e555226608c92b0b9dcf271a3822532ccd9c594ef51b868b34af4860701405",
+    "src/engine-cli.mjs": "fcc1f69f46fd744072b4293fb6810b37e244db5d335bbc241ea33f324fb66856",
+    "src/scoring.mjs": "9b3bd31da05f818ff55f62b611d2730a81ca3efaba65f3de633917e11837573b",
+    "fixtures/smoke.mjs": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177"
+  },
+  "modelProfile": {
+    "mode": "real",
+    "protocol": "host-proposals-v1",
+    "profile": "coder-1.5b",
+    "model": "coder-1.5b",
+    "maxTokens": 512,
+    "seed": 42,
+    "sampling": {
+      "temperature": 0
+    },
+    "cachePrompt": "within-task",
+    "deadlineMs": 30000
+  },
+  "design": {
+    "tasks": [
+      {
+        "id": "smoke-ttl-boundary",
+        "version": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+        "clusterId": "smoke-ttl-boundary",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-preserve-zero",
+        "version": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+        "clusterId": "smoke-preserve-zero",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-empty-guard",
+        "version": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+        "clusterId": "smoke-empty-guard",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-two-file-rename",
+        "version": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+        "clusterId": "smoke-two-file-rename",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-config-change",
+        "version": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+        "clusterId": "smoke-config-change",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-copy-before-sort",
+        "version": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+        "clusterId": "smoke-copy-before-sort",
+        "stratum": "coding",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-grounded-answer",
+        "version": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+        "clusterId": "smoke-grounded-answer",
+        "stratum": "general",
+        "deadlineMs": 30000
+      },
+      {
+        "id": "smoke-missing-information",
+        "version": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+        "clusterId": "smoke-missing-information",
+        "stratum": "general",
+        "deadlineMs": 30000
+      }
+    ],
+    "strataWeights": {
+      "coding": 0.8,
+      "general": 0.2
+    },
+    "repeats": 1,
+    "systemVersions": {
+      "baseline": "96002860b8720d84523f1a6d494face85729381236160c0bc7dfc7cc21f02f56",
+      "candidate": "be25f291936155d9dafdfc60925eddd0f52b487f9d0de978d1a3f6efda7b2a49"
+    },
+    "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+    "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177"
+  },
+  "suite": "smoke",
+  "arm": "baseline",
+  "systems": [
+    "baseline"
+  ],
+  "shard": 0,
+  "shards": 1,
+  "hardware": {
+    "platform": "linux",
+    "arch": "x64",
+    "release": "6.17.0-1022-azure",
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "logicalCpus": 4,
+    "totalMemoryBytes": 16766414848,
+    "node": "v24.21.0"
+  },
+  "conditions": {
+    "prefillCache": "off on first request of every task; on subsequently",
+    "warmup": "one request excluded",
+    "order": "single arm block",
+    "baseline": "sequential observed-file proposals",
+    "candidate": "baseline",
+    "privateGradingTime": "excluded",
+    "preparationTime": "included",
+    "hostContract": "identical across arms",
+    "memory": "Node RSS per outcome; owned server peak RSS in provenance"
+  },
+  "runs": [
+    {
+      "system": "baseline",
+      "systemVersion": "96002860b8720d84523f1a6d494face85729381236160c0bc7dfc7cc21f02f56",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-ttl-boundary",
+      "taskVersion": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30002.161163000004
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "96002860b8720d84523f1a6d494face85729381236160c0bc7dfc7cc21f02f56",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-preserve-zero",
+      "taskVersion": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.728578000002
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "96002860b8720d84523f1a6d494face85729381236160c0bc7dfc7cc21f02f56",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-empty-guard",
+      "taskVersion": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.324619000006
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "96002860b8720d84523f1a6d494face85729381236160c0bc7dfc7cc21f02f56",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-two-file-rename",
+      "taskVersion": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.529985
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "96002860b8720d84523f1a6d494face85729381236160c0bc7dfc7cc21f02f56",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-config-change",
+      "taskVersion": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.511581999992
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "96002860b8720d84523f1a6d494face85729381236160c0bc7dfc7cc21f02f56",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-copy-before-sort",
+      "taskVersion": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.87612900001
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "96002860b8720d84523f1a6d494face85729381236160c0bc7dfc7cc21f02f56",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-grounded-answer",
+      "taskVersion": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": true,
+      "elapsedMs": 7447.943646999978
+    },
+    {
+      "system": "baseline",
+      "systemVersion": "96002860b8720d84523f1a6d494face85729381236160c0bc7dfc7cc21f02f56",
+      "evaluatorVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskSetVersion": "e7c793361a21c6b1a6ed214f85e056b3281514ba2736b33c4fb3302f97632177",
+      "taskId": "smoke-missing-information",
+      "taskVersion": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+      "deadlineMs": 30000,
+      "repeat": 0,
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 26812.73386799998
+    }
+  ],
+  "outcomes": [
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-ttl-boundary",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30002.161163000004,
+      "status": "deadline",
+      "answer": "",
+      "rawAnswer": "",
+      "edits": 1,
+      "snapshot": {
+        "src/cache.js": "export function expired(entry, now) {\n  return now >= entry.expiresAt;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/cache.js": {
+          "version": 2,
+          "sha256": "9034c3bdc8f5f35294a765c4d938e9455d5d558a3eb8815a519ff52bd3459219",
+          "bytes": 73
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.8312499999997272,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 5582.02091,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/cache.js",
+            "oldText": "return now > entry.expiresAt;",
+            "newText": "return now >= entry.expiresAt;"
+          },
+          "usage": {
+            "prompt_tokens": 251,
+            "completion_tokens": 50,
+            "total_tokens": 301,
+            "cache_n": 0,
+            "prompt_n": 251,
+            "prompt_ms": 3677.435,
+            "predicted_n": 50,
+            "predicted_ms": 1893.927,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 5582.445461,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: src/cache.js"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 5582.7926990000005,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 7724.971979999999,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "read_file",
+            "path": "src/cache.js"
+          },
+          "usage": {
+            "prompt_tokens": 359,
+            "completion_tokens": 13,
+            "total_tokens": 372,
+            "cache_n": 251,
+            "prompt_n": 108,
+            "prompt_ms": 1663.656,
+            "predicted_n": 13,
+            "predicted_ms": 467.79,
+            "cached_tokens": 251
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 7725.439530999999,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/cache.js",
+              "content": "export function expired(entry, now) {\n  return now > entry.expiresAt;\n}\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 7725.640005,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 10577.113395,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "replace_text",
+            "path": "src/cache.js",
+            "oldText": "return now > entry.expiresAt;",
+            "newText": "return now >= entry.expiresAt;"
+          },
+          "usage": {
+            "prompt_tokens": 469,
+            "completion_tokens": 35,
+            "total_tokens": 504,
+            "cache_n": 371,
+            "prompt_n": 98,
+            "prompt_ms": 1549.321,
+            "predicted_n": 35,
+            "predicted_ms": 1291.662,
+            "cached_tokens": 371
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 10577.770680999998,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/cache.js",
+              "content": "export function expired(entry, now) {\n  return now >= entry.expiresAt;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 10577.990300000001,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 13577.018849,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "replace_text",
+            "path": "src/cache.js",
+            "oldText": "return now > entry.expiresAt;",
+            "newText": "return now >= entry.expiresAt;"
+          },
+          "usage": {
+            "prompt_tokens": 601,
+            "completion_tokens": 35,
+            "total_tokens": 636,
+            "cache_n": 503,
+            "prompt_n": 98,
+            "prompt_ms": 1566.336,
+            "predicted_n": 35,
+            "predicted_ms": 1421.17,
+            "cached_tokens": 503
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 13577.304001,
+          "type": "tool_result",
+          "turn": 4,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 12,
+          "atMs": 13577.583662000001,
+          "type": "model_request",
+          "turn": 5
+        },
+        {
+          "seq": 13,
+          "atMs": 15395.821578,
+          "type": "model_response",
+          "turn": 5,
+          "action": {
+            "type": "read_file",
+            "path": "src/cache.js"
+          },
+          "usage": {
+            "prompt_tokens": 711,
+            "completion_tokens": 13,
+            "total_tokens": 724,
+            "cache_n": 635,
+            "prompt_n": 76,
+            "prompt_ms": 1301.223,
+            "predicted_n": 13,
+            "predicted_ms": 506.271,
+            "cached_tokens": 635
+          }
+        },
+        {
+          "seq": 14,
+          "atMs": 15396.225181000002,
+          "type": "tool_result",
+          "turn": 5,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/cache.js",
+              "content": "export function expired(entry, now) {\n  return now >= entry.expiresAt;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 15,
+          "atMs": 15396.460039000001,
+          "type": "model_request",
+          "turn": 6
+        },
+        {
+          "seq": 16,
+          "atMs": 18550.354724,
+          "type": "model_response",
+          "turn": 6,
+          "action": {
+            "type": "replace_text",
+            "path": "src/cache.js",
+            "oldText": "return now > entry.expiresAt;",
+            "newText": "return now >= entry.expiresAt;"
+          },
+          "usage": {
+            "prompt_tokens": 821,
+            "completion_tokens": 35,
+            "total_tokens": 856,
+            "cache_n": 723,
+            "prompt_n": 98,
+            "prompt_ms": 1611.23,
+            "predicted_n": 35,
+            "predicted_ms": 1531.444,
+            "cached_tokens": 723
+          }
+        },
+        {
+          "seq": 17,
+          "atMs": 18550.724153,
+          "type": "tool_result",
+          "turn": 6,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 18,
+          "atMs": 18550.925718000002,
+          "type": "model_request",
+          "turn": 7
+        },
+        {
+          "seq": 19,
+          "atMs": 20443.120475,
+          "type": "model_response",
+          "turn": 7,
+          "action": {
+            "type": "read_file",
+            "path": "src/cache.js"
+          },
+          "usage": {
+            "prompt_tokens": 931,
+            "completion_tokens": 13,
+            "total_tokens": 944,
+            "cache_n": 855,
+            "prompt_n": 76,
+            "prompt_ms": 1346.751,
+            "predicted_n": 13,
+            "predicted_ms": 533.653,
+            "cached_tokens": 855
+          }
+        },
+        {
+          "seq": 20,
+          "atMs": 20443.399235,
+          "type": "tool_result",
+          "turn": 7,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/cache.js",
+              "content": "export function expired(entry, now) {\n  return now >= entry.expiresAt;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 21,
+          "atMs": 20443.549185,
+          "type": "model_request",
+          "turn": 8
+        },
+        {
+          "seq": 22,
+          "atMs": 23668.894575000002,
+          "type": "model_response",
+          "turn": 8,
+          "action": {
+            "type": "replace_text",
+            "path": "src/cache.js",
+            "oldText": "return now > entry.expiresAt;",
+            "newText": "return now >= entry.expiresAt;"
+          },
+          "usage": {
+            "prompt_tokens": 1041,
+            "completion_tokens": 35,
+            "total_tokens": 1076,
+            "cache_n": 943,
+            "prompt_n": 98,
+            "prompt_ms": 1661.644,
+            "predicted_n": 35,
+            "predicted_ms": 1551.905,
+            "cached_tokens": 943
+          }
+        },
+        {
+          "seq": 23,
+          "atMs": 23669.177332,
+          "type": "tool_result",
+          "turn": 8,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 24,
+          "atMs": 23669.452536,
+          "type": "model_request",
+          "turn": 9
+        },
+        {
+          "seq": 25,
+          "atMs": 25629.755586,
+          "type": "model_response",
+          "turn": 9,
+          "action": {
+            "type": "read_file",
+            "path": "src/cache.js"
+          },
+          "usage": {
+            "prompt_tokens": 1151,
+            "completion_tokens": 13,
+            "total_tokens": 1164,
+            "cache_n": 1075,
+            "prompt_n": 76,
+            "prompt_ms": 1392.514,
+            "predicted_n": 13,
+            "predicted_ms": 554.739,
+            "cached_tokens": 1075
+          }
+        },
+        {
+          "seq": 26,
+          "atMs": 25630.117711000003,
+          "type": "tool_result",
+          "turn": 9,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/cache.js",
+              "content": "export function expired(entry, now) {\n  return now >= entry.expiresAt;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 27,
+          "atMs": 25630.376293,
+          "type": "model_request",
+          "turn": 10
+        },
+        {
+          "seq": 28,
+          "atMs": 28948.489848999998,
+          "type": "model_response",
+          "turn": 10,
+          "action": {
+            "type": "replace_text",
+            "path": "src/cache.js",
+            "oldText": "return now > entry.expiresAt;",
+            "newText": "return now >= entry.expiresAt;"
+          },
+          "usage": {
+            "prompt_tokens": 1261,
+            "completion_tokens": 35,
+            "total_tokens": 1296,
+            "cache_n": 1163,
+            "prompt_n": 98,
+            "prompt_ms": 1728.667,
+            "predicted_n": 35,
+            "predicted_ms": 1576.814,
+            "cached_tokens": 1163
+          }
+        },
+        {
+          "seq": 29,
+          "atMs": 28948.789317000002,
+          "type": "tool_result",
+          "turn": 10,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 30,
+          "atMs": 28949.059792,
+          "type": "model_request",
+          "turn": 11
+        },
+        {
+          "seq": 31,
+          "atMs": 30001.12979,
+          "type": "execution_error",
+          "status": "deadline",
+          "message": "deadline"
+        },
+        {
+          "seq": 32,
+          "atMs": 30001.638268000002,
+          "type": "submission",
+          "status": "deadline",
+          "turns": 11,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 7596,
+        "completion_tokens": 277,
+        "total_tokens": 7873,
+        "cache_n": 6519,
+        "prompt_n": 1077,
+        "prompt_ms": 17498.777,
+        "predicted_n": 277,
+        "predicted_ms": 11329.375,
+        "cached_tokens": 6519
+      },
+      "turns": 11,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "deadline",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "nodeRssBytes": 82026496
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-preserve-zero",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.728578000002,
+      "status": "deadline",
+      "answer": "",
+      "rawAnswer": "",
+      "edits": 1,
+      "snapshot": {
+        "src/options.js": "export function getLimit(options) {\n  const limit = options.limit ?? 10;\n  return limit;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/options.js": {
+          "version": 2,
+          "sha256": "60fa4c15b7a141b2f1fdd9e9fb402c28e731d4d76abaa971cef60d1b4bbed566",
+          "bytes": 91
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.2838689999989583,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 6960.274465000002,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/options.js",
+            "oldText": "const limit = options.limit || 10;",
+            "newText": "const limit = options.limit ?? 10;"
+          },
+          "usage": {
+            "prompt_tokens": 259,
+            "completion_tokens": 56,
+            "total_tokens": 315,
+            "cache_n": 0,
+            "prompt_n": 259,
+            "prompt_ms": 3846.058,
+            "predicted_n": 56,
+            "predicted_ms": 2161.532,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 6960.597648000003,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: src/options.js"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 6960.825442000001,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 9300.999926000004,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "read_file",
+            "path": "src/options.js"
+          },
+          "usage": {
+            "prompt_tokens": 381,
+            "completion_tokens": 13,
+            "total_tokens": 394,
+            "cache_n": 259,
+            "prompt_n": 122,
+            "prompt_ms": 1870.26,
+            "predicted_n": 13,
+            "predicted_ms": 459.623,
+            "cached_tokens": 259
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 9301.299023,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/options.js",
+              "content": "export function getLimit(options) {\n  const limit = options.limit || 10;\n  return limit;\n}\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 9301.500439000003,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 12711.655317999997,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "replace_text",
+            "path": "src/options.js",
+            "oldText": "const limit = options.limit || 10;",
+            "newText": "const limit = options.limit ?? 10;"
+          },
+          "usage": {
+            "prompt_tokens": 506,
+            "completion_tokens": 41,
+            "total_tokens": 547,
+            "cache_n": 393,
+            "prompt_n": 113,
+            "prompt_ms": 1788.771,
+            "predicted_n": 41,
+            "predicted_ms": 1612.185,
+            "cached_tokens": 393
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 12712.106118000003,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/options.js",
+              "content": "export function getLimit(options) {\n  const limit = options.limit ?? 10;\n  return limit;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 12712.343131000001,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 16202.564167000004,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "replace_text",
+            "path": "src/options.js",
+            "oldText": "const limit = options.limit || 10;",
+            "newText": "const limit = options.limit ?? 10;"
+          },
+          "usage": {
+            "prompt_tokens": 659,
+            "completion_tokens": 41,
+            "total_tokens": 700,
+            "cache_n": 546,
+            "prompt_n": 113,
+            "prompt_ms": 1823.426,
+            "predicted_n": 41,
+            "predicted_ms": 1656.777,
+            "cached_tokens": 546
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 16202.944075,
+          "type": "tool_result",
+          "turn": 4,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 12,
+          "atMs": 16203.151112,
+          "type": "model_request",
+          "turn": 5
+        },
+        {
+          "seq": 13,
+          "atMs": 18139.937851000002,
+          "type": "model_response",
+          "turn": 5,
+          "action": {
+            "type": "read_file",
+            "path": "src/options.js"
+          },
+          "usage": {
+            "prompt_tokens": 783,
+            "completion_tokens": 13,
+            "total_tokens": 796,
+            "cache_n": 699,
+            "prompt_n": 84,
+            "prompt_ms": 1420.692,
+            "predicted_n": 13,
+            "predicted_ms": 505.768,
+            "cached_tokens": 699
+          }
+        },
+        {
+          "seq": 14,
+          "atMs": 18140.302251,
+          "type": "tool_result",
+          "turn": 5,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/options.js",
+              "content": "export function getLimit(options) {\n  const limit = options.limit ?? 10;\n  return limit;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 15,
+          "atMs": 18140.539633,
+          "type": "model_request",
+          "turn": 6
+        },
+        {
+          "seq": 16,
+          "atMs": 21720.212671,
+          "type": "model_response",
+          "turn": 6,
+          "action": {
+            "type": "replace_text",
+            "path": "src/options.js",
+            "oldText": "const limit = options.limit || 10;",
+            "newText": "const limit = options.limit ?? 10;"
+          },
+          "usage": {
+            "prompt_tokens": 908,
+            "completion_tokens": 41,
+            "total_tokens": 949,
+            "cache_n": 795,
+            "prompt_n": 113,
+            "prompt_ms": 1890.148,
+            "predicted_n": 41,
+            "predicted_ms": 1679.3,
+            "cached_tokens": 795
+          }
+        },
+        {
+          "seq": 17,
+          "atMs": 21720.695051000002,
+          "type": "tool_result",
+          "turn": 6,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 18,
+          "atMs": 21721.027841000003,
+          "type": "model_request",
+          "turn": 7
+        },
+        {
+          "seq": 19,
+          "atMs": 23743.193278,
+          "type": "model_response",
+          "turn": 7,
+          "action": {
+            "type": "read_file",
+            "path": "src/options.js"
+          },
+          "usage": {
+            "prompt_tokens": 1032,
+            "completion_tokens": 13,
+            "total_tokens": 1045,
+            "cache_n": 948,
+            "prompt_n": 84,
+            "prompt_ms": 1473.937,
+            "predicted_n": 13,
+            "predicted_ms": 537.003,
+            "cached_tokens": 948
+          }
+        },
+        {
+          "seq": 20,
+          "atMs": 23743.531819000003,
+          "type": "tool_result",
+          "turn": 7,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/options.js",
+              "content": "export function getLimit(options) {\n  const limit = options.limit ?? 10;\n  return limit;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 21,
+          "atMs": 23743.788969,
+          "type": "model_request",
+          "turn": 8
+        },
+        {
+          "seq": 22,
+          "atMs": 27476.058427000004,
+          "type": "model_response",
+          "turn": 8,
+          "action": {
+            "type": "replace_text",
+            "path": "src/options.js",
+            "oldText": "const limit = options.limit || 10;",
+            "newText": "const limit = options.limit ?? 10;"
+          },
+          "usage": {
+            "prompt_tokens": 1157,
+            "completion_tokens": 41,
+            "total_tokens": 1198,
+            "cache_n": 1044,
+            "prompt_n": 113,
+            "prompt_ms": 1969.542,
+            "predicted_n": 41,
+            "predicted_ms": 1752.034,
+            "cached_tokens": 1044
+          }
+        },
+        {
+          "seq": 23,
+          "atMs": 27476.428185999997,
+          "type": "tool_result",
+          "turn": 8,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 24,
+          "atMs": 27476.634151,
+          "type": "model_request",
+          "turn": 9
+        },
+        {
+          "seq": 25,
+          "atMs": 29570.209168,
+          "type": "model_response",
+          "turn": 9,
+          "action": {
+            "type": "read_file",
+            "path": "src/options.js"
+          },
+          "usage": {
+            "prompt_tokens": 1281,
+            "completion_tokens": 13,
+            "total_tokens": 1294,
+            "cache_n": 1197,
+            "prompt_n": 84,
+            "prompt_ms": 1524.037,
+            "predicted_n": 13,
+            "predicted_ms": 557.105,
+            "cached_tokens": 1197
+          }
+        },
+        {
+          "seq": 26,
+          "atMs": 29570.545936000002,
+          "type": "tool_result",
+          "turn": 9,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/options.js",
+              "content": "export function getLimit(options) {\n  const limit = options.limit ?? 10;\n  return limit;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 27,
+          "atMs": 29570.968303,
+          "type": "model_request",
+          "turn": 10
+        },
+        {
+          "seq": 28,
+          "atMs": 30000.599573,
+          "type": "execution_error",
+          "status": "deadline",
+          "message": "deadline"
+        },
+        {
+          "seq": 29,
+          "atMs": 30001.234998,
+          "type": "submission",
+          "status": "deadline",
+          "turns": 10,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 6966,
+        "completion_tokens": 272,
+        "total_tokens": 7238,
+        "cache_n": 5881,
+        "prompt_n": 1085,
+        "prompt_ms": 17606.870999999996,
+        "predicted_n": 272,
+        "predicted_ms": 10921.327,
+        "cached_tokens": 5881
+      },
+      "turns": 10,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "deadline",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "nodeRssBytes": 82550784
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-empty-guard",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.324619000006,
+      "status": "deadline",
+      "answer": "",
+      "rawAnswer": "",
+      "edits": 1,
+      "snapshot": {
+        "src/mean.js": "  if (values.length === 0) return null;\n\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/mean.js": {
+          "version": 2,
+          "sha256": "2f7296e14767d272699dd5649c244283e3a58e8ddfb20b884ebf95cdb8bc999a",
+          "bytes": 41
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.2396569999982603,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 7141.549589999995,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "write_file",
+            "path": "src/mean.js",
+            "content": "  if (values.length === 0) return null;\n\n"
+          },
+          "usage": {
+            "prompt_tokens": 255,
+            "completion_tokens": 46,
+            "total_tokens": 301,
+            "cache_n": 0,
+            "prompt_n": 255,
+            "prompt_ms": 3728.944,
+            "predicted_n": 46,
+            "predicted_ms": 1787.535,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 7141.975873999996,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "write_file",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: src/mean.js"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 7142.227002,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 9314.937667000006,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "read_file",
+            "path": "src/mean.js"
+          },
+          "usage": {
+            "prompt_tokens": 363,
+            "completion_tokens": 14,
+            "total_tokens": 377,
+            "cache_n": 255,
+            "prompt_n": 108,
+            "prompt_ms": 1663.015,
+            "predicted_n": 14,
+            "predicted_ms": 500.453,
+            "cached_tokens": 255
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 9315.380661999996,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/mean.js",
+              "content": "export function mean(values) {\n  return values.reduce((sum, value) => sum + value, 0) / values.length;\n}\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 9315.702072,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 12256.991173000002,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "write_file",
+            "path": "src/mean.js",
+            "content": "  if (values.length === 0) return null;\n\n"
+          },
+          "usage": {
+            "prompt_tokens": 489,
+            "completion_tokens": 31,
+            "total_tokens": 520,
+            "cache_n": 376,
+            "prompt_n": 113,
+            "prompt_ms": 1759.666,
+            "predicted_n": 31,
+            "predicted_ms": 1172.29,
+            "cached_tokens": 376
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 12257.650963000007,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "write_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/mean.js",
+              "content": "  if (values.length === 0) return null;\n\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 12258.065004999997,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 14994.229392000008,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "write_file",
+            "path": "src/mean.js",
+            "content": "  if (values.length === 0) return null;\n\n"
+          },
+          "usage": {
+            "prompt_tokens": 615,
+            "completion_tokens": 31,
+            "total_tokens": 646,
+            "cache_n": 519,
+            "prompt_n": 96,
+            "prompt_ms": 1514.134,
+            "predicted_n": 31,
+            "predicted_ms": 1212.682,
+            "cached_tokens": 519
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 14995.043409999998,
+          "type": "tool_result",
+          "turn": 4,
+          "action": "write_file",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_CHANGE: src/mean.js"
+            }
+          }
+        },
+        {
+          "seq": 12,
+          "atMs": 14995.427015000008,
+          "type": "model_request",
+          "turn": 5
+        },
+        {
+          "seq": 13,
+          "atMs": 17561.747128999996,
+          "type": "model_response",
+          "turn": 5,
+          "action": {
+            "type": "write_file",
+            "path": "src/mean.js",
+            "content": "  if (values.length === 0) return null;\n\n"
+          },
+          "usage": {
+            "prompt_tokens": 723,
+            "completion_tokens": 31,
+            "total_tokens": 754,
+            "cache_n": 645,
+            "prompt_n": 78,
+            "prompt_ms": 1336.131,
+            "predicted_n": 31,
+            "predicted_ms": 1219.981,
+            "cached_tokens": 645
+          }
+        },
+        {
+          "seq": 14,
+          "atMs": 17562.221774000005,
+          "type": "tool_result",
+          "turn": 5,
+          "action": "write_file",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_CHANGE: src/mean.js"
+            }
+          }
+        },
+        {
+          "seq": 15,
+          "atMs": 17562.48446400001,
+          "type": "model_request",
+          "turn": 6
+        },
+        {
+          "seq": 16,
+          "atMs": 20231.186778000003,
+          "type": "model_response",
+          "turn": 6,
+          "action": {
+            "type": "write_file",
+            "path": "src/mean.js",
+            "content": "  if (values.length === 0) return null;\n\n"
+          },
+          "usage": {
+            "prompt_tokens": 831,
+            "completion_tokens": 31,
+            "total_tokens": 862,
+            "cache_n": 753,
+            "prompt_n": 78,
+            "prompt_ms": 1358.417,
+            "predicted_n": 31,
+            "predicted_ms": 1299.171,
+            "cached_tokens": 753
+          }
+        },
+        {
+          "seq": 17,
+          "atMs": 20231.647698,
+          "type": "tool_result",
+          "turn": 6,
+          "action": "write_file",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_CHANGE: src/mean.js"
+            }
+          }
+        },
+        {
+          "seq": 18,
+          "atMs": 20231.951994999996,
+          "type": "model_request",
+          "turn": 7
+        },
+        {
+          "seq": 19,
+          "atMs": 22946.082956,
+          "type": "model_response",
+          "turn": 7,
+          "action": {
+            "type": "write_file",
+            "path": "src/mean.js",
+            "content": "  if (values.length === 0) return null;\n\n"
+          },
+          "usage": {
+            "prompt_tokens": 939,
+            "completion_tokens": 31,
+            "total_tokens": 970,
+            "cache_n": 861,
+            "prompt_n": 78,
+            "prompt_ms": 1421.752,
+            "predicted_n": 31,
+            "predicted_ms": 1281.134,
+            "cached_tokens": 861
+          }
+        },
+        {
+          "seq": 20,
+          "atMs": 22946.64834,
+          "type": "tool_result",
+          "turn": 7,
+          "action": "write_file",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_CHANGE: src/mean.js"
+            }
+          }
+        },
+        {
+          "seq": 21,
+          "atMs": 22947.005476000006,
+          "type": "model_request",
+          "turn": 8
+        },
+        {
+          "seq": 22,
+          "atMs": 25695.586351000005,
+          "type": "model_response",
+          "turn": 8,
+          "action": {
+            "type": "write_file",
+            "path": "src/mean.js",
+            "content": "  if (values.length === 0) return null;\n\n"
+          },
+          "usage": {
+            "prompt_tokens": 1047,
+            "completion_tokens": 31,
+            "total_tokens": 1078,
+            "cache_n": 969,
+            "prompt_n": 78,
+            "prompt_ms": 1410.557,
+            "predicted_n": 31,
+            "predicted_ms": 1327.156,
+            "cached_tokens": 969
+          }
+        },
+        {
+          "seq": 23,
+          "atMs": 25696.186369999996,
+          "type": "tool_result",
+          "turn": 8,
+          "action": "write_file",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_CHANGE: src/mean.js"
+            }
+          }
+        },
+        {
+          "seq": 24,
+          "atMs": 25696.536773,
+          "type": "model_request",
+          "turn": 9
+        },
+        {
+          "seq": 25,
+          "atMs": 28485.048502000005,
+          "type": "model_response",
+          "turn": 9,
+          "action": {
+            "type": "write_file",
+            "path": "src/mean.js",
+            "content": "  if (values.length === 0) return null;\n\n"
+          },
+          "usage": {
+            "prompt_tokens": 1155,
+            "completion_tokens": 31,
+            "total_tokens": 1186,
+            "cache_n": 1077,
+            "prompt_n": 78,
+            "prompt_ms": 1449.547,
+            "predicted_n": 31,
+            "predicted_ms": 1327.709,
+            "cached_tokens": 1077
+          }
+        },
+        {
+          "seq": 26,
+          "atMs": 28485.662427000003,
+          "type": "tool_result",
+          "turn": 9,
+          "action": "write_file",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "NO_CHANGE: src/mean.js"
+            }
+          }
+        },
+        {
+          "seq": 27,
+          "atMs": 28486.055469,
+          "type": "model_request",
+          "turn": 10
+        },
+        {
+          "seq": 28,
+          "atMs": 29999.992656000002,
+          "type": "execution_error",
+          "status": "deadline",
+          "message": "deadline"
+        },
+        {
+          "seq": 29,
+          "atMs": 30000.651635000002,
+          "type": "submission",
+          "status": "deadline",
+          "turns": 10,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 6417,
+        "completion_tokens": 277,
+        "total_tokens": 6694,
+        "cache_n": 5455,
+        "prompt_n": 962,
+        "prompt_ms": 15642.163,
+        "predicted_n": 277,
+        "predicted_ms": 11128.110999999999,
+        "cached_tokens": 5455
+      },
+      "turns": 10,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "deadline",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "nodeRssBytes": 84123648
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-two-file-rename",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.529985,
+      "status": "deadline",
+      "answer": "",
+      "rawAnswer": "",
+      "edits": 1,
+      "snapshot": {
+        "src/main.js": "import { retryDelay } from \"./retry.js\";\nexport const delay = retryDelay(2);\n",
+        "src/retry.js": "export function backoffDelay(attempt) {\n  return attempt * 100;\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/main.js": {
+          "version": 1,
+          "sha256": "38f57e6c78b2f3780fd4eba405ad4587df71db92d821e3bcf8d3d469fb5a9add",
+          "bytes": 77
+        },
+        "src/retry.js": {
+          "version": 2,
+          "sha256": "e455be2b61ec1a3e32ddef584b1caff367caaea7874049885f805f233295abfa",
+          "bytes": 66
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.2936980000085896,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 6053.776341999997,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/retry.js",
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 258,
+            "completion_tokens": 44,
+            "total_tokens": 302,
+            "cache_n": 0,
+            "prompt_n": 258,
+            "prompt_ms": 3836.673,
+            "predicted_n": 44,
+            "predicted_ms": 1721.359,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 6054.199779000002,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: src/retry.js"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 6054.749530000001,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 8219.668676000001,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "read_file",
+            "path": "src/retry.js"
+          },
+          "usage": {
+            "prompt_tokens": 361,
+            "completion_tokens": 14,
+            "total_tokens": 375,
+            "cache_n": 258,
+            "prompt_n": 103,
+            "prompt_ms": 1623.787,
+            "predicted_n": 14,
+            "predicted_ms": 530.899,
+            "cached_tokens": 258
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 8220.068802000009,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/retry.js",
+              "content": "export function retryDelay(attempt) {\n  return attempt * 100;\n}\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 8220.384770999997,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 10909.545802000008,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "replace_text",
+            "path": "src/retry.js",
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 476,
+            "completion_tokens": 27,
+            "total_tokens": 503,
+            "cache_n": 374,
+            "prompt_n": 102,
+            "prompt_ms": 1610.526,
+            "predicted_n": 27,
+            "predicted_ms": 1068.197,
+            "cached_tokens": 374
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 10910.113360000003,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/retry.js",
+              "content": "export function backoffDelay(attempt) {\n  return attempt * 100;\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 10910.424110000007,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 13701.316089,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "replace_text",
+            "path": "src/main.js",
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 605,
+            "completion_tokens": 26,
+            "total_tokens": 631,
+            "cache_n": 502,
+            "prompt_n": 103,
+            "prompt_ms": 1682.129,
+            "predicted_n": 26,
+            "predicted_ms": 1098.371,
+            "cached_tokens": 502
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 13701.886360000004,
+          "type": "tool_result",
+          "turn": 4,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: src/main.js"
+            }
+          }
+        },
+        {
+          "seq": 12,
+          "atMs": 13702.23818500001,
+          "type": "model_request",
+          "turn": 5
+        },
+        {
+          "seq": 13,
+          "atMs": 15521.13659000001,
+          "type": "model_response",
+          "turn": 5,
+          "action": {
+            "type": "read_file",
+            "path": "src/main.js"
+          },
+          "usage": {
+            "prompt_tokens": 706,
+            "completion_tokens": 13,
+            "total_tokens": 719,
+            "cache_n": 630,
+            "prompt_n": 76,
+            "prompt_ms": 1305.971,
+            "predicted_n": 13,
+            "predicted_ms": 502.272,
+            "cached_tokens": 630
+          }
+        },
+        {
+          "seq": 14,
+          "atMs": 15521.583473000006,
+          "type": "tool_result",
+          "turn": 5,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/main.js",
+              "content": "import { retryDelay } from \"./retry.js\";\nexport const delay = retryDelay(2);\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 15,
+          "atMs": 15521.859777999998,
+          "type": "model_request",
+          "turn": 6
+        },
+        {
+          "seq": 16,
+          "atMs": 18361.360461000004,
+          "type": "model_response",
+          "turn": 6,
+          "action": {
+            "type": "replace_text",
+            "path": "src/main.js",
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 821,
+            "completion_tokens": 26,
+            "total_tokens": 847,
+            "cache_n": 718,
+            "prompt_n": 103,
+            "prompt_ms": 1741.545,
+            "predicted_n": 26,
+            "predicted_ms": 1086.743,
+            "cached_tokens": 718
+          }
+        },
+        {
+          "seq": 17,
+          "atMs": 18361.808797000005,
+          "type": "tool_result",
+          "turn": 6,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "AMBIGUOUS_REPLACEMENT: use more surrounding text"
+            }
+          }
+        },
+        {
+          "seq": 18,
+          "atMs": 18362.097876,
+          "type": "model_request",
+          "turn": 7
+        },
+        {
+          "seq": 19,
+          "atMs": 20880.62156900001,
+          "type": "model_response",
+          "turn": 7,
+          "action": {
+            "type": "replace_text",
+            "path": "src/main.js",
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 928,
+            "completion_tokens": 26,
+            "total_tokens": 954,
+            "cache_n": 846,
+            "prompt_n": 82,
+            "prompt_ms": 1425.05,
+            "predicted_n": 26,
+            "predicted_ms": 1082.891,
+            "cached_tokens": 846
+          }
+        },
+        {
+          "seq": 20,
+          "atMs": 20881.140885,
+          "type": "tool_result",
+          "turn": 7,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "AMBIGUOUS_REPLACEMENT: use more surrounding text"
+            }
+          }
+        },
+        {
+          "seq": 21,
+          "atMs": 20881.482059,
+          "type": "model_request",
+          "turn": 8
+        },
+        {
+          "seq": 22,
+          "atMs": 23434.52139400001,
+          "type": "model_response",
+          "turn": 8,
+          "action": {
+            "type": "replace_text",
+            "path": "src/main.js",
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 1035,
+            "completion_tokens": 26,
+            "total_tokens": 1061,
+            "cache_n": 953,
+            "prompt_n": 82,
+            "prompt_ms": 1450.57,
+            "predicted_n": 26,
+            "predicted_ms": 1091.737,
+            "cached_tokens": 953
+          }
+        },
+        {
+          "seq": 23,
+          "atMs": 23435.13831400001,
+          "type": "tool_result",
+          "turn": 8,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "AMBIGUOUS_REPLACEMENT: use more surrounding text"
+            }
+          }
+        },
+        {
+          "seq": 24,
+          "atMs": 23435.476444,
+          "type": "model_request",
+          "turn": 9
+        },
+        {
+          "seq": 25,
+          "atMs": 26009.342816000004,
+          "type": "model_response",
+          "turn": 9,
+          "action": {
+            "type": "replace_text",
+            "path": "src/main.js",
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 1142,
+            "completion_tokens": 26,
+            "total_tokens": 1168,
+            "cache_n": 1060,
+            "prompt_n": 82,
+            "prompt_ms": 1473.573,
+            "predicted_n": 26,
+            "predicted_ms": 1089.256,
+            "cached_tokens": 1060
+          }
+        },
+        {
+          "seq": 26,
+          "atMs": 26009.950389000005,
+          "type": "tool_result",
+          "turn": 9,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "AMBIGUOUS_REPLACEMENT: use more surrounding text"
+            }
+          }
+        },
+        {
+          "seq": 27,
+          "atMs": 26010.450781000007,
+          "type": "model_request",
+          "turn": 10
+        },
+        {
+          "seq": 28,
+          "atMs": 28617.89073900001,
+          "type": "model_response",
+          "turn": 10,
+          "action": {
+            "type": "replace_text",
+            "path": "src/main.js",
+            "oldText": "retryDelay",
+            "newText": "backoffDelay"
+          },
+          "usage": {
+            "prompt_tokens": 1249,
+            "completion_tokens": 26,
+            "total_tokens": 1275,
+            "cache_n": 1167,
+            "prompt_n": 82,
+            "prompt_ms": 1510.018,
+            "predicted_n": 26,
+            "predicted_ms": 1085.702,
+            "cached_tokens": 1167
+          }
+        },
+        {
+          "seq": 29,
+          "atMs": 28618.358972,
+          "type": "tool_result",
+          "turn": 10,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "AMBIGUOUS_REPLACEMENT: use more surrounding text"
+            }
+          }
+        },
+        {
+          "seq": 30,
+          "atMs": 28618.64400300001,
+          "type": "model_request",
+          "turn": 11
+        },
+        {
+          "seq": 31,
+          "atMs": 30000.101592000006,
+          "type": "execution_error",
+          "status": "deadline",
+          "message": "deadline"
+        },
+        {
+          "seq": 32,
+          "atMs": 30000.923112999997,
+          "type": "submission",
+          "status": "deadline",
+          "turns": 11,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 7581,
+        "completion_tokens": 254,
+        "total_tokens": 7835,
+        "cache_n": 6508,
+        "prompt_n": 1073,
+        "prompt_ms": 17659.841999999997,
+        "predicted_n": 254,
+        "predicted_ms": 10357.427,
+        "cached_tokens": 6508
+      },
+      "turns": 11,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "deadline",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "nodeRssBytes": 84254720
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-config-change",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.511581999992,
+      "status": "deadline",
+      "answer": "",
+      "rawAnswer": "",
+      "edits": 1,
+      "snapshot": {
+        "config.json": "{\n  \"timeoutMs\": 5000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "config.json": {
+          "version": 2,
+          "sha256": "df18beb85a110f38b1d005f9af9eae2c460e01ac268cf360e9502d0197f939b9",
+          "bytes": 59
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.28476200001023244,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 6361.27380000001,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "config.json",
+            "oldText": "\"timeoutMs\": 3000",
+            "newText": "\"timeoutMs\": 5000"
+          },
+          "usage": {
+            "prompt_tokens": 254,
+            "completion_tokens": 53,
+            "total_tokens": 307,
+            "cache_n": 0,
+            "prompt_n": 254,
+            "prompt_ms": 3705.386,
+            "predicted_n": 53,
+            "predicted_ms": 2009.86,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 6361.931757000013,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: config.json"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 6362.4060610000015,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 8521.387707000002,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "read_file",
+            "path": "config.json"
+          },
+          "usage": {
+            "prompt_tokens": 368,
+            "completion_tokens": 12,
+            "total_tokens": 380,
+            "cache_n": 254,
+            "prompt_n": 114,
+            "prompt_ms": 1731.057,
+            "predicted_n": 12,
+            "predicted_ms": 418.51,
+            "cached_tokens": 254
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 8522.447964000006,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "config.json",
+              "content": "{\n  \"timeoutMs\": 3000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 8522.982811000009,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 11682.709197000004,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "replace_text",
+            "path": "config.json",
+            "oldText": "\"timeoutMs\": 3000",
+            "newText": "\"timeoutMs\": 5000"
+          },
+          "usage": {
+            "prompt_tokens": 491,
+            "completion_tokens": 38,
+            "total_tokens": 529,
+            "cache_n": 379,
+            "prompt_n": 112,
+            "prompt_ms": 1700.18,
+            "predicted_n": 38,
+            "predicted_ms": 1449.461,
+            "cached_tokens": 379
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 11683.477299000006,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "config.json",
+              "content": "{\n  \"timeoutMs\": 5000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 11683.991357000006,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 14894.689452000006,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "replace_text",
+            "path": "config.json",
+            "oldText": "\"timeoutMs\": 3000",
+            "newText": "\"timeoutMs\": 5000"
+          },
+          "usage": {
+            "prompt_tokens": 640,
+            "completion_tokens": 38,
+            "total_tokens": 678,
+            "cache_n": 528,
+            "prompt_n": 112,
+            "prompt_ms": 1734.865,
+            "predicted_n": 38,
+            "predicted_ms": 1465.483,
+            "cached_tokens": 528
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 14895.387162999992,
+          "type": "tool_result",
+          "turn": 4,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 12,
+          "atMs": 14895.869271999996,
+          "type": "model_request",
+          "turn": 5
+        },
+        {
+          "seq": 13,
+          "atMs": 16661.510007999997,
+          "type": "model_response",
+          "turn": 5,
+          "action": {
+            "type": "read_file",
+            "path": "config.json"
+          },
+          "usage": {
+            "prompt_tokens": 757,
+            "completion_tokens": 12,
+            "total_tokens": 769,
+            "cache_n": 677,
+            "prompt_n": 80,
+            "prompt_ms": 1309.407,
+            "predicted_n": 12,
+            "predicted_ms": 445.687,
+            "cached_tokens": 677
+          }
+        },
+        {
+          "seq": 14,
+          "atMs": 16662.14977100001,
+          "type": "tool_result",
+          "turn": 5,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "config.json",
+              "content": "{\n  \"timeoutMs\": 5000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 15,
+          "atMs": 16662.641648000004,
+          "type": "model_request",
+          "turn": 6
+        },
+        {
+          "seq": 16,
+          "atMs": 20040.103994999998,
+          "type": "model_response",
+          "turn": 6,
+          "action": {
+            "type": "replace_text",
+            "path": "config.json",
+            "oldText": "\"timeoutMs\": 3000",
+            "newText": "\"timeoutMs\": 5000"
+          },
+          "usage": {
+            "prompt_tokens": 880,
+            "completion_tokens": 38,
+            "total_tokens": 918,
+            "cache_n": 768,
+            "prompt_n": 112,
+            "prompt_ms": 1780.241,
+            "predicted_n": 38,
+            "predicted_ms": 1586.587,
+            "cached_tokens": 768
+          }
+        },
+        {
+          "seq": 17,
+          "atMs": 20040.649221000014,
+          "type": "tool_result",
+          "turn": 6,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 18,
+          "atMs": 20041.039678999994,
+          "type": "model_request",
+          "turn": 7
+        },
+        {
+          "seq": 19,
+          "atMs": 21893.88535500002,
+          "type": "model_response",
+          "turn": 7,
+          "action": {
+            "type": "read_file",
+            "path": "config.json"
+          },
+          "usage": {
+            "prompt_tokens": 997,
+            "completion_tokens": 12,
+            "total_tokens": 1009,
+            "cache_n": 917,
+            "prompt_n": 80,
+            "prompt_ms": 1364.53,
+            "predicted_n": 12,
+            "predicted_ms": 477.295,
+            "cached_tokens": 917
+          }
+        },
+        {
+          "seq": 20,
+          "atMs": 21894.344781000007,
+          "type": "tool_result",
+          "turn": 7,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "config.json",
+              "content": "{\n  \"timeoutMs\": 5000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 21,
+          "atMs": 21894.700404000017,
+          "type": "model_request",
+          "turn": 8
+        },
+        {
+          "seq": 22,
+          "atMs": 25438.025062000015,
+          "type": "model_response",
+          "turn": 8,
+          "action": {
+            "type": "replace_text",
+            "path": "config.json",
+            "oldText": "\"timeoutMs\": 3000",
+            "newText": "\"timeoutMs\": 5000"
+          },
+          "usage": {
+            "prompt_tokens": 1120,
+            "completion_tokens": 38,
+            "total_tokens": 1158,
+            "cache_n": 1008,
+            "prompt_n": 112,
+            "prompt_ms": 1835.711,
+            "predicted_n": 38,
+            "predicted_ms": 1695.919,
+            "cached_tokens": 1008
+          }
+        },
+        {
+          "seq": 23,
+          "atMs": 25438.535594,
+          "type": "tool_result",
+          "turn": 8,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 24,
+          "atMs": 25438.894042999993,
+          "type": "model_request",
+          "turn": 9
+        },
+        {
+          "seq": 25,
+          "atMs": 27382.406919000015,
+          "type": "model_response",
+          "turn": 9,
+          "action": {
+            "type": "read_file",
+            "path": "config.json"
+          },
+          "usage": {
+            "prompt_tokens": 1237,
+            "completion_tokens": 12,
+            "total_tokens": 1249,
+            "cache_n": 1157,
+            "prompt_n": 80,
+            "prompt_ms": 1432.923,
+            "predicted_n": 12,
+            "predicted_ms": 498.212,
+            "cached_tokens": 1157
+          }
+        },
+        {
+          "seq": 26,
+          "atMs": 27382.897073000015,
+          "type": "tool_result",
+          "turn": 9,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "config.json",
+              "content": "{\n  \"timeoutMs\": 5000,\n  \"retries\": 2,\n  \"enabled\": true\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 27,
+          "atMs": 27383.23367100001,
+          "type": "model_request",
+          "turn": 10
+        },
+        {
+          "seq": 28,
+          "atMs": 29999.93826900002,
+          "type": "execution_error",
+          "status": "deadline",
+          "message": "deadline"
+        },
+        {
+          "seq": 29,
+          "atMs": 30000.815334,
+          "type": "submission",
+          "status": "deadline",
+          "turns": 10,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 6744,
+        "completion_tokens": 253,
+        "total_tokens": 6997,
+        "cache_n": 5688,
+        "prompt_n": 1056,
+        "prompt_ms": 16594.3,
+        "predicted_n": 253,
+        "predicted_ms": 10047.014,
+        "cached_tokens": 5688
+      },
+      "turns": 10,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "deadline",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "nodeRssBytes": 86614016
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-copy-before-sort",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 30001.87612900001,
+      "status": "deadline",
+      "answer": "",
+      "rawAnswer": "",
+      "edits": 1,
+      "snapshot": {
+        "src/sort.js": "export function ascending(values) {\n  return [...values].sort((a, b) => a - b);\n}\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "src/sort.js": {
+          "version": 2,
+          "sha256": "4d4ea2bf6815f7056b81709e5f3fa63fcd26977fdea6712637c1887a55c29966",
+          "bytes": 82
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.19903099999646656,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 7146.855360000016,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "replace_text",
+            "path": "src/sort.js",
+            "oldText": "return values.sort((a, b) => a - b);",
+            "newText": "return [...values].sort((a, b) => a - b);"
+          },
+          "usage": {
+            "prompt_tokens": 268,
+            "completion_tokens": 67,
+            "total_tokens": 335,
+            "cache_n": 0,
+            "prompt_n": 268,
+            "prompt_ms": 3978.504,
+            "predicted_n": 67,
+            "predicted_ms": 2759.861,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 7147.553681000019,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "READ_REQUIRED: src/sort.js"
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 7148.03296500002,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 9931.38591500002,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "read_file",
+            "path": "src/sort.js"
+          },
+          "usage": {
+            "prompt_tokens": 408,
+            "completion_tokens": 14,
+            "total_tokens": 422,
+            "cache_n": 268,
+            "prompt_n": 140,
+            "prompt_ms": 2231.521,
+            "predicted_n": 14,
+            "predicted_ms": 542.255,
+            "cached_tokens": 268
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 9932.009668000013,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/sort.js",
+              "content": "export function ascending(values) {\n  return values.sort((a, b) => a - b);\n}\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 9932.55139800001,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 13960.852146999998,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "replace_text",
+            "path": "src/sort.js",
+            "oldText": "return values.sort((a, b) => a - b);",
+            "newText": "return [...values].sort((a, b) => a - b);"
+          },
+          "usage": {
+            "prompt_tokens": 540,
+            "completion_tokens": 50,
+            "total_tokens": 590,
+            "cache_n": 421,
+            "prompt_n": 119,
+            "prompt_ms": 1883.763,
+            "predicted_n": 50,
+            "predicted_ms": 2134.851,
+            "cached_tokens": 421
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 13961.660544000013,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "replace_text",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/sort.js",
+              "content": "export function ascending(values) {\n  return [...values].sort((a, b) => a - b);\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 13962.186283999996,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 18065.359093000006,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "replace_text",
+            "path": "src/sort.js",
+            "oldText": "return values.sort((a, b) => a - b);",
+            "newText": "return [...values].sort((a, b) => a - b);"
+          },
+          "usage": {
+            "prompt_tokens": 710,
+            "completion_tokens": 50,
+            "total_tokens": 760,
+            "cache_n": 589,
+            "prompt_n": 121,
+            "prompt_ms": 1954.963,
+            "predicted_n": 50,
+            "predicted_ms": 2137.832,
+            "cached_tokens": 589
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 18066.09228000001,
+          "type": "tool_result",
+          "turn": 4,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 12,
+          "atMs": 18066.642286000017,
+          "type": "model_request",
+          "turn": 5
+        },
+        {
+          "seq": 13,
+          "atMs": 20238.840190000017,
+          "type": "model_response",
+          "turn": 5,
+          "action": {
+            "type": "read_file",
+            "path": "src/sort.js"
+          },
+          "usage": {
+            "prompt_tokens": 851,
+            "completion_tokens": 14,
+            "total_tokens": 865,
+            "cache_n": 759,
+            "prompt_n": 92,
+            "prompt_ms": 1553.565,
+            "predicted_n": 14,
+            "predicted_ms": 607.793,
+            "cached_tokens": 759
+          }
+        },
+        {
+          "seq": 14,
+          "atMs": 20239.557749,
+          "type": "tool_result",
+          "turn": 5,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/sort.js",
+              "content": "export function ascending(values) {\n  return [...values].sort((a, b) => a - b);\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 15,
+          "atMs": 20240.079802000022,
+          "type": "model_request",
+          "turn": 6
+        },
+        {
+          "seq": 16,
+          "atMs": 24543.215171000018,
+          "type": "model_response",
+          "turn": 6,
+          "action": {
+            "type": "replace_text",
+            "path": "src/sort.js",
+            "oldText": "return values.sort((a, b) => a - b);",
+            "newText": "return [...values].sort((a, b) => a - b);"
+          },
+          "usage": {
+            "prompt_tokens": 985,
+            "completion_tokens": 50,
+            "total_tokens": 1035,
+            "cache_n": 864,
+            "prompt_n": 121,
+            "prompt_ms": 2020.751,
+            "predicted_n": 50,
+            "predicted_ms": 2271.338,
+            "cached_tokens": 864
+          }
+        },
+        {
+          "seq": 17,
+          "atMs": 24544.035451000003,
+          "type": "tool_result",
+          "turn": 6,
+          "action": "replace_text",
+          "reply": {
+            "ok": false,
+            "error": {
+              "message": "TEXT_NOT_FOUND: read the current content"
+            }
+          }
+        },
+        {
+          "seq": 18,
+          "atMs": 24544.59914200002,
+          "type": "model_request",
+          "turn": 7
+        },
+        {
+          "seq": 19,
+          "atMs": 26808.141237000003,
+          "type": "model_response",
+          "turn": 7,
+          "action": {
+            "type": "read_file",
+            "path": "src/sort.js"
+          },
+          "usage": {
+            "prompt_tokens": 1126,
+            "completion_tokens": 14,
+            "total_tokens": 1140,
+            "cache_n": 1034,
+            "prompt_n": 92,
+            "prompt_ms": 1633.395,
+            "predicted_n": 14,
+            "predicted_ms": 618.573,
+            "cached_tokens": 1034
+          }
+        },
+        {
+          "seq": 20,
+          "atMs": 26808.84907700002,
+          "type": "tool_result",
+          "turn": 7,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "src/sort.js",
+              "content": "export function ascending(values) {\n  return [...values].sort((a, b) => a - b);\n}\n",
+              "version": 2
+            }
+          }
+        },
+        {
+          "seq": 21,
+          "atMs": 26809.39568700001,
+          "type": "model_request",
+          "turn": 8
+        },
+        {
+          "seq": 22,
+          "atMs": 30000.064602,
+          "type": "execution_error",
+          "status": "deadline",
+          "message": "deadline"
+        },
+        {
+          "seq": 23,
+          "atMs": 30000.999404000002,
+          "type": "submission",
+          "status": "deadline",
+          "turns": 8,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 4888,
+        "completion_tokens": 259,
+        "total_tokens": 5147,
+        "cache_n": 3935,
+        "prompt_n": 953,
+        "prompt_ms": 15256.462000000001,
+        "predicted_n": 259,
+        "predicted_ms": 11072.503,
+        "cached_tokens": 3935
+      },
+      "turns": 8,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "deadline",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "nodeRssBytes": 86614016
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-grounded-answer",
+      "valid": true,
+      "accepted": true,
+      "elapsedMs": 7447.943646999978,
+      "status": "finished",
+      "answer": "version=2.4.1;status=paused",
+      "rawAnswer": "version=1;status=pause",
+      "edits": 0,
+      "snapshot": {
+        "notes/release.txt": "Product: Comet\nVersion: 2.4.1\nStatus: paused\nOwner: Ada\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "notes/release.txt": {
+          "version": 1,
+          "sha256": "a77d4087fbc36e4f0f90fad9b56da3e82d2c5a9be237f2d495d0ee01041c1068",
+          "bytes": 56
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.4513509999960661,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 5294.101250000007,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "read_file",
+            "path": "notes/release.txt"
+          },
+          "usage": {
+            "prompt_tokens": 240,
+            "completion_tokens": 24,
+            "total_tokens": 264,
+            "cache_n": 0,
+            "prompt_n": 240,
+            "prompt_ms": 3513.199,
+            "predicted_n": 24,
+            "predicted_ms": 935.998,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 5294.616670999996,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/release.txt",
+              "content": "Product: Comet\nVersion: 2.4.1\nStatus: paused\nOwner: Ada\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 5295.043346999999,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 7445.440229999978,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "finish",
+            "answer": "version=1;status=pause"
+          },
+          "usage": {
+            "prompt_tokens": 340,
+            "completion_tokens": 16,
+            "total_tokens": 356,
+            "cache_n": 240,
+            "prompt_n": 100,
+            "prompt_ms": 1540.604,
+            "predicted_n": 16,
+            "predicted_ms": 600.643,
+            "cached_tokens": 240
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 7446.635257999995,
+          "type": "formatted_submission",
+          "rawAnswer": "version=1;status=pause",
+          "answer": "version=2.4.1;status=paused",
+          "contract": "fields"
+        },
+        {
+          "seq": 6,
+          "atMs": 7447.206413000007,
+          "type": "submission",
+          "status": "finished",
+          "turns": 2,
+          "provisional": true
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 580,
+        "completion_tokens": 40,
+        "total_tokens": 620,
+        "cache_n": 240,
+        "prompt_n": 340,
+        "prompt_ms": 5053.803,
+        "predicted_n": 40,
+        "predicted_ms": 1536.641,
+        "cached_tokens": 240
+      },
+      "turns": 2,
+      "adapterKind": "real",
+      "checks": [
+        {
+          "name": "exact file inventory",
+          "passed": true
+        },
+        {
+          "name": "exact file contents",
+          "passed": true
+        },
+        {
+          "name": "exact final answer",
+          "passed": true
+        }
+      ],
+      "submissionStatus": "finished",
+      "gradingElapsedMs": 0.3395330000203103,
+      "observerErrors": [],
+      "nodeRssBytes": 87662592
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "taskId": "smoke-missing-information",
+      "valid": true,
+      "accepted": false,
+      "elapsedMs": 26812.73386799998,
+      "status": "max_turns",
+      "answer": "",
+      "rawAnswer": "",
+      "edits": 0,
+      "snapshot": {
+        "notes/project.txt": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+        "unrelated.txt": "Preserve this unrelated file exactly.\n"
+      },
+      "manifest": {
+        "notes/project.txt": {
+          "version": 1,
+          "sha256": "c87dbb2e1f6e3f9a5a6ac9dcfea97019a42d1621e9aacb9978fb883b7d263b22",
+          "bytes": 42
+        },
+        "unrelated.txt": {
+          "version": 1,
+          "sha256": "81eb6ecd03cc8b9aa51a24f2c6282895cae5cb59f073c3700d7409045d09e274",
+          "bytes": 38
+        }
+      },
+      "events": [
+        {
+          "seq": 0,
+          "atMs": 0.23449699999764562,
+          "type": "model_request",
+          "turn": 1
+        },
+        {
+          "seq": 1,
+          "atMs": 4178.830006000004,
+          "type": "model_response",
+          "turn": 1,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 248,
+            "completion_tokens": 13,
+            "total_tokens": 261,
+            "cache_n": 0,
+            "prompt_n": 248,
+            "prompt_ms": 3636.082,
+            "predicted_n": 13,
+            "predicted_ms": 534.686,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "seq": 2,
+          "atMs": 4179.6168419999885,
+          "type": "tool_result",
+          "turn": 1,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 3,
+          "atMs": 4180.546234999987,
+          "type": "model_request",
+          "turn": 2
+        },
+        {
+          "seq": 4,
+          "atMs": 6081.406029999984,
+          "type": "model_response",
+          "turn": 2,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 347,
+            "completion_tokens": 13,
+            "total_tokens": 360,
+            "cache_n": 260,
+            "prompt_n": 87,
+            "prompt_ms": 1395.717,
+            "predicted_n": 13,
+            "predicted_ms": 495.519,
+            "cached_tokens": 260
+          }
+        },
+        {
+          "seq": 5,
+          "atMs": 6082.196312999993,
+          "type": "tool_result",
+          "turn": 2,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 6,
+          "atMs": 6083.130463999987,
+          "type": "model_request",
+          "turn": 3
+        },
+        {
+          "seq": 7,
+          "atMs": 7993.961829999986,
+          "type": "model_response",
+          "turn": 3,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 446,
+            "completion_tokens": 13,
+            "total_tokens": 459,
+            "cache_n": 359,
+            "prompt_n": 87,
+            "prompt_ms": 1407.297,
+            "predicted_n": 13,
+            "predicted_ms": 494.084,
+            "cached_tokens": 359
+          }
+        },
+        {
+          "seq": 8,
+          "atMs": 7995.073762999993,
+          "type": "tool_result",
+          "turn": 3,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 9,
+          "atMs": 7995.687766999996,
+          "type": "model_request",
+          "turn": 4
+        },
+        {
+          "seq": 10,
+          "atMs": 9953.405820999993,
+          "type": "model_response",
+          "turn": 4,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 545,
+            "completion_tokens": 13,
+            "total_tokens": 558,
+            "cache_n": 458,
+            "prompt_n": 87,
+            "prompt_ms": 1440.903,
+            "predicted_n": 13,
+            "predicted_ms": 507.044,
+            "cached_tokens": 458
+          }
+        },
+        {
+          "seq": 11,
+          "atMs": 9954.485174000001,
+          "type": "tool_result",
+          "turn": 4,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 12,
+          "atMs": 9955.126820000005,
+          "type": "model_request",
+          "turn": 5
+        },
+        {
+          "seq": 13,
+          "atMs": 11938.753605000005,
+          "type": "model_response",
+          "turn": 5,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 644,
+            "completion_tokens": 13,
+            "total_tokens": 657,
+            "cache_n": 557,
+            "prompt_n": 87,
+            "prompt_ms": 1465.89,
+            "predicted_n": 13,
+            "predicted_ms": 507.674,
+            "cached_tokens": 557
+          }
+        },
+        {
+          "seq": 14,
+          "atMs": 11939.626642999996,
+          "type": "tool_result",
+          "turn": 5,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 15,
+          "atMs": 11940.115874999989,
+          "type": "model_request",
+          "turn": 6
+        },
+        {
+          "seq": 16,
+          "atMs": 13949.020206999994,
+          "type": "model_response",
+          "turn": 6,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 743,
+            "completion_tokens": 13,
+            "total_tokens": 756,
+            "cache_n": 656,
+            "prompt_n": 87,
+            "prompt_ms": 1488.266,
+            "predicted_n": 13,
+            "predicted_ms": 510.591,
+            "cached_tokens": 656
+          }
+        },
+        {
+          "seq": 17,
+          "atMs": 13949.77594599998,
+          "type": "tool_result",
+          "turn": 6,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 18,
+          "atMs": 13950.401211999997,
+          "type": "model_request",
+          "turn": 7
+        },
+        {
+          "seq": 19,
+          "atMs": 15993.021242999996,
+          "type": "model_response",
+          "turn": 7,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 842,
+            "completion_tokens": 13,
+            "total_tokens": 855,
+            "cache_n": 755,
+            "prompt_n": 87,
+            "prompt_ms": 1517.049,
+            "predicted_n": 13,
+            "predicted_ms": 514.87,
+            "cached_tokens": 755
+          }
+        },
+        {
+          "seq": 20,
+          "atMs": 15993.770148999989,
+          "type": "tool_result",
+          "turn": 7,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 21,
+          "atMs": 15994.372061000002,
+          "type": "model_request",
+          "turn": 8
+        },
+        {
+          "seq": 22,
+          "atMs": 18060.151924000005,
+          "type": "model_response",
+          "turn": 8,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 941,
+            "completion_tokens": 13,
+            "total_tokens": 954,
+            "cache_n": 854,
+            "prompt_n": 87,
+            "prompt_ms": 1541.911,
+            "predicted_n": 13,
+            "predicted_ms": 512.301,
+            "cached_tokens": 854
+          }
+        },
+        {
+          "seq": 23,
+          "atMs": 18060.738176999992,
+          "type": "tool_result",
+          "turn": 8,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 24,
+          "atMs": 18061.473186999996,
+          "type": "model_request",
+          "turn": 9
+        },
+        {
+          "seq": 25,
+          "atMs": 20200.14009099998,
+          "type": "model_response",
+          "turn": 9,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 1040,
+            "completion_tokens": 13,
+            "total_tokens": 1053,
+            "cache_n": 953,
+            "prompt_n": 87,
+            "prompt_ms": 1582.239,
+            "predicted_n": 13,
+            "predicted_ms": 544.79,
+            "cached_tokens": 953
+          }
+        },
+        {
+          "seq": 26,
+          "atMs": 20200.72772699999,
+          "type": "tool_result",
+          "turn": 9,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 27,
+          "atMs": 20201.19817399999,
+          "type": "model_request",
+          "turn": 10
+        },
+        {
+          "seq": 28,
+          "atMs": 22387.935031,
+          "type": "model_response",
+          "turn": 10,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 1139,
+            "completion_tokens": 13,
+            "total_tokens": 1152,
+            "cache_n": 1052,
+            "prompt_n": 87,
+            "prompt_ms": 1598.607,
+            "predicted_n": 13,
+            "predicted_ms": 576.463,
+            "cached_tokens": 1052
+          }
+        },
+        {
+          "seq": 29,
+          "atMs": 22388.573701999994,
+          "type": "tool_result",
+          "turn": 10,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 30,
+          "atMs": 22389.061831999978,
+          "type": "model_request",
+          "turn": 11
+        },
+        {
+          "seq": 31,
+          "atMs": 24582.220388999995,
+          "type": "model_response",
+          "turn": 11,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 1238,
+            "completion_tokens": 13,
+            "total_tokens": 1251,
+            "cache_n": 1151,
+            "prompt_n": 87,
+            "prompt_ms": 1648.376,
+            "predicted_n": 13,
+            "predicted_ms": 532.237,
+            "cached_tokens": 1151
+          }
+        },
+        {
+          "seq": 32,
+          "atMs": 24582.818253000005,
+          "type": "tool_result",
+          "turn": 11,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 33,
+          "atMs": 24583.306423,
+          "type": "model_request",
+          "turn": 12
+        },
+        {
+          "seq": 34,
+          "atMs": 26810.549742000003,
+          "type": "model_response",
+          "turn": 12,
+          "action": {
+            "type": "read_file",
+            "path": "notes/project.txt"
+          },
+          "usage": {
+            "prompt_tokens": 1337,
+            "completion_tokens": 13,
+            "total_tokens": 1350,
+            "cache_n": 1250,
+            "prompt_n": 87,
+            "prompt_ms": 1644.84,
+            "predicted_n": 13,
+            "predicted_ms": 569.906,
+            "cached_tokens": 1250
+          }
+        },
+        {
+          "seq": 35,
+          "atMs": 26811.192561999982,
+          "type": "tool_result",
+          "turn": 12,
+          "action": "read_file",
+          "reply": {
+            "ok": true,
+            "result": {
+              "path": "notes/project.txt",
+              "content": "Project: Comet\nOwner: Ada\nStatus: testing\n",
+              "version": 1
+            }
+          }
+        },
+        {
+          "seq": 36,
+          "atMs": 26811.79888299998,
+          "type": "submission",
+          "status": "max_turns",
+          "turns": 12,
+          "provisional": false
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 9510,
+        "completion_tokens": 156,
+        "total_tokens": 9666,
+        "cache_n": 8305,
+        "prompt_n": 1205,
+        "prompt_ms": 20367.176999999996,
+        "predicted_n": 156,
+        "predicted_ms": 6300.164999999999,
+        "cached_tokens": 8305
+      },
+      "turns": 12,
+      "adapterKind": "real",
+      "checks": [],
+      "submissionStatus": "max_turns",
+      "gradingElapsedMs": 0,
+      "observerErrors": [],
+      "nodeRssBytes": 90386432
+    }
+  ],
+  "currentTask": null,
+  "score": {
+    "systems": {
+      "baseline": {
+        "complete": true,
+        "elapsedComplete": true,
+        "meanObservedElapsedMs": 27427.4186923,
+        "acceptedRate": 0.1,
+        "cost": 0.9248264788233331,
+        "cdf": [
+          {
+            "tMs": 7447.943646999978,
+            "acceptedWeight": 0.1
+          }
+        ],
+        "t50Ms": null,
+        "t50Status": "unreached",
+        "perTask": [
+          {
+            "taskId": "smoke-ttl-boundary",
+            "stratum": "coding",
+            "clusterId": "smoke-ttl-boundary",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 30002.161163000004,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-preserve-zero",
+            "stratum": "coding",
+            "clusterId": "smoke-preserve-zero",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 30001.728578000002,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-empty-guard",
+            "stratum": "coding",
+            "clusterId": "smoke-empty-guard",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 30001.324619000006,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-two-file-rename",
+            "stratum": "coding",
+            "clusterId": "smoke-two-file-rename",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 30001.529985,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-config-change",
+            "stratum": "coding",
+            "clusterId": "smoke-config-change",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 30001.511581999992,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-copy-before-sort",
+            "stratum": "coding",
+            "clusterId": "smoke-copy-before-sort",
+            "weight": 0.13333333333333333,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 30001.87612900001,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          {
+            "taskId": "smoke-grounded-answer",
+            "stratum": "general",
+            "clusterId": "smoke-grounded-answer",
+            "weight": 0.1,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 7447.943646999978,
+            "acceptedRate": 1,
+            "cost": 0.24826478823333262
+          },
+          {
+            "taskId": "smoke-missing-information",
+            "stratum": "general",
+            "clusterId": "smoke-missing-information",
+            "weight": 0.1,
+            "complete": true,
+            "missingRepeats": [],
+            "invalidRepeats": [],
+            "elapsedComplete": true,
+            "meanObservedElapsedMs": 26812.73386799998,
+            "acceptedRate": 0,
+            "cost": 1
+          }
+        ],
+        "perStratum": {
+          "coding": {
+            "complete": true,
+            "acceptedRate": 0,
+            "cost": 1
+          },
+          "general": {
+            "complete": true,
+            "acceptedRate": 0.5,
+            "cost": 0.6241323941166663
+          }
+        }
+      },
+      "candidate": {
+        "complete": false,
+        "elapsedComplete": false,
+        "meanObservedElapsedMs": null,
+        "acceptedRate": null,
+        "cost": null,
+        "cdf": null,
+        "t50Ms": null,
+        "t50Status": "incomplete",
+        "perTask": [
+          {
+            "taskId": "smoke-ttl-boundary",
+            "stratum": "coding",
+            "clusterId": "smoke-ttl-boundary",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-preserve-zero",
+            "stratum": "coding",
+            "clusterId": "smoke-preserve-zero",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-empty-guard",
+            "stratum": "coding",
+            "clusterId": "smoke-empty-guard",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-two-file-rename",
+            "stratum": "coding",
+            "clusterId": "smoke-two-file-rename",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-config-change",
+            "stratum": "coding",
+            "clusterId": "smoke-config-change",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-copy-before-sort",
+            "stratum": "coding",
+            "clusterId": "smoke-copy-before-sort",
+            "weight": 0.13333333333333333,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-grounded-answer",
+            "stratum": "general",
+            "clusterId": "smoke-grounded-answer",
+            "weight": 0.1,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          },
+          {
+            "taskId": "smoke-missing-information",
+            "stratum": "general",
+            "clusterId": "smoke-missing-information",
+            "weight": 0.1,
+            "complete": false,
+            "missingRepeats": [
+              0
+            ],
+            "invalidRepeats": [],
+            "elapsedComplete": false,
+            "meanObservedElapsedMs": null,
+            "acceptedRate": null,
+            "cost": null
+          }
+        ],
+        "perStratum": {
+          "coding": {
+            "complete": false,
+            "acceptedRate": null,
+            "cost": null
+          },
+          "general": {
+            "complete": false,
+            "acceptedRate": null,
+            "cost": null
+          }
+        }
+      }
+    },
+    "pairedGroups": [
+      {
+        "task": {
+          "id": "smoke-ttl-boundary",
+          "version": "604d32fde0f0fb2f06fb7d16f236a46e7e240ba1ea3cbca30e24e32712cd2e5e",
+          "clusterId": "smoke-ttl-boundary",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-ttl-boundary",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 30002.161163000004,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-preserve-zero",
+          "version": "9893c59dda6b43b6ed7a729fa831a07940ebbf57194ff897f2f62d5480aee7cd",
+          "clusterId": "smoke-preserve-zero",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-preserve-zero",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 30001.728578000002,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-empty-guard",
+          "version": "5a30254e2cd0b3774383f375fe63834dfcca17072f12bfac7bda96e33f2b7ccb",
+          "clusterId": "smoke-empty-guard",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-empty-guard",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 30001.324619000006,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-two-file-rename",
+          "version": "b0782f80457127815c2ec24bb8c6aa673dd90d98fcdf6ed3ba44a164a7e92801",
+          "clusterId": "smoke-two-file-rename",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-two-file-rename",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 30001.529985,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-config-change",
+          "version": "63eb90609a7dddce606c5cb711d81ef9c87f04ebf7ad8a64ffdc936ab932118d",
+          "clusterId": "smoke-config-change",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-config-change",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 30001.511581999992,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-copy-before-sort",
+          "version": "b5041409b2174ffc0911e3b05be4bcacadedf4bba981a41298f856e20874f8f5",
+          "clusterId": "smoke-copy-before-sort",
+          "stratum": "coding",
+          "deadlineMs": 30000
+        },
+        "weight": 0.13333333333333333,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-copy-before-sort",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 30001.87612900001,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-grounded-answer",
+          "version": "e500ce71d5d04468c67c7c22b9ca70985749355f5194aa5f21694c71bce411d7",
+          "clusterId": "smoke-grounded-answer",
+          "stratum": "general",
+          "deadlineMs": 30000
+        },
+        "weight": 0.1,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-grounded-answer",
+              "repeat": 0,
+              "valid": true,
+              "accepted": true,
+              "elapsedMs": 7447.943646999978,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      },
+      {
+        "task": {
+          "id": "smoke-missing-information",
+          "version": "185dc3709ad83c4bef87b6e2b75727ee791ff8f25382bfd829195baa91b0cc7f",
+          "clusterId": "smoke-missing-information",
+          "stratum": "general",
+          "deadlineMs": 30000
+        },
+        "weight": 0.1,
+        "pairs": [
+          {
+            "repeat": 0,
+            "baseline": {
+              "system": "baseline",
+              "taskId": "smoke-missing-information",
+              "repeat": 0,
+              "valid": true,
+              "accepted": false,
+              "elapsedMs": 26812.73386799998,
+              "invalidReason": null
+            },
+            "candidate": null
+          }
+        ]
+      }
+    ],
+    "pairedOutcomes": {
+      "bothAccepted": 0,
+      "baselineOnly": 0,
+      "candidateOnly": 0,
+      "neitherAccepted": 0,
+      "missingOrInvalid": 0.9999999999999999
+    },
+    "comparison": {
+      "ready": false,
+      "qualityDelta": null,
+      "costDelta": null,
+      "t50Ratio": null,
+      "ratioStatus": "incomplete",
+      "confidenceInterval": null,
+      "inference": "Point estimates only; no statistical decision."
+    }
+  },
+  "updatedAt": "2026-10-07T23:16:52.868Z",
+  "warmup": {
+    "elapsedMs": 3916.471141,
+    "usage": {
+      "prompt_tokens": 205,
+      "completion_tokens": 21,
+      "total_tokens": 226,
+      "cache_n": 0,
+      "prompt_n": 205,
+      "prompt_ms": 3116.772,
+      "predicted_n": 21,
+      "predicted_ms": 752.231,
+      "cached_tokens": 0
+    }
+  },
+  "complete": true,
+  "qualityGate": false,
+  "finishedAt": "2026-10-07T23:16:52.868Z"
+}

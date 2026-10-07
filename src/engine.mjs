@@ -37,7 +37,7 @@ import { createWorkspace } from "./workspace.mjs";
   async function runEngineTask({task,adapter,evaluate,signal,workspaceLimits,onEvent,contextReuse=false,native=false}){
     const started=performance.now(),controller=new AbortController(),events=[],usage={},messages=[],observerErrors=[];
     let observing=true,timer,workspace,deadline=Infinity,status="max_turns",valid=true,invalidReason;
-    const observed=new Map();let edits=0,contract,rawAnswer="";
+    const observed=new Map(),changed=new Set(),applied=new Map(),callIds=new Set();let edits=0,contract,rawAnswer="";
     let turns=0,answer="",snapshot={},manifest={},accepted=false,checks=[],gradingElapsedMs=0;
     const observerError=(eventSeq,error)=>{if(observing)observerErrors.push({eventSeq,atMs:performance.now()-started,message:errorText(error)});};
     const emit=(type,detail={})=>{
@@ -77,7 +77,12 @@ import { createWorkspace } from "./workspace.mjs";
         gate();if(!plain(response))throw new Stop("protocol_error","Malformed adapter response");
         const action=checkedAction(response.action),reportedUsage=addUsage(usage,response.usage);
         emit("model_response",{turn:turns,action,usage:reportedUsage});
-        messages.push({role:"assistant",content:JSON.stringify(action)});
+        const callId=response.toolCallId??"host_call_"+turns;
+        if(typeof callId!=="string"||!callId||callId.length>128||callIds.has(callId))throw new Stop("protocol_error","Invalid tool call id");
+        callIds.add(callId);
+        const {type,...args}=action;
+        messages.push({role:"assistant",content:"",tool_calls:[{id:callId,type:"function",function:{name:type,arguments:JSON.stringify(args)}}]});
+        const observe=reply=>messages.push({role:"tool",tool_call_id:callId,content:JSON.stringify(reply)});
         if(action.type==="finish"){
           gate();rawAnswer=action.answer;
           try{
@@ -85,11 +90,12 @@ import { createWorkspace } from "./workspace.mjs";
             status="finished";emit("formatted_submission",{rawAnswer,answer,contract:contract.kind});break;
           }catch(e){
             const reply={ok:false,error:{message:errorText(e)}};
-            messages.push({role:"user",content:JSON.stringify(reply)+"\nOriginal request: "+task.prompt});
+            observe(reply);
             emit("tool_result",{turn:turns,action:action.type,reply});continue;
           }
         }
         let reply;
+        const revisionBefore=workspace.manifest();
         try{
           gate();let result;
           switch(action.type){
@@ -105,11 +111,17 @@ import { createWorkspace } from "./workspace.mjs";
               if(action.type==="replace_text"){
                 if(!action.oldText)throw new Error("INVALID_REPLACEMENT: oldText must not be empty");
                 const offset=current.content.indexOf(action.oldText);
-                if(offset<0)throw new Error("TEXT_NOT_FOUND: read the current content");
+                if(offset<0){
+                  const prior=applied.get(JSON.stringify(action));
+                  if(prior?.path===current.path&&prior.version===current.version)throw new Error("ALREADY_APPLIED: this exact edit succeeded at the current revision; continue remaining work or finish");
+                  throw new Error("TEXT_NOT_FOUND: use current content from the last read or successful edit");
+                }
                 if(current.content.indexOf(action.oldText,offset+1)>=0)throw new Error("AMBIGUOUS_REPLACEMENT: use more surrounding text");
                 content=current.content.slice(0,offset)+action.newText+current.content.slice(offset+action.oldText.length);
               }
+              if(content===current.content)throw new Error("NO_CHANGE: current content already matches; continue remaining work or finish");
               [result]=workspace.applyChanges([{path:current.path,expectedVersion:observed.get(current.path),content}]);
+              applied.set(JSON.stringify(action),{path:result.path,version:result.version});
               observed.set(result.path,result.version);edits++;break;
             }
             case"rename_identifier":{
@@ -128,8 +140,13 @@ import { createWorkspace } from "./workspace.mjs";
             }
           }
           gate();reply={ok:true,result};
+          if(["replace_text","write_file","rename_identifier"].includes(action.type)){
+            const files=Array.isArray(result)?result:[result];for(const file of files)changed.add(file.path);
+            reply.receipt={applied:true,operationId:callId,changes:files.map(file=>({path:file.path,beforeVersion:revisionBefore[file.path].version,version:file.version})),changedPaths:[...changed],observedPaths:[...observed.keys()]};
+            reply.next="This edit is applied. Continue only for remaining requested work; otherwise call finish.";
+          }
         }catch(e){if(e instanceof Stop)throw e;reply={ok:false,error:{message:errorText(e)}};}
-        messages.push({role:"user",content:JSON.stringify(reply)+"\nOriginal request: "+task.prompt});emit("tool_result",{turn:turns,action:action.type,reply});
+        observe(reply);emit("tool_result",{turn:turns,action:action.type,reply});
       }gate();
     }catch(e){status=e instanceof Stop?e.status:"workspace_error";if(!(e instanceof Stop))valid=false;if(!valid)invalidReason=errorText(e);emit("execution_error",{status,message:errorText(e)});}
     finally{
