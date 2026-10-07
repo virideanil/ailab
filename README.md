@@ -50,10 +50,16 @@ Node RSS excludes model-server memory. GitHub CPUs and hosted Macs do not reprod
 5. Experimental acceleration: speculative decoding/source drafts and budget routing only after correctness contracts hold. Each mechanism requires an isolated ablation and a fallback.
 6. Qualification: frozen held-out suite, paired statistical analysis and confidence bounds, then hardware validation on the target Mac.
 
-The governing [evaluation contract](https://chatgpt.com/space/page_2979a343ac388191bc4e7ad7f8b36e9e) targets a statistically supported 2x gain with quality safeguards. This smoke suite cannot demonstrate that target.
+The governing [evaluation contract](docs/research/evaluation-contract.md) targets a statistically supported 2x gain with quality safeguards. This smoke suite cannot demonstrate that target.
 
 ## Visual observatory
 
 `npm run dashboard` opens a local read-only telemetry service at http://127.0.0.1:8123. Open it in your browser, then run an experiment in another terminal. Kovan follows atomic result updates and live runner events; no illustrative numbers are injected. Real and fake modes are labeled explicitly. Only completed, graded outcomes enter acceptance and latency comparisons. A running clock is elapsed wall time, not a completed-result metric.
 
 The interface uses warm charcoal, parchment, muted jade and copper, system sans text, Georgia display type and monospace telemetry. No external font or analytics requests. The visual workspace is part of the measurement tool and remains useful offline.
+
+## Research and results
+
+Start with the [architecture and roadmap](docs/research/architecture.md), [evaluation contract](docs/research/evaluation-contract.md), and [frontier experiments](docs/research/frontier-experiments.md). The architecture document links the five mechanism dossiers. These are research snapshots and proposals, not implemented feature claims.
+
+[Recorded validation and real-model outcomes](RESULTS.md) distinguish passing infrastructure checks from task acceptance. The first real 0.5B model run accepted no tasks; this is a starting measurement, not a qualified coding assistant.

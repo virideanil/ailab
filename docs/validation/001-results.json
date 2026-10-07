@@ -1,0 +1,946 @@
+{
+  "schemaVersion": 1,
+  "experiment": "001",
+  "protocol": "action-loop-v1",
+  "recordedAt": "2026-10-07",
+  "sourceCommit": "5d54d925f8702e978a34b297fe8ff805d1a84d82",
+  "ciRunUrl": "https://github.com/virideanil/ailab/actions/runs/37692515198",
+  "model": "Qwen2.5-Coder-0.5B-Instruct Q4_K_M",
+  "runtime": "llama.cpp b11429 CPU",
+  "modelSha256": "1d9614638d18024d0fbb36575a15f1302a3adf044df10345688ec4f6e1c4ff32",
+  "runtimeSha256": "f6d25dde8f51133143d1453da4fd5f73b145127177612a283bf7995957af3392",
+  "evidenceScope": "Task summaries and bounded diagnostic excerpts extracted from GitHub job logs. Times here are rounded milliseconds. Full precision reports, snapshots, provenance and server log are in the linked CI artifacts.",
+  "summary": {
+    "mode": "real",
+    "complete": true,
+    "comparison": {
+      "ready": true,
+      "qualityDelta": 0,
+      "costDelta": 0,
+      "t50Ratio": null,
+      "ratioStatus": "unreached",
+      "confidenceInterval": null,
+      "inference": "Point estimates only; no statistical decision."
+    },
+    "accepted": {
+      "baseline": 0,
+      "candidate": 0
+    },
+    "output": "/home/runner/work/ailab/ailab/artifacts/real.json"
+  },
+  "outcomes": [
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-ttl-boundary",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 2836,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1362.220632,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 207,
+              "completion_tokens": 11,
+              "total_tokens": 218
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 2835.550609,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 238,
+              "completion_tokens": 10,
+              "total_tokens": 248
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-ttl-boundary",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 3242,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1566.4124039999997,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 245,
+              "completion_tokens": 11,
+              "total_tokens": 256
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 3241.3506099999995,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 276,
+              "completion_tokens": 10,
+              "total_tokens": 286
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-preserve-zero",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 3378,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1641.5999410000004,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 260,
+              "completion_tokens": 11,
+              "total_tokens": 271
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 3377.738951000001,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 291,
+              "completion_tokens": 10,
+              "total_tokens": 301
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-preserve-zero",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 2869,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1380.257325999999,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 215,
+              "completion_tokens": 11,
+              "total_tokens": 226
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 2867.8453329999993,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 246,
+              "completion_tokens": 10,
+              "total_tokens": 256
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-empty-guard",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 2831,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1362.7867020000012,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 211,
+              "completion_tokens": 11,
+              "total_tokens": 222
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 2830.5430190000006,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 243,
+              "completion_tokens": 10,
+              "total_tokens": 253
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-empty-guard",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 3417,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1649.0488119999973,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 261,
+              "completion_tokens": 11,
+              "total_tokens": 272
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 3416.7285059999995,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 293,
+              "completion_tokens": 10,
+              "total_tokens": 303
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-two-file-rename",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 3593,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1667.2864089999966,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 290,
+              "completion_tokens": 7,
+              "total_tokens": 297
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 3592.070936999997,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 326,
+              "completion_tokens": 10,
+              "total_tokens": 336
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-two-file-rename",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 2902,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1385.1169470000023,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 214,
+              "completion_tokens": 11,
+              "total_tokens": 225
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 2901.638977999999,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 250,
+              "completion_tokens": 10,
+              "total_tokens": 260
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-config-change",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 2856,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1387.2063310000012,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 210,
+              "completion_tokens": 11,
+              "total_tokens": 221
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 2855.3211740000006,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 240,
+              "completion_tokens": 10,
+              "total_tokens": 250
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-config-change",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 3343,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1633.7839590000003,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 258,
+              "completion_tokens": 11,
+              "total_tokens": 269
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 3342.161833000002,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 288,
+              "completion_tokens": 10,
+              "total_tokens": 298
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-copy-before-sort",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 1736,
+      "turns": 1,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1735.3644970000023,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 267,
+              "completion_tokens": 14,
+              "total_tokens": 281
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-copy-before-sort",
+      "status": "finished",
+      "accepted": false,
+      "elapsedMs": 2838,
+      "turns": 2,
+      "diagnostic": {
+        "answer": "done",
+        "checks": [
+          {
+            "name": "exact file inventory",
+            "passed": true
+          },
+          {
+            "name": "exact file contents",
+            "passed": false
+          },
+          {
+            "name": "exact final answer",
+            "passed": true
+          }
+        ],
+        "events": [
+          {
+            "seq": 1,
+            "atMs": 1303.034176999994,
+            "type": "model_response",
+            "turn": 1,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 224,
+              "completion_tokens": 7,
+              "total_tokens": 231
+            }
+          },
+          {
+            "seq": 4,
+            "atMs": 2836.899502,
+            "type": "model_response",
+            "turn": 2,
+            "action": {
+              "type": "finish",
+              "answer": "done"
+            },
+            "usage": {
+              "prompt_tokens": 256,
+              "completion_tokens": 10,
+              "total_tokens": 266
+            }
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-grounded-answer",
+      "status": "deadline",
+      "accepted": false,
+      "elapsedMs": 30003,
+      "turns": 11,
+      "diagnostic": {
+        "answer": "",
+        "checks": [],
+        "events": [
+          {
+            "seq": 25,
+            "atMs": 24384.678196,
+            "type": "model_response",
+            "turn": 9,
+            "action": {
+              "type": "read_file",
+              "path": "notes/release.txt"
+            },
+            "usage": {
+              "prompt_tokens": 700,
+              "completion_tokens": 13,
+              "total_tokens": 713
+            }
+          },
+          {
+            "seq": 28,
+            "atMs": 28778.000781000002,
+            "type": "model_response",
+            "turn": 10,
+            "action": {
+              "type": "read_file",
+              "path": "notes/release.txt"
+            },
+            "usage": {
+              "prompt_tokens": 763,
+              "completion_tokens": 13,
+              "total_tokens": 776
+            }
+          },
+          {
+            "seq": 31,
+            "atMs": 30001.141719,
+            "type": "execution_error",
+            "status": "deadline",
+            "message": "deadline"
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-grounded-answer",
+      "status": "deadline",
+      "accepted": false,
+      "elapsedMs": 30002,
+      "turns": 10,
+      "diagnostic": {
+        "answer": "",
+        "checks": [],
+        "events": [
+          {
+            "seq": 22,
+            "atMs": 25035.741983,
+            "type": "model_response",
+            "turn": 8,
+            "action": {
+              "type": "read_file",
+              "path": "notes/release.txt"
+            },
+            "usage": {
+              "prompt_tokens": 676,
+              "completion_tokens": 13,
+              "total_tokens": 689
+            }
+          },
+          {
+            "seq": 25,
+            "atMs": 29278.836889,
+            "type": "model_response",
+            "turn": 9,
+            "action": {
+              "type": "read_file",
+              "path": "notes/release.txt"
+            },
+            "usage": {
+              "prompt_tokens": 739,
+              "completion_tokens": 13,
+              "total_tokens": 752
+            }
+          },
+          {
+            "seq": 28,
+            "atMs": 30000.185395999986,
+            "type": "execution_error",
+            "status": "deadline",
+            "message": "deadline"
+          }
+        ]
+      }
+    },
+    {
+      "system": "candidate",
+      "repeat": 0,
+      "task": "smoke-missing-information",
+      "status": "deadline",
+      "accepted": false,
+      "elapsedMs": 30003,
+      "turns": 12,
+      "diagnostic": {
+        "answer": "",
+        "checks": [],
+        "events": [
+          {
+            "seq": 28,
+            "atMs": 24511.609826,
+            "type": "model_response",
+            "turn": 10,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 513,
+              "completion_tokens": 7,
+              "total_tokens": 520
+            }
+          },
+          {
+            "seq": 31,
+            "atMs": 27512.985687000008,
+            "type": "model_response",
+            "turn": 11,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 544,
+              "completion_tokens": 7,
+              "total_tokens": 551
+            }
+          },
+          {
+            "seq": 34,
+            "atMs": 30000.560157,
+            "type": "execution_error",
+            "status": "deadline",
+            "message": "deadline"
+          }
+        ]
+      }
+    },
+    {
+      "system": "baseline",
+      "repeat": 0,
+      "task": "smoke-missing-information",
+      "status": "max_turns",
+      "accepted": false,
+      "elapsedMs": 25715,
+      "turns": 12,
+      "diagnostic": {
+        "answer": "",
+        "checks": [],
+        "events": [
+          {
+            "seq": 28,
+            "atMs": 19908.458138,
+            "type": "model_response",
+            "turn": 10,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 483,
+              "completion_tokens": 7,
+              "total_tokens": 490
+            }
+          },
+          {
+            "seq": 31,
+            "atMs": 22699.49886800001,
+            "type": "model_response",
+            "turn": 11,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 514,
+              "completion_tokens": 7,
+              "total_tokens": 521
+            }
+          },
+          {
+            "seq": 34,
+            "atMs": 25713.486308000007,
+            "type": "model_response",
+            "turn": 12,
+            "action": {
+              "type": "list_files"
+            },
+            "usage": {
+              "prompt_tokens": 545,
+              "completion_tokens": 7,
+              "total_tokens": 552
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "kovan-source",
+      "url": "https://github.com/virideanil/ailab/actions/runs/37692515198/artifacts/11514146826",
+      "digest": "sha256:c4cf507338c6a798269b701776e2f5238aaa3a6619edd2659614a1f08e1a6be4",
+      "expiresAt": "2026-11-06T21:56:46Z"
+    },
+    {
+      "name": "harness-ubuntu-latest",
+      "url": "https://github.com/virideanil/ailab/actions/runs/37692515198/artifacts/11514071305",
+      "digest": "sha256:af3e728341fff99aad9198304cf8435e2226776e882eef8ccae021b3612061ac",
+      "expiresAt": "2026-10-21T21:53:31Z"
+    },
+    {
+      "name": "real-gguf-results",
+      "url": "https://github.com/virideanil/ailab/actions/runs/37692515198/artifacts/11513888045",
+      "digest": "sha256:66d96db07d7f813039ac10cda0570f4384b48b680ad9b2f354fe3d86a1ed5e35",
+      "expiresAt": "2026-11-06T21:56:37Z"
+    },
+    {
+      "name": "harness-macos-latest",
+      "url": "https://github.com/virideanil/ailab/actions/runs/37692515198/artifacts/11513248721",
+      "digest": "sha256:81724df86f12dc293477579909a7e45125fec6ef52c23efe5de2e6f56079e681",
+      "expiresAt": "2026-10-21T21:53:43Z"
+    },
+    {
+      "name": "visual-observatory",
+      "url": "https://github.com/virideanil/ailab/actions/runs/37692515198/artifacts/11513029174",
+      "digest": "sha256:2761a6cc7a6ede13ed312b1856aaf9be5edb550fa4cc1c2362fab7126c5ef099",
+      "expiresAt": "2026-11-06T21:54:23Z"
+    }
+  ]
+}
