@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark"><meta name="theme-color" content="#171b19">
+<meta name="description" content="Kovan is a local intelligence observatory: inspect real runs, outcomes, latency and recovery.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23171b19'/%3E%3Cpath d='M9 7v18m14-18L9 16l14 9' fill='none' stroke='%23a7c7b0' stroke-width='2'/%3E%3C/svg%3E">
+<title>Kovan — Local intelligence observatory</title><link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to results</a>
+<div class="page-shell">
+<header class="masthead">
+<a class="brand" href="/" aria-label="Kovan home"><svg class="brand-mark" width="34" height="38" viewBox="0 0 34 38" fill="none" aria-hidden="true"><path d="M17 2 32 10.5v17L17 36 2 27.5v-17L17 2Z" stroke="currentColor" stroke-width="1.4"/><path d="M17 10v18M9 14.5l16 9M25 14.5l-16 9" stroke="currentColor" stroke-width="1.4"/></svg><span class="brand-word">kovan<span class="brand-period">.</span></span></a>
+<p class="masthead-note">Local intelligence observatory</p><div class="connection"><span class="status-dot" aria-hidden="true"></span><span id="connection-state" role="status">Connecting</span></div>
+</header>
+<main id="main">
+<section class="hero" aria-labelledby="page-title"><div class="hero-copy"><p class="eyebrow"><span class="short-rule"></span> Observe. Understand. Improve.</p><h1 id="page-title">A closer look at<br><em>local intelligence.</em></h1><p class="hero-description">Every useful result has a story. Follow the time, the decisions, and the work it took to get there.</p></div><div class="hero-aside"><span class="section-number" aria-hidden="true">K / 01</span><p>Speed is meaningful<br>when the result holds up.</p><span class="aside-rule" aria-hidden="true"></span></div></section>
+<section class="session-bar" aria-label="Run selection"><div class="session-picker"><label class="eyebrow" for="run-select">Recorded session</label><select id="run-select" aria-label="Select a recorded run"><option value="" disabled selected>Waiting for a run…</option></select></div><div class="session-status"><span id="mode-badge" class="status-pill">Awaiting data</span><span id="completion-badge" class="status-pill quiet">Unmeasured</span></div><div class="session-updated"><span id="run-count">No runs received</span><time id="updated-at"></time></div></section>
+<div id="errors" class="notice-stack" role="alert"></div><div id="warnings" class="notice-stack" aria-live="polite"></div>
+<section id="empty-state" class="empty-state" aria-labelledby="empty-title"><div class="empty-orbit" aria-hidden="true"><span></span><i></i></div><p class="eyebrow">An open notebook</p><h2 id="empty-title">Nothing measured yet.</h2><p>Start a harness run to see its results here. Kovan will update as reports arrive, with the evidence that produced them.</p><p class="empty-footnote">No sample scores. No invented speedups.</p></section>
+<div id="run-content" hidden><div id="provenance" class="provenance"></div><section aria-label="Run measurements"><div id="summary" class="metric-grid"></div></section>
+<div class="observatory-grid"><section class="panel comparison-panel" aria-labelledby="comparison-title"><div class="panel-heading"><div><p class="eyebrow">01 / Perspective</p><h2 id="comparison-title">Time to a useful result</h2></div><span class="panel-corner" aria-hidden="true">↗</span></div><div id="comparison" class="comparison"></div></section><section class="panel hardware-panel" aria-labelledby="hardware-title"><div class="panel-heading"><div><p class="eyebrow">02 / Conditions</p><h2 id="hardware-title">The machine behind it</h2></div></div><div id="hardware" class="hardware"></div></section></div>
+<div class="workbench"><section class="panel tasks-panel" aria-labelledby="tasks-title"><div class="panel-heading"><div><p class="eyebrow">03 / The work</p><h2 id="tasks-title">Task by task</h2></div><span class="muted small">Select to inspect</span></div><div class="table-scroll" tabindex="0" aria-label="Task results table"><table class="task-table"><thead id="task-head"><tr><th scope="col">Task</th><th scope="col">Outcome</th><th scope="col">Elapsed</th><th scope="col">Turns</th></tr></thead><tbody id="task-list"></tbody></table></div></section>
+<section id="detail" class="panel detail-panel" aria-labelledby="task-title"><div class="panel-heading"><div><p class="eyebrow">04 / Evidence</p><h2 id="task-title">Inside the task</h2></div></div><div id="live-task" class="live-task"></div><div class="detail-section"><h3 class="eyebrow">Execution &amp; recovery</h3><div id="event-inspector" class="event-inspector"><p class="muted">Select a task to inspect its recorded events.</p></div></div><div class="detail-section file-section"><label class="eyebrow" for="file-select">Recorded files</label><select id="file-select"><option value="">No file selected</option></select><pre id="file-text" class="code-block" tabindex="0" aria-label="Recorded file contents">Select a recorded file to inspect its contents.</pre></div></section></div>
+</div></main>
+<footer class="footer"><span class="footer-brand">kovan.</span><p>Reported outcomes belong to the recorded task suite and hardware.</p><span class="footer-note">A little more understanding, every run.</span></footer></div>
+<noscript><p class="noscript">JavaScript is required to load local run reports. No measurement is displayed until a report is received.</p></noscript>
+<script type="module" src="/app.mjs"></script>
+</body></html>

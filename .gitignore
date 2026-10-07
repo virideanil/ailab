@@ -1,0 +1,4 @@
+artifacts/
+*.gguf
+.browser-tests/
+node_modules/

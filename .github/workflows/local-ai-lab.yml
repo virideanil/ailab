@@ -1,0 +1,104 @@
+name: Kovan validation
+on:
+  push:
+    paths:
+      - "src/**"
+      - "public/**"
+      - "fixtures/**"
+      - "scripts/**"
+      - "tests/**"
+      - "package.json"
+      - ".github/workflows/**"
+permissions:
+  contents: read
+concurrency:
+  group: kovan-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  unit:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - name: Unit and adversarial tests
+        run: npm test
+      - name: Explicit fake end-to-end smoke
+        run: npm run test:smoke
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: harness-${{ matrix.os }}
+          path: artifacts
+          retention-days: 14
+  gguf:
+    needs: unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - name: Real pinned CPU GGUF experiment
+        run: npm run test:gguf
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: real-gguf-results
+          path: artifacts
+          retention-days: 30
+  browser:
+    needs: unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - name: Prepare explicit simulation evidence
+        run: npm run test:smoke
+      - name: Install isolated browser test dependency
+        run: npm install --prefix .browser-tests --no-save playwright@1.64.0
+      - name: Install Chromium
+        run: node .browser-tests/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Browser, responsive, and screenshot checks
+        run: node scripts/browser-check.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: visual-observatory
+          path: artifacts
+          retention-days: 30
+  package:
+    needs: [unit, gguf, browser]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Create source handoff
+        run: |
+          git archive --format=tar.gz --prefix=kovan/ --output=kovan-source.tar.gz HEAD
+          sha256sum kovan-source.tar.gz > kovan-source.tar.gz.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kovan-source
+          path: |
+            kovan-source.tar.gz
+            kovan-source.tar.gz.sha256
+          retention-days: 30

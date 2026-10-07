@@ -1,0 +1,15 @@
+{
+  "name": "kovan",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:smoke": "node src/cli.mjs --fake --out artifacts/fake.json",
+    "test:gguf": "node scripts/gguf-smoke.mjs",
+    "dashboard": "node src/dashboard.mjs"
+  }
+}
