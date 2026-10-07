@@ -76,3 +76,12 @@ test("same transformation remains usable after a distinct later revision",async(
   {type:"finish",answer:"done"}]),evaluate:({snapshot})=>({accepted:snapshot["a.mjs"]==="beta!",checks:[]})});
  assert.equal(out.accepted,true);assert.equal(out.manifest["a.mjs"].version,4);
 });
+
+test("evidence questions cannot submit a guessed abstention before inspecting supplied documents",async()=>{
+ const seen=[];
+ const out=await runEngineTask({task:{id:"unknown-source",prompt:"Use only the files. Do not modify any files.",files:{"one.txt":"missing","two.txt":"missing"},maxTurns:4,deadlineMs:1000},adapter:adapter([
+  {type:"finish",answer:"UNKNOWN"},{type:"read_file",path:"one.txt"},{type:"read_file",path:"two.txt"},{type:"finish",answer:"UNKNOWN"}],seen),evaluate:()=>({accepted:true,checks:[]})});
+ assert.equal(out.accepted,true);assert.equal(out.turns,4);
+ assert.ok(out.events.some(e=>e.reply?.error?.message.includes("READ_REQUIRED")));
+ assert.equal(seen[1].messages.at(-1).role,"tool");
+});

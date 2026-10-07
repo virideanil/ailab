@@ -11,7 +11,10 @@ export function compileContract(task) {
   const date=prompt.match(/report (?:the )?([a-zA-Z ]+) as YYYY-MM-DD/i);
   if(date&&named.length===1&&/answer exactly UNKNOWN/i.test(prompt))
     return {kind:"date",field:date[1].trim(),paths:named,readOnly:true};
-  return {kind:"free",paths:named,readOnly:/Do not (?:edit|modify) any files|no file edits/i.test(prompt)};
+  const readOnly=/Do not (?:edit|modify) any files|no file edits/i.test(prompt);
+  // An evidence question without named paths refers to its supplied document set.
+  // Require observation before accepting even an abstention; no grading data is consulted.
+  return {kind:"free",paths:named.length?named:(readOnly?Object.keys(task.files):[]),readOnly};
 }
 const key=value=>value.toLowerCase().replace(/[^a-z0-9]/g,"");
 function extract(content,field){
