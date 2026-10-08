@@ -4,6 +4,8 @@
 
 Host-managed versioned edits, native tool/strict JSON proposal compatibility, public output/evidence contracts, a read-only live observatory, three pinned model comparators, unchanged original smoke fixtures, and a frozen 60-task behavioral pilot (48 coding / 12 general; 281 private assertions). Native semantic renames and prompt-lookup speculation have isolated experimental paths.
 
+The [Mac validation record](docs/validation/MAC-PACK.md) documents hosted macOS/Linux checks and a visually inspected real-report screenshot.
+
 The Mac pack adds a launcher, setup doctor, verified GGUF downloader and Docker Desktop host path. Node/UI checks run on hosted macOS; actual M5 Metal and Docker Desktop have not been exercised here.
 
 ## Current evidence
@@ -20,7 +22,7 @@ The original smoke checks and all 60 reference/starter admission checks have pas
 1. Finish/inspect the v5 conventional model tournament. Require 8/8 original smoke before pilot.
 2. On Mac, record actual chip/RAM, runtime, GGUF digest and flags. Verify Metal and Docker admission.
 3. Verify the shipped warm-prefix policy on the Mac: initial startup is separate; per-task public re-priming is timed and prevents cross-arm task-content reuse. Keep the task-cold control separate and compare acceptance as well as latency.
-4. Run the 60-task behavioral pilot, retaining failures and private grading separation.
+4. Before making controlled latency claims, implement and test server-idle draining after aborted HTTP requests; client cancellation alone is not proof of idle. See docs/ENGINE-PILOT.md. Run the 60-task behavioral pilot, retaining failures and private grading separation.
 5. Compare context reuse, native rename and prompt-lookup drafting individually. The current native diagnostic switches tool schemas in one cache slot and charges reprocessing; use separate per-arm server blocks for a clean warm native-speed comparison. Keep only improvements that reduce accepted-result time without sacrificing quality.
 6. Measure unified memory pressure, Docker VM overhead, thermals and sustained operation on the M5 before laptop claims.
 

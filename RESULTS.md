@@ -70,7 +70,7 @@ The new engine moves versions, atomic writes, observed evidence and public outpu
 
 In 007, all six Qwen3 coding edits passed. Its two grounded final answers were rejected because they were ordinary assistant prose instead of finish tool calls. Both Coder models returned fenced JSON proposals instead of native XML tool framing. Complete raw diagnostics are retained. The v4 adapter now normalizes complete strict proposal envelopes and treats completed assistant text as final-answer proposals, while preserving host evidence and format requirements. It must pass its own tests; earlier failures are not re-scored.
 
-The Mac handoff is source and evidence, with a tested Node/UI path. M5 Metal inference, Docker Desktop, total memory, thermal behavior and sustained speed require device validation. Current task-first cache reset measures a task-cold regime; a primed persistent-server conventional baseline remains a separate required cohort before broad speed claims.
+The Mac handoff is source and evidence, with a tested Node/UI path. M5 Metal inference, Docker Desktop, total memory, thermal behavior and sustained speed require device validation. Those cohorts used task-first cache reset and measured a task-cold regime. The v5 primed persistent-server baseline is a separate cohort before broad speed claims.
 
 
 ## Cohort008 and the next warm baseline
