@@ -1,6 +1,6 @@
 import { spawn } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
-import { chmod, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { chmod, mkdir, mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, posix } from "node:path";
 import { isDeepStrictEqual } from "node:util";
@@ -205,9 +205,12 @@ class BehavioralInfrastructureError extends Error {
 async function createBehavioralEvaluator({
   image = "node:24-bookworm-slim", docker = "docker", executionTimeoutMs = 8000,
   controlTimeoutMs = 3000, memoryMb = 256, cpus = 1, pidsLimit = 64,
-  maxOutputBytes = 1048576
+  maxOutputBytes = 1048576, temporaryRoot = process.env.KOVAN_EVALUATOR_TMPDIR ?? tmpdir()
 } = {}) {
-  if (process.platform !== "linux") throw new BehavioralInfrastructureError("Docker grading requires Linux");
+  if (!["linux","darwin"].includes(process.platform)) throw new BehavioralInfrastructureError("Docker grading host must be Linux or macOS");
+  if(typeof temporaryRoot!=="string"||!temporaryRoot||temporaryRoot.includes(","))throw new TypeError("Valid Docker-shared temporary root required");
+  const stagingRoot=await realpath(temporaryRoot);
+  if(stagingRoot.includes(","))throw new TypeError("Docker staging path cannot contain commas");
   if (typeof image !== "string" || !/^[a-zA-Z0-9][a-zA-Z0-9_.:@/-]{0,511}$/.test(image))
     throw new TypeError("Trusted image reference required");
   for (const [value, min, max] of [[executionTimeoutMs,100,60000],[controlTimeoutMs,100,10000],
@@ -216,14 +219,18 @@ async function createBehavioralEvaluator({
   if (!Number.isFinite(cpus) || cpus < 0.1 || cpus > 2) throw new TypeError("Invalid CPU quota");
   const run = (args, options = {}) => dockerCommand(docker, args,
     { timeoutMs: controlTimeoutMs, maxOutputBytes, ...options });
+  const daemon=await run(["info","--format","{{.OSType}}"]);
+  if(daemon.code!==0||daemon.stdout.trim()!=="linux")throw new BehavioralInfrastructureError("A reachable Linux Docker engine is required; start Docker Desktop on macOS");
   const inspected = await run(["image","inspect","--format","{{json .}}",image]);
   if (inspected.code !== 0) throw new BehavioralInfrastructureError("Pre-pull the trusted grading image");
   let imageInfo;
   try { imageInfo = JSON.parse(inspected.stdout); } catch { throw new BehavioralInfrastructureError("Invalid image inspection"); }
+  if(imageInfo.Os!=="linux")throw new BehavioralInfrastructureError("The trusted grading image must use Linux");
   const imageId = imageInfo.Id;
   if (!/^sha256:[a-f0-9]{64}$/.test(imageId ?? "")) throw new BehavioralInfrastructureError("Missing immutable image ID");
   const provenance = Object.freeze({
     backend: "docker", imageRequested: image, imageId,
+    hostPlatform:process.platform,imageArchitecture:imageInfo.Architecture,daemonOs:"linux",
     repoDigests: Object.freeze([...(imageInfo.RepoDigests ?? [])]),
     executionTimeoutMs, controlTimeoutMs, memoryMb, cpus, pidsLimit, maxOutputBytes,
     workerSha256: createHash("sha256").update(WORKER).digest("hex"),
@@ -239,7 +246,7 @@ async function createBehavioralEvaluator({
     if (checks.some(c => !c.passed)) return finishChecks(checks);
     const cases=[...spec.cases.map(c=>({...c,entry:spec.entry,exportName:spec.exportName})),...spec.probes.flatMap(p=>p.cases.map(c=>({...c,entry:p.entry,exportName:p.exportName})))];
     const invocation=encodeJson({entry:spec.entry,exportName:spec.exportName,imports:spec.imports,calls:cases.map(c=>({entry:c.entry,exportName:c.exportName,args:c.args}))});
-    const directory = await mkdtemp(join(tmpdir(), "behavioral-grade-"));
+    const directory = await mkdtemp(join(stagingRoot, "behavioral-grade-"));
     const candidate = join(directory, "candidate"), worker = join(directory, "worker.mjs");
     const name = "behavioral-" + randomUUID();
     let createAttempted = false;
@@ -250,7 +257,7 @@ async function createBehavioralEvaluator({
         await mkdir(dirname(destination), { recursive: true, mode: 0o755 });
         for (let dir = dirname(destination); dir !== candidate; dir = dirname(dir))
           await chmod(dir, 0o755);
-        await writeFile(destination, content, { mode: 0o644 });
+        await writeFile(destination, content, { mode: 0o644, flag:"wx" });
         await chmod(destination, 0o644);
       }
       await writeFile(worker, WORKER, { mode: 0o644 }); await chmod(worker, 0o644);

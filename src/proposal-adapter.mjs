@@ -1,3 +1,4 @@
+import {parseUniqueJson,parseProposalEnvelope} from "./json-envelope.mjs";
 
   const fields={list_files:[],read_file:["path"],search:["query"],replace_text:["path","oldText","newText"],write_file:["path","content"],rename_identifier:["path","oldName","newName"],finish:["answer"]};
   const descriptions={list_files:"List workspace files.",read_file:"Read current file contents before editing.",search:"Find literal text in workspace files.",replace_text:"Replace one unique exact occurrence in a file already read. Include surrounding text to avoid ambiguity.",write_file:"Replace the ENTIRE contents of an existing file already read. Preserve all unrelated code.",rename_identifier:"Rename a top-level binding across modules. Read affected files first.",finish:"Submit the final answer after completing all requested work."};
@@ -59,7 +60,22 @@
         finally{reader.releaseLock();}
         const payload=JSON.parse(text),choice=payload?.choices?.[0];
         try {
-        if(!Array.isArray(payload?.choices)||payload.choices.length!==1||choice?.finish_reason!=="tool_calls"||!Array.isArray(choice?.message?.tool_calls)||choice.message.tool_calls.length!==1)throw new Error(`Invalid or truncated completion: ${choice?.finish_reason}`);
+        if(!Array.isArray(payload?.choices)||payload.choices.length!==1)throw Error("Expected one completion");
+        let call,normalization="native";
+        const calls=choice?.message?.tool_calls,content=choice?.message?.content;
+        if(choice.finish_reason==="tool_calls"&&Array.isArray(calls)&&calls.length===1){
+          if(typeof content==="string"&&content.trim())throw Error("Mixed tool and text completion");
+          call=calls[0];
+        }else if(choice.finish_reason==="stop"&&(!calls||(Array.isArray(calls)&&calls.length===0))){
+          if(typeof content!=="string"||!content.trim())throw Error("Empty assistant completion");
+          if(/^(?:\{|\x60\x60\x60)/.test(content.trim())){
+            const parsed=parseProposalEnvelope(content);normalization=parsed.mode;
+            call={id:"proposal_"+turn,type:"function",function:{name:parsed.envelope.name,arguments:JSON.stringify(parsed.envelope.arguments)}};
+          }else{
+            normalization="assistant-answer";
+            call={id:"answer_"+turn,type:"function",function:{name:"finish",arguments:JSON.stringify({answer:content})}};
+          }
+        }else throw new Error(`Invalid or truncated completion: ${choice?.finish_reason}`);
         const usage=usageOf(payload.usage);
         const timings=payload.timings??{};
         for(const k of ["cache_n","prompt_n","prompt_ms","predicted_n","predicted_ms","draft_n","draft_n_accepted"]){
@@ -67,11 +83,10 @@
         }
         const cached=payload.usage?.prompt_tokens_details?.cached_tokens;
         if(Number.isSafeInteger(cached)&&cached>=0)usage.cached_tokens=cached;
-        const call=choice.message.tool_calls[0];
         if(call?.type!=="function"||typeof call.id!=="string"||!call.id||call.id.length>128||typeof call.function?.arguments!=="string"||!Object.hasOwn(fields,call.function?.name)||(!native&&call.function.name==="rename_identifier"))throw new Error("Invalid tool call");
-        const args=JSON.parse(call.function.arguments);
+        const args=parseUniqueJson(call.function.arguments);
         if(!args||Array.isArray(args)||typeof args!=="object"||Object.hasOwn(args,"type"))throw new Error("Invalid tool arguments");
-        return{action:validateAction({type:call.function.name,...args}),usage,toolCallId:call.id};
+        return{action:validateAction({type:call.function.name,...args}),usage,toolCallId:call.id,serialization:{mode:normalization,finishReason:choice.finish_reason,rawText:content??"",normalizedCall:call}};
         } catch(error) {error.response=payload;throw error;}
       }
     });

@@ -43,7 +43,7 @@ jobs:
         with:
           node-version: "24"
       - name: Real pinned CPU GGUF experiment
-        run: npm run test:gguf -- --profile coder-1.5b
+        run: npm run test:gguf:legacy -- --profile coder-1.5b
       - uses: actions/upload-artifact@v4
         if: always()
         with:

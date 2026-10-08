@@ -46,3 +46,22 @@ test("malformed, extra, parallel and truncated tool calls cannot become actions"
   for(let n=0;n<bad.length;n++)await assert.rejects(()=>adapter.next({messages:[{role:"user",content:"task"}]}));
  });
 });
+
+test("complete JSON serialization uses the same action validator and records normalization",async()=>{
+ const content="```json\n"+JSON.stringify({name:"read_file",arguments:{path:"a.mjs"}})+"\n```";
+ await serve(()=>({choices:[{finish_reason:"stop",message:{content}}]}),async baseUrl=>{
+  const result=await createProposalAdapter({baseUrl}).next({messages:[{role:"user",content:"task"}],turn:3});
+  assert.deepEqual(result.action,{type:"read_file",path:"a.mjs"});assert.equal(result.toolCallId,"proposal_3");
+  assert.equal(result.serialization.mode,"json-fence");assert.equal(result.serialization.rawText,content);
+ });
+});
+
+test("ordinary final assistant prose is a finish proposal, with evidence and formatting still host-owned",async()=>{
+ let n=0;
+ await serve(()=>n++===0?completion("read_file",{path:"facts.txt"},"evidence"):{choices:[{finish_reason:"stop",message:{content:"The renewal date is unavailable, so the answer is UNKNOWN."}}]},async baseUrl=>{
+  const result=await runEngineTask({task:{id:"public-evidence",prompt:"Read facts.txt and report the renewal date as YYYY-MM-DD. If absent, answer exactly UNKNOWN.",files:{"facts.txt":"Owner: Leena"},maxTurns:2,deadlineMs:3000},adapter:createProposalAdapter({baseUrl}),evaluate:({answer})=>({accepted:answer==="UNKNOWN",checks:[]})});
+  assert.equal(result.accepted,true);assert.equal(result.answer,"UNKNOWN");
+  assert.match(result.rawAnswer,/unavailable/);
+  assert.equal(result.events.filter(e=>e.type==="model_response").at(-1).serialization.mode,"assistant-answer");
+ });
+});

@@ -53,3 +53,21 @@ All three full reports, runtime/model provenance files and bounded server logs a
 [Evidence capture job](https://github.com/virideanil/ailab/actions/runs/37694735341) verified the source commit for each run and extracted the existing artifacts without repeating inference. JSON is stored in readable form; artifact ZIP digests remain in the result summaries. The copies in this repository do not expire with Actions artifacts.
 
 **Foundation gate: passed. Agent-quality and speed gates: open.** The project is a working, tested experimental harness and visual observatory, not a qualified coding assistant. Stop further prompt tuning against these eight fixtures. Prioritize schema/runtime agreement, robust public task state, explicit abstention, independent behavioral code tests, and a stronger conventional baseline with measured cache policy before interpreting acceleration. The [research roadmap](docs/research/architecture.md) retains the experimental branches; the [evaluation contract](docs/research/evaluation-contract.md) still governs promotion.
+
+
+## Host engine cohorts004–007
+
+The new engine moves versions, atomic writes, observed evidence and public output formats into software. The original smoke prompts and graders are unchanged. All60 fresh reference solutions pass and all60 deliberately wrong starters fail the behavioral admission check; this validates the harness, not a model.
+
+| Cohort | Coder1.5B | Coder3B Research | Qwen3-4B | Model pilot |
+| --- | --- | --- | --- | --- |
+| [004: JSON host proposals](docs/validation/004) | 1/8 | 4/8 | 2/8 | Blocked |
+| [005: required native, incomplete](docs/validation/005) | Warmup failed | Warmup failed | 3/4 completed; cancelled | Blocked |
+| [006: required native](docs/validation/006) | Warmup failed | Warmup failed | 7/8 | Blocked |
+| [007: auto native, strict framing](docs/validation/007) | 0/8 | 0/8 | 6/8 | Blocked |
+
+004 used30-second limits and two threads. Later native cohorts restored the original120-second smoke budget and used four threads; the frozen pilot remains30 seconds. Multiple protocol/runtime-policy changes and different CPU hosts prevent causal latency comparisons across these cohorts.
+
+In007, all six Qwen3 coding edits passed. Its two grounded final answers were rejected because they were ordinary assistant prose instead of finish tool calls. Both Coder models returned fenced JSON proposals instead of native XML tool framing. Complete raw diagnostics are retained. The v4 adapter now normalizes complete strict proposal envelopes and treats completed assistant text as final-answer proposals, while preserving host evidence and format requirements. It must pass its own tests; earlier failures are not re-scored.
+
+The Mac handoff is source and evidence, with a tested Node/UI path. M5 Metal inference, Docker Desktop, total memory, thermal behavior and sustained speed require device validation. Current task-first cache reset measures a task-cold regime; a primed persistent-server conventional baseline remains a separate required cohort before broad speed claims.

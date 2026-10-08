@@ -8,6 +8,12 @@ on:
       - "scripts/**"
       - "tests/**"
       - "package.json"
+      - "package-lock.json"
+      - "Launch Kovan.command"
+      - "docs/handoff-evidence.json"
+      - "START-HERE.md"
+      - "HANDOFF.md"
+      - "docs/MAC-HANDOFF.md"
       - ".github/workflows/**"
 permissions:
   contents: read
@@ -76,11 +82,17 @@ jobs:
       - name: Create source handoff
         run: |
           git archive --format=tar.gz --prefix=kovan/ --output=kovan-source.tar.gz HEAD
-          sha256sum kovan-source.tar.gz > kovan-source.tar.gz.sha256
+          git archive --format=zip --prefix=kovan-mac/ --output=kovan-mac.zip HEAD
+          sha256sum kovan-source.tar.gz kovan-mac.zip > SHA256SUMS
+          git rev-parse HEAD > SOURCE-COMMIT.txt
+          node --input-type=module -e 'import {readFileSync,writeFileSync} from "node:fs"; writeFileSync("PACK-IDENTITY.json",JSON.stringify({sourceCommit:readFileSync("SOURCE-COMMIT.txt","utf8").trim(),target:"Apple M5 / 16 GB",modelWeightsIncluded:false,runtimeIncluded:false,tests:"See this commit Actions results"},null,2)+"\n")'
       - uses: actions/upload-artifact@v4
         with:
-          name: kovan-source
+          name: kovan-mac-pack
           path: |
             kovan-source.tar.gz
-            kovan-source.tar.gz.sha256
+            kovan-mac.zip
+            SHA256SUMS
+            SOURCE-COMMIT.txt
+            PACK-IDENTITY.json
           retention-days: 30

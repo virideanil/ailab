@@ -9,8 +9,15 @@
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "test:smoke": "node src/cli.mjs --fake --out artifacts/fake.json",
-    "test:gguf": "node scripts/gguf-smoke.mjs",
-    "dashboard": "node src/dashboard.mjs"
+    "test:gguf": "node scripts/engine-gguf.mjs",
+    "dashboard": "node src/dashboard.mjs",
+    "start": "node scripts/start.mjs",
+    "mac:doctor": "node scripts/mac-doctor.mjs",
+    "model:fetch": "node scripts/fetch-model.mjs",
+    "engine:smoke": "node src/engine-cli.mjs --suite smoke --arm baseline",
+    "engine:self-test": "node src/engine-cli.mjs --fake --suite smoke --arm context --out artifacts/engine-fake.json",
+    "pilot:admission": "node scripts/pilot-check.mjs",
+    "test:gguf:legacy": "node scripts/gguf-smoke.mjs"
   },
   "dependencies": {
     "typescript": "5.9.3"

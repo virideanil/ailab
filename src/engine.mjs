@@ -76,7 +76,7 @@ import { createWorkspace } from "./workspace.mjs";
         }catch(e){if(e instanceof Stop)throw e;if(e?.response)emit("rejected_model_response",{turn:turns,response:e.response});throw new Stop("adapter_error",errorText(e));}
         gate();if(!plain(response))throw new Stop("protocol_error","Malformed adapter response");
         const action=checkedAction(response.action),reportedUsage=addUsage(usage,response.usage);
-        emit("model_response",{turn:turns,action,usage:reportedUsage});
+        emit("model_response",{turn:turns,action,usage:reportedUsage,...(response.serialization?{serialization:response.serialization}:{})});
         const callId=response.toolCallId??"host_call_"+turns;
         if(typeof callId!=="string"||!callId||callId.length>128||callIds.has(callId))throw new Stop("protocol_error","Invalid tool call id");
         callIds.add(callId);

@@ -33,11 +33,11 @@ else{
 const fixtures=all.filter((_,i)=>i%shards===shard);
 const sha=x=>createHash("sha256").update(typeof x==="string"?x:JSON.stringify(x)).digest("hex");
 const sources={};
-for(const p of ["src/engine.mjs","src/workspace.mjs","src/proposal-adapter.mjs","src/task-contract.mjs","src/engine-cli.mjs","src/scoring.mjs","fixtures/smoke.mjs",...(manifest?["fixtures/pilot.mjs","src/behavioral-evaluator.mjs"]:[]),...(v.arm==="native"?["src/native-edits.mjs"]:[])])
+for(const p of ["src/engine.mjs","src/workspace.mjs","src/proposal-adapter.mjs","src/json-envelope.mjs","src/task-contract.mjs","src/engine-cli.mjs","src/scoring.mjs","fixtures/smoke.mjs",...(manifest?["fixtures/pilot.mjs","src/behavioral-evaluator.mjs"]:[]),...(v.arm==="native"?["src/native-edits.mjs"]:[])])
  sources[p]=sha(await readFile(new URL("../"+p,import.meta.url),"utf8"));
 const sampling=v.profile==="qwen3-4b"?{temperature:0.7,top_p:0.8,top_k:20,min_p:0,presence_penalty:1.5,chat_template_kwargs:{enable_thinking:false}}:{temperature:0};
 const taskSetVersion=manifest?sha({manifest:manifest.sha256,fixtureSource:sources["fixtures/pilot.mjs"]}):sources["fixtures/smoke.mjs"],deadlineMs=v.suite==="smoke"?120000:30000;
-const modelProfile={mode:v.fake?"fake":"real",protocol:"native-tools-v3",profile:v.profile,model:v.profile,maxTokens:512,seed:42,sampling,cachePrompt:"within-task",deadlineMs};
+const modelProfile={mode:v.fake?"fake":"real",protocol:"native-tools-v4",profile:v.profile,model:v.profile,maxTokens:512,seed:42,sampling,cachePrompt:"within-task",deadlineMs};
 const systemVersions=Object.fromEntries(["baseline","candidate"].map(system=>[system,sha({sources,modelProfile,system,arm:v.arm})]));
 const evaluatorVersion=manifest?sha({source:sources["src/behavioral-evaluator.mjs"],image:evaluator.provenance,manifest:taskSetVersion}):taskSetVersion;
 const design={tasks:fixtures.map(f=>({id:f.task.id,version:sha(f.task),clusterId:f.clusterId??f.task.id,stratum:f.task.stratum??f.stratum,deadlineMs})),strataWeights:v.suite==="native"?{coding:1}:{coding:0.8,general:0.2},repeats,systemVersions,evaluatorVersion,taskSetVersion};

@@ -1,0 +1,32 @@
+{
+  "reports": [
+    {
+      "path": "docs/validation/003/real.json",
+      "name": "recorded-003-coder-15b.json"
+    },
+    {
+      "path": "docs/validation/004/coder-1.5b/real.json",
+      "name": "recorded-004-coder-15b.json"
+    },
+    {
+      "path": "docs/validation/004/coder-3b-research/real.json",
+      "name": "recorded-004-coder-3b-research.json"
+    },
+    {
+      "path": "docs/validation/004/qwen3-4b/real.json",
+      "name": "recorded-004-qwen3-4b.json"
+    },
+    {
+      "path": "docs/validation/007/coder-1.5b/real.json",
+      "name": "recorded-007-coder-15b.json"
+    },
+    {
+      "path": "docs/validation/007/coder-3b-research/real.json",
+      "name": "recorded-007-coder-3b-research.json"
+    },
+    {
+      "path": "docs/validation/007/qwen3-4b/real.json",
+      "name": "recorded-007-qwen3-4b.json"
+    }
+  ]
+}

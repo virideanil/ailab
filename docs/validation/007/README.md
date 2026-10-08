@@ -1,0 +1,3 @@
+# Auto native tools, strict native-only framing
+
+Sourcefffcf1b09ca1ce685c0a08a263b6347525c9bafe; [Actions run37704285315](https://github.com/virideanil/ailab/actions/runs/37704285315). Coder1.5B and Coder3B each accepted0/8; Qwen3 accepted6/8. The Coder models emitted complete fenced JSON proposals, rejected by the native-only parser. Qwen3 passed all6 coding tasks and returned ordinary assistant final prose on the2 evidence tasks, which was rejected. The reports retain raw rejected responses, including exact prompt/template and timing diagnostics. No model qualified; the60-task model pilot and acceleration arms did not run. These are valid measured failures, not speed improvements.
