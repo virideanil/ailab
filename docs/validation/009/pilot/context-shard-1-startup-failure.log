@@ -1,0 +1,277 @@
+﻿2026-10-08T00:52:35.5905554Z Current runner version: '2.337.0'
+2026-10-08T00:52:35.5941929Z ##[group]Runner Image Provisioner
+2026-10-08T00:52:35.5943559Z Hosted Compute Agent
+2026-10-08T00:52:35.5944648Z Version: 20261002.596
+2026-10-08T00:52:35.5945863Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-08T00:52:35.5947338Z Build Date: 2026-10-02T22:28:27Z
+2026-10-08T00:52:35.5948578Z Worker ID: {10e46f40-6ccc-409f-a3a4-ed154c352807}
+2026-10-08T00:52:35.5949982Z Region: eastus2
+2026-10-08T00:52:35.5951048Z Cloud: Azure
+2026-10-08T00:52:35.5952075Z ##[endgroup]
+2026-10-08T00:52:35.5955022Z ##[group]Operating System
+2026-10-08T00:52:35.5956227Z Ubuntu
+2026-10-08T00:52:35.5957123Z 24.04.5
+2026-10-08T00:52:35.5958118Z LTS
+2026-10-08T00:52:35.5959020Z ##[endgroup]
+2026-10-08T00:52:35.5960072Z ##[group]Runner Image
+2026-10-08T00:52:35.5961202Z Image: ubuntu-24.04
+2026-10-08T00:52:35.5962228Z Version: 20261004.327.1
+2026-10-08T00:52:35.5965322Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-08T00:52:35.5968285Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-08T00:52:35.5970152Z ##[endgroup]
+2026-10-08T00:52:35.5972127Z ##[group]GITHUB_TOKEN Permissions
+2026-10-08T00:52:35.5975448Z Contents: read
+2026-10-08T00:52:35.5976436Z Metadata: read
+2026-10-08T00:52:35.5977510Z ##[endgroup]
+2026-10-08T00:52:35.5980323Z Secret source: Actions
+2026-10-08T00:52:35.5982087Z Cache mode: write
+2026-10-08T00:52:35.5983878Z Prepare workflow directory
+2026-10-08T00:52:35.6658216Z Prepare all required actions
+2026-10-08T00:52:35.6706792Z Getting action download info
+2026-10-08T00:52:35.8458988Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-08T00:52:35.9504605Z Download action repository 'actions/setup-node@v6' (SHA:249970729cb0ef3589644e2896645e5dc5ba9c38)
+2026-10-08T00:52:36.1211979Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-08T00:52:36.3267387Z Complete job name: context (1)
+2026-10-08T00:52:36.4103827Z ##[group]Run actions/checkout@v6
+2026-10-08T00:52:36.4104715Z with:
+2026-10-08T00:52:36.4105159Z   persist-credentials: false
+2026-10-08T00:52:36.4105687Z   repository: virideanil/ailab
+2026-10-08T00:52:36.4109523Z   token: ***
+2026-10-08T00:52:36.4109956Z   ssh-strict: true
+2026-10-08T00:52:36.4110388Z   ssh-user: git
+2026-10-08T00:52:36.4110809Z   clean: true
+2026-10-08T00:52:36.4111255Z   sparse-checkout-cone-mode: true
+2026-10-08T00:52:36.4111776Z   fetch-depth: 1
+2026-10-08T00:52:36.4112201Z   fetch-tags: false
+2026-10-08T00:52:36.4112854Z   show-progress: true
+2026-10-08T00:52:36.4113296Z   lfs: false
+2026-10-08T00:52:36.4113704Z   submodules: false
+2026-10-08T00:52:36.4114152Z   set-safe-directory: true
+2026-10-08T00:52:36.4114657Z   allow-unsafe-pr-checkout: false
+2026-10-08T00:52:36.4115484Z env:
+2026-10-08T00:52:36.4116219Z   EVALUATOR_IMAGE: node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:52:36.4117086Z ##[endgroup]
+2026-10-08T00:52:36.5115870Z Syncing repository: virideanil/ailab
+2026-10-08T00:52:36.5118372Z ##[group]Getting Git version info
+2026-10-08T00:52:36.5119096Z Working directory is '/home/runner/work/ailab/ailab'
+2026-10-08T00:52:36.5120108Z [command]/usr/bin/git version
+2026-10-08T00:52:36.5185610Z git version 2.55.0
+2026-10-08T00:52:36.5224409Z ##[endgroup]
+2026-10-08T00:52:36.5232984Z Temporarily overriding HOME='/home/runner/work/_temp/03447057-f2a5-42a5-abc9-8bb38fc5eec7' before making global git config changes
+2026-10-08T00:52:36.5236234Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-08T00:52:36.5239051Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ailab/ailab
+2026-10-08T00:52:36.5290530Z Deleting the contents of '/home/runner/work/ailab/ailab'
+2026-10-08T00:52:36.5295086Z ##[group]Determining repository object format
+2026-10-08T00:52:36.5297850Z ##[endgroup]
+2026-10-08T00:52:36.5299533Z ##[group]Initializing the repository
+2026-10-08T00:52:36.5303572Z [command]/usr/bin/git init /home/runner/work/ailab/ailab
+2026-10-08T00:52:36.5423155Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-08T00:52:36.5425159Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-08T00:52:36.5426487Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-08T00:52:36.5427608Z hint: call:
+2026-10-08T00:52:36.5428336Z hint:
+2026-10-08T00:52:36.5429261Z hint: 	git config --global init.defaultBranch <name>
+2026-10-08T00:52:36.5430206Z hint:
+2026-10-08T00:52:36.5431560Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-08T00:52:36.5433517Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-08T00:52:36.5435182Z hint:
+2026-10-08T00:52:36.5435881Z hint: 	git branch -m <name>
+2026-10-08T00:52:36.5436653Z hint:
+2026-10-08T00:52:36.5437755Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-08T00:52:36.5439487Z Initialized empty Git repository in /home/runner/work/ailab/ailab/.git/
+2026-10-08T00:52:36.5442148Z [command]/usr/bin/git remote add origin https://github.com/virideanil/ailab
+2026-10-08T00:52:36.5495509Z ##[endgroup]
+2026-10-08T00:52:36.5497490Z ##[group]Disabling automatic garbage collection
+2026-10-08T00:52:36.5498753Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-08T00:52:36.5555630Z ##[endgroup]
+2026-10-08T00:52:36.5557534Z ##[group]Setting up auth
+2026-10-08T00:52:36.5558958Z Removing SSH command configuration
+2026-10-08T00:52:36.5560799Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-08T00:52:36.5589762Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-08T00:52:36.6034083Z Removing HTTP extra header
+2026-10-08T00:52:36.6040011Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-08T00:52:36.6080638Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-08T00:52:36.6320229Z Removing includeIf entries pointing to credentials config files
+2026-10-08T00:52:36.6326452Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-08T00:52:36.6365411Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-08T00:52:36.6628051Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-08T00:52:36.6670896Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ailab/ailab/.git.path /home/runner/work/_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:36.6711402Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ailab/ailab/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:36.6751302Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:36.6789446Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:36.6857786Z ##[endgroup]
+2026-10-08T00:52:36.6858590Z ##[group]Fetching the repository
+2026-10-08T00:52:36.6865961Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +9a2a73e3d37bc0881bcc14201a24f537cb4c3070:refs/remotes/origin/main
+2026-10-08T00:52:36.9754894Z From https://github.com/virideanil/ailab
+2026-10-08T00:52:36.9783881Z  * [new ref]         9a2a73e3d37bc0881bcc14201a24f537cb4c3070 -> origin/main
+2026-10-08T00:52:36.9786461Z [command]/usr/bin/git branch --list --remote origin/main
+2026-10-08T00:52:36.9801974Z   origin/main
+2026-10-08T00:52:36.9814254Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-10-08T00:52:36.9841844Z 9a2a73e3d37bc0881bcc14201a24f537cb4c3070
+2026-10-08T00:52:36.9854883Z ##[endgroup]
+2026-10-08T00:52:36.9856226Z ##[group]Determining the checkout info
+2026-10-08T00:52:36.9857694Z ##[endgroup]
+2026-10-08T00:52:36.9860059Z [command]/usr/bin/git sparse-checkout disable
+2026-10-08T00:52:36.9917194Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-08T00:52:36.9950906Z ##[group]Checking out the ref
+2026-10-08T00:52:36.9955522Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-08T00:52:37.0163928Z Switched to a new branch 'main'
+2026-10-08T00:52:37.0169257Z branch 'main' set up to track 'origin/main'.
+2026-10-08T00:52:37.0176692Z ##[endgroup]
+2026-10-08T00:52:37.0220732Z [command]/usr/bin/git log -1 --format=%H
+2026-10-08T00:52:37.0248837Z 9a2a73e3d37bc0881bcc14201a24f537cb4c3070
+2026-10-08T00:52:37.0259107Z ##[group]Removing auth
+2026-10-08T00:52:37.0259842Z Removing SSH command configuration
+2026-10-08T00:52:37.0263248Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-08T00:52:37.0300271Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-08T00:52:37.0520580Z Removing HTTP extra header
+2026-10-08T00:52:37.0526939Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-08T00:52:37.0567041Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-08T00:52:37.0787622Z Removing includeIf entries pointing to credentials config files
+2026-10-08T00:52:37.0791313Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-08T00:52:37.0820027Z includeif.gitdir:/home/runner/work/ailab/ailab/.git.path
+2026-10-08T00:52:37.0821741Z includeif.gitdir:/home/runner/work/ailab/ailab/.git/worktrees/*.path
+2026-10-08T00:52:37.0824144Z includeif.gitdir:/github/workspace/.git.path
+2026-10-08T00:52:37.0825613Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-08T00:52:37.0830326Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ailab/ailab/.git.path
+2026-10-08T00:52:37.0855745Z /home/runner/work/_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:37.0867287Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ailab/ailab/.git.path /home/runner/work/_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:37.0906283Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ailab/ailab/.git/worktrees/*.path
+2026-10-08T00:52:37.0933929Z /home/runner/work/_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:37.0945283Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ailab/ailab/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:37.0979335Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-08T00:52:37.1007201Z /github/runner_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:37.1021177Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:37.1063077Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-08T00:52:37.1087907Z /github/runner_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:37.1096963Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config
+2026-10-08T00:52:37.1130686Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-08T00:52:37.1345066Z Removing credentials config '/home/runner/work/_temp/git-credentials-a75f8788-cf16-4a51-8e07-205490aa5d9b.config'
+2026-10-08T00:52:37.1353567Z ##[endgroup]
+2026-10-08T00:52:37.1739197Z ##[group]Run actions/setup-node@v6
+2026-10-08T00:52:37.1739979Z with:
+2026-10-08T00:52:37.1740458Z   node-version: 24
+2026-10-08T00:52:37.1741013Z   check-latest: false
+2026-10-08T00:52:37.1750413Z   token: ***
+2026-10-08T00:52:37.1750971Z   package-manager-cache: true
+2026-10-08T00:52:37.1751632Z env:
+2026-10-08T00:52:37.1752901Z   EVALUATOR_IMAGE: node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:52:37.1754365Z ##[endgroup]
+2026-10-08T00:52:37.3236861Z Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+2026-10-08T00:52:37.3240548Z ##[group]Environment details
+2026-10-08T00:52:37.7511336Z node: v24.21.0
+2026-10-08T00:52:37.7512978Z npm: 11.19.0
+2026-10-08T00:52:37.7514103Z yarn: 1.22.22
+2026-10-08T00:52:37.7516519Z ##[endgroup]
+2026-10-08T00:52:37.7687902Z ##[group]Run npm install --ignore-scripts --no-audit --no-fund
+2026-10-08T00:52:37.7689180Z [36;1mnpm install --ignore-scripts --no-audit --no-fund[0m
+2026-10-08T00:52:37.7975781Z shell: /usr/bin/bash -e {0}
+2026-10-08T00:52:37.7976744Z env:
+2026-10-08T00:52:37.7977932Z   EVALUATOR_IMAGE: node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:52:37.7979262Z ##[endgroup]
+2026-10-08T00:52:39.8761719Z 
+2026-10-08T00:52:39.8772006Z added 1 package in 2s
+2026-10-08T00:52:39.9185945Z ##[group]Run docker pull "$EVALUATOR_IMAGE"
+2026-10-08T00:52:39.9186333Z [36;1mdocker pull "$EVALUATOR_IMAGE"[0m
+2026-10-08T00:52:39.9252689Z shell: /usr/bin/bash -e {0}
+2026-10-08T00:52:39.9252976Z env:
+2026-10-08T00:52:39.9253383Z   EVALUATOR_IMAGE: node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:52:39.9253875Z ##[endgroup]
+2026-10-08T00:52:40.2291288Z docker.io/library/node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20: Pulling from library/node
+2026-10-08T00:52:40.3194160Z 7fd1ebe418b5: Pulling fs layer
+2026-10-08T00:52:40.3196535Z 517d640e3283: Pulling fs layer
+2026-10-08T00:52:40.3197823Z 11ffcabe0f77: Pulling fs layer
+2026-10-08T00:52:40.3199295Z 1a0cf4b1ffc8: Pulling fs layer
+2026-10-08T00:52:40.3200316Z 08489011619d: Pulling fs layer
+2026-10-08T00:52:40.3201393Z 1a0cf4b1ffc8: Waiting
+2026-10-08T00:52:40.3202259Z 08489011619d: Waiting
+2026-10-08T00:52:40.3833236Z 517d640e3283: Verifying Checksum
+2026-10-08T00:52:40.3834272Z 517d640e3283: Download complete
+2026-10-08T00:52:40.4804374Z 1a0cf4b1ffc8: Verifying Checksum
+2026-10-08T00:52:40.4805294Z 1a0cf4b1ffc8: Download complete
+2026-10-08T00:52:40.5009035Z 7fd1ebe418b5: Verifying Checksum
+2026-10-08T00:52:40.5009755Z 7fd1ebe418b5: Download complete
+2026-10-08T00:52:40.5307760Z 08489011619d: Verifying Checksum
+2026-10-08T00:52:40.5308344Z 08489011619d: Download complete
+2026-10-08T00:52:40.5801285Z 11ffcabe0f77: Verifying Checksum
+2026-10-08T00:52:40.5802817Z 11ffcabe0f77: Download complete
+2026-10-08T00:52:41.6436309Z 7fd1ebe418b5: Pull complete
+2026-10-08T00:52:44.4103280Z 517d640e3283: Pull complete
+2026-10-08T00:52:45.7721299Z 11ffcabe0f77: Pull complete
+2026-10-08T00:52:45.8267934Z 1a0cf4b1ffc8: Pull complete
+2026-10-08T00:52:45.8390331Z 08489011619d: Pull complete
+2026-10-08T00:52:45.8429458Z Digest: sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:52:45.8439847Z Status: Downloaded newer image for node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:52:45.8447070Z docker.io/library/node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:52:45.8514499Z ##[group]Run node scripts/engine-gguf.mjs --profile "qwen3-4b" --suite pilot --arm context --shard "1" --shards 6
+2026-10-08T00:52:45.8515316Z [36;1mnode scripts/engine-gguf.mjs --profile "qwen3-4b" --suite pilot --arm context --shard "1" --shards 6[0m
+2026-10-08T00:52:45.8577705Z shell: /usr/bin/bash -e {0}
+2026-10-08T00:52:45.8577953Z env:
+2026-10-08T00:52:45.8578341Z   EVALUATOR_IMAGE: node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:52:45.8578814Z ##[endgroup]
+2026-10-08T00:52:45.9150814Z Using immutable GGUF profile: qwen3-4b
+2026-10-08T00:53:15.1429933Z file:///home/runner/work/ailab/ailab/src/behavioral-evaluator.mjs:177
+2026-10-08T00:53:15.1430694Z     const timer = setTimeout(() => terminate(Object.assign(new Error("Docker command timed out"),
+2026-10-08T00:53:15.1431318Z                                                            ^
+2026-10-08T00:53:15.1431540Z 
+2026-10-08T00:53:15.1431705Z Error: Docker command timed out
+2026-10-08T00:53:15.1432566Z     at Timeout.<anonymous> (file:///home/runner/work/ailab/ailab/src/behavioral-evaluator.mjs:177:60)
+2026-10-08T00:53:15.1433541Z     at listOnTimeout (node:internal/timers:685:17)
+2026-10-08T00:53:15.1433975Z     at process.processTimers (node:internal/timers:618:7) {
+2026-10-08T00:53:15.1434333Z   code: 'TIMEOUT'
+2026-10-08T00:53:15.1434544Z }
+2026-10-08T00:53:15.1434651Z 
+2026-10-08T00:53:15.1434741Z Node.js v24.21.0
+2026-10-08T00:53:15.2481726Z /opt/hostedtoolcache/node/24.21.0/x64/bin/node exited 1/null
+2026-10-08T00:53:15.5996221Z ##[error]Process completed with exit code 1.
+2026-10-08T00:53:15.6045815Z ##[group]Run node scripts/export-evidence.mjs
+2026-10-08T00:53:15.6046188Z [36;1mnode scripts/export-evidence.mjs[0m
+2026-10-08T00:53:15.6109386Z shell: /usr/bin/bash -e {0}
+2026-10-08T00:53:15.6109636Z env:
+2026-10-08T00:53:15.6110016Z   EVALUATOR_IMAGE: node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:53:15.6110479Z ##[endgroup]
+2026-10-08T00:53:15.6523800Z EVIDENCE_JSON:{"name":"real-provenance.json","data":{"startedAt":"2026-10-08T00:52:45.914Z","node":"v24.21.0","platform":"linux","arch":"x64","runtimeTag":"b11429","runtimeSourceCommit":"d81235049384534c167caea52b85a694f6103d14","suite":"pilot","arm":"context","draft":false,"runtimeArchiveSha256":"f6d25dde8f51133143d1453da4fd5f73b145127177612a283bf7995957af3392","modelProfile":"qwen3-4b","modelRepository":"Qwen/Qwen3-4B-GGUF","modelRevision":"bc640142c66e1fdd12af0bd68f40445458f3869b","modelFile":"Qwen3-4B-Q4_K_M.gguf","modelSha256":"7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5","expectedModelBytes":2497280256,"status":"infrastructure_failed","qualityGate":false,"serverPeakRssBytes":4941598720,"memoryScope":"owned llama-server process, /proc status VmHWM; excludes OS, host engine, private verifier","runtimeDownloadBytes":17693462,"modelDownloadBytes":2497280256,"serverBinarySha256":"5faf410bbbc00a1b94b09ee01623699f255365628dfa73b1ee552d9e52a2231d","serverArguments":["--model","/tmp/gguf-smoke-FNye6K/Qwen3-4B-Q4_K_M.gguf","--alias","gguf-smoke-2d61677e-97a5-4c65-88bb-91447cabc1ac","--host","127.0.0.1","--port","45807","--ctx-size","4096","--threads","4","--threads-batch","4","--parallel","1","--n-gpu-layers","0","--jinja","--metrics","--cache-ram","0","--no-cache-idle-slots","--spec-type","none"],"endpoint":"http://127.0.0.1:45807","chatTemplate":"{%- if tools %}\n    {{- '<|im_start|>system\\n' }}\n    {%- if messages[0].role == 'system' %}\n        {{- messages[0].content + '\\n\\n' }}\n    {%- endif %}\n    {{- \"# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\" }}\n    {%- for tool in tools %}\n        {{- \"\\n\" }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \"\\n</tools>\\n\\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": <function-name>, \\\"arguments\\\": <args-json-object>}\\n</tool_call><|im_end|>\\n\" }}\n{%- else %}\n    {%- if messages[0].role == 'system' %}\n        {{- '<|im_start|>system\\n' + messages[0].content + '<|im_end|>\\n' }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for index in range(ns.last_query_index, -1, -1) %}\n    {%- set message = messages[index] %}\n    {%- if ns.multi_step_tool and message.role == \"user\" and not('<tool_response>' in message.content and '</tool_response>' in message.content) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n{%- for message in messages %}\n    {%- if (message.role == \"user\") or (message.role == \"system\" and not loop.first) %}\n        {{- '<|im_start|>' + message.role + '\\n' + message.content + '<|im_end|>' + '\\n' }}\n    {%- elif message.role == \"assistant\" %}\n        {%- set content = message.content %}\n        {%- set reasoning_content = '' %}\n        {%- if message.reasoning_content is defined and message.reasoning_content is not none %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if '</think>' in message.content %}\n                {%- set content = message.content.split('</think>')[-1].lstrip('\\n') %}\n                {%- set reasoning_content = message.content.split('</think>')[0].rstrip('\\n').split('<think>')[-1].lstrip('\\n') %}\n            {%- endif %}\n        {%- endif %}\n        {%- if loop.index0 > ns.last_query_index %}\n            {%- if loop.last or (not loop.last and reasoning_content) %}\n                {{- '<|im_start|>' + message.role + '\\n<think>\\n' + reasoning_content.strip('\\n') + '\\n</think>\\n\\n' + content.lstrip('\\n') }}\n            {%- else %}\n                {{- '<|im_start|>' + message.role + '\\n' + content }}\n            {%- endif %}\n        {%- else %}\n            {{- '<|im_start|>' + message.role + '\\n' + content }}\n        {%- endif %}\n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- '\\n' }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- '<tool_call>\\n{\"name\": \"' }}\n                {{- tool_call.name }}\n                {{- '\", \"arguments\": ' }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- '}\\n</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<|im_end|>\\n' }}\n    {%- elif message.role == \"tool\" %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \"tool\") %}\n            {{- '<|im_start|>user' }}\n        {%- endif %}\n        {{- '\\n<tool_response>\\n' }}\n        {{- message.content }}\n        {{- '\\n</tool_response>' }}\n        {%- if loop.last or (messages[loop.index0 + 1].role != \"tool\") %}\n            {{- '<|im_end|>\\n' }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- '<|im_start|>assistant\\n' }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- '<think>\\n\\n</think>\\n\\n' }}\n    {%- endif %}\n{%- endif %}","chatTemplateCaps":{"supports_object_arguments":true,"supports_parallel_tool_calls":true,"supports_preserve_reasoning":false,"supports_reasoning_effort":false,"supports_string_content":true,"supports_system_role":true,"supports_tool_calls":true,"supports_tools":true,"supports_typed_content":false},"availableParallelism":4,"inferenceThreads":4,"batchThreads":4,"cpuQuota":null,"serverMetricsBefore":"# HELP llamacpp:prompt_tokens_total Number of prompt tokens processed, excluding cached tokens\n# TYPE llamacpp:prompt_tokens_total counter\nllamacpp:prompt_tokens_total 0\n# HELP llamacpp:prompt_tokens_cached_total Number of prompt tokens reused from the cache\n# TYPE llamacpp:prompt_tokens_cached_total counter\nllamacpp:prompt_tokens_cached_total 0\n# HELP llamacpp:prompt_seconds_total Total time spent processing prompts\n# TYPE llamacpp:prompt_seconds_total counter\nllamacpp:prompt_seconds_total 0\n# HELP llamacpp:tokens_predicted_total Number of generation tokens processed\n# TYPE llamacpp:tokens_predicted_total counter\nllamacpp:tokens_predicted_total 0\n# HELP llamacpp:tokens_predicted_seconds_total Total time spent generating tokens\n# TYPE llamacpp:tokens_predicted_seconds_total counter\nllamacpp:tokens_predicted_seconds_total 0\n# HELP llamacpp:n_decode_total Total number of llama_decode() calls, excluding speculative decoding and multimodal decoding\n# TYPE llamacpp:n_decode_total counter\nllamacpp:n_decode_total 0\n# HELP llamacpp:n_tokens_max Largest observed sequence length (prompt + generation)\n# TYPE llamacpp:n_tokens_max counter\nllamacpp:n_tokens_max 0\n# HELP llamacpp:spec_decode_num_draft_tokens_total Speculative: Total draft tokens generated\n# TYPE llamacpp:spec_decode_num_draft_tokens_total counter\nllamacpp:spec_decode_num_draft_tokens_total 0\n# HELP llamacpp:spec_decode_num_accepted_tokens_total Speculative: Total draft tokens accepted by the target model\n# TYPE llamacpp:spec_decode_num_accepted_tokens_total counter\nllamacpp:spec_decode_num_accepted_tokens_total 0\n# HELP llamacpp:spec_decode_num_drafts_total Speculative: Total speculative decoding verification steps\n# TYPE llamacpp:spec_decode_num_drafts_total counter\nllamacpp:spec_decode_num_drafts_total 0\n# HELP llamacpp:prompt_tokens_seconds Average prompt throughput in tokens/s\n# TYPE llamacpp:prompt_tokens_seconds gauge\nllamacpp:prompt_tokens_seconds 0\n# HELP llamacpp:predicted_tokens_seconds Average generation throughput in tokens/s\n# TYPE llamacpp:predicted_tokens_seconds gauge\nllamacpp:predicted_tokens_seconds 0\n# HELP llamacpp:requests_processing Number of requests processing\n# TYPE llamacpp:requests_processing gauge\nllamacpp:requests_processing 0\n# HELP llamacpp:requests_deferred Number of requests deferred\n# TYPE llamacpp:requests_deferred gauge\nllamacpp:requests_deferred 0\n# HELP llamacpp:n_busy_slots_per_decode Average number of busy slots per llama_decode() call\n# TYPE llamacpp:n_busy_slots_per_decode gauge\nllamacpp:n_busy_slots_per_decode 0\n","metricsScope":"isolated server, entire CLI invocation including warmup; final snapshot may exclude an unreleased active request","error":"/opt/hostedtoolcache/node/24.21.0/x64/bin/node exited 1/null","serverMetricsAfter":"# HELP llamacpp:prompt_tokens_total Number of prompt tokens processed, excluding cached tokens\n# TYPE llamacpp:prompt_tokens_total counter\nllamacpp:prompt_tokens_total 0\n# HELP llamacpp:prompt_tokens_cached_total Number of prompt tokens reused from the cache\n# TYPE llamacpp:prompt_tokens_cached_total counter\nllamacpp:prompt_tokens_cached_total 0\n# HELP llamacpp:prompt_seconds_total Total time spent processing prompts\n# TYPE llamacpp:prompt_seconds_total counter\nllamacpp:prompt_seconds_total 0\n# HELP llamacpp:tokens_predicted_total Number of generation tokens processed\n# TYPE llamacpp:tokens_predicted_total counter\nllamacpp:tokens_predicted_total 0\n# HELP llamacpp:tokens_predicted_seconds_total Total time spent generating tokens\n# TYPE llamacpp:tokens_predicted_seconds_total counter\nllamacpp:tokens_predicted_seconds_total 0\n# HELP llamacpp:n_decode_total Total number of llama_decode() calls, excluding speculative decoding and multimodal decoding\n# TYPE llamacpp:n_decode_total counter\nllamacpp:n_decode_total 0\n# HELP llamacpp:n_tokens_max Largest observed sequence length (prompt + generation)\n# TYPE llamacpp:n_tokens_max counter\nllamacpp:n_tokens_max 0\n# HELP llamacpp:spec_decode_num_draft_tokens_total Speculative: Total draft tokens generated\n# TYPE llamacpp:spec_decode_num_draft_tokens_total counter\nllamacpp:spec_decode_num_draft_tokens_total 0\n# HELP llamacpp:spec_decode_num_accepted_tokens_total Speculative: Total draft tokens accepted by the target model\n# TYPE llamacpp:spec_decode_num_accepted_tokens_total counter\nllamacpp:spec_decode_num_accepted_tokens_total 0\n# HELP llamacpp:spec_decode_num_drafts_total Speculative: Total speculative decoding verification steps\n# TYPE llamacpp:spec_decode_num_drafts_total counter\nllamacpp:spec_decode_num_drafts_total 0\n# HELP llamacpp:prompt_tokens_seconds Average prompt throughput in tokens/s\n# TYPE llamacpp:prompt_tokens_seconds gauge\nllamacpp:prompt_tokens_seconds 0\n# HELP llamacpp:predicted_tokens_seconds Average generation throughput in tokens/s\n# TYPE llamacpp:predicted_tokens_seconds gauge\nllamacpp:predicted_tokens_seconds 0\n# HELP llamacpp:requests_processing Number of requests processing\n# TYPE llamacpp:requests_processing gauge\nllamacpp:requests_processing 0\n# HELP llamacpp:requests_deferred Number of requests deferred\n# TYPE llamacpp:requests_deferred gauge\nllamacpp:requests_deferred 0\n# HELP llamacpp:n_busy_slots_per_decode Average number of busy slots per llama_decode() call\n# TYPE llamacpp:n_busy_slots_per_decode gauge\nllamacpp:n_busy_slots_per_decode 0\n","serverMetricsCapturedAt":"2026-10-08T00:53:15.249Z","cleanupErrors":[],"finishedAt":"2026-10-08T00:53:15.350Z"}}
+2026-10-08T00:53:15.6562574Z EVIDENCE_JSON:{"name":"package-lock.json","data":{"name":"kovan","version":"0.1.0","lockfileVersion":3,"requires":true,"packages":{"":{"name":"kovan","version":"0.1.0","dependencies":{"typescript":"5.9.3"},"engines":{"node":">=24"}},"node_modules/typescript":{"version":"5.9.3","resolved":"https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz","integrity":"sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==","license":"Apache-2.0","bin":{"tsc":"bin/tsc","tsserver":"bin/tsserver"},"engines":{"node":">=14.17"}}}}}
+2026-10-08T00:53:15.6627575Z ##[group]Run actions/upload-artifact@v4
+2026-10-08T00:53:15.6627879Z with:
+2026-10-08T00:53:15.6628072Z   name: context-1
+2026-10-08T00:53:15.6628277Z   path: artifacts
+2026-10-08T00:53:15.6628482Z   retention-days: 30
+2026-10-08T00:53:15.6628705Z   if-no-files-found: warn
+2026-10-08T00:53:15.6628928Z   compression-level: 6
+2026-10-08T00:53:15.6629140Z   overwrite: false
+2026-10-08T00:53:15.6629355Z   include-hidden-files: false
+2026-10-08T00:53:15.6629581Z env:
+2026-10-08T00:53:15.6629949Z   EVALUATOR_IMAGE: node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:53:15.6630396Z ##[endgroup]
+2026-10-08T00:53:15.8237152Z (node:2562) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-08T00:53:15.8238700Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-08T00:53:15.8334852Z With the provided path, there will be 2 files uploaded
+2026-10-08T00:53:15.8335929Z Artifact name is valid!
+2026-10-08T00:53:15.8336532Z Root directory input is valid!
+2026-10-08T00:53:16.0587429Z Beginning upload of artifact content to blob storage
+2026-10-08T00:53:16.0795673Z (node:2562) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-08T00:53:16.1021719Z Uploaded bytes 3527
+2026-10-08T00:53:16.1154575Z Finished uploading artifact content to blob storage!
+2026-10-08T00:53:16.1155916Z SHA256 digest of uploaded artifact zip is fbb7fd98ecf368ede50297a108a1b4d15b567f6d8811c9d8977fbc35dc2b93f6
+2026-10-08T00:53:16.1157472Z Finalizing artifact upload
+2026-10-08T00:53:16.3035512Z Artifact context-1.zip successfully finalized. Artifact ID 11521756144
+2026-10-08T00:53:16.3036764Z Artifact context-1 has been successfully uploaded! Final size is 3527 bytes. Artifact ID is 11521756144
+2026-10-08T00:53:16.3042653Z Artifact download URL: https://github.com/virideanil/ailab/actions/runs/37709612799/artifacts/11521756144
+2026-10-08T00:53:16.3227776Z Post job cleanup.
+2026-10-08T00:53:16.4049278Z [command]/usr/bin/git version
+2026-10-08T00:53:16.4094831Z git version 2.55.0
+2026-10-08T00:53:16.4138997Z Temporarily overriding HOME='/home/runner/work/_temp/f07d0081-1ad1-43c5-a080-0d3f2f4b0e5e' before making global git config changes
+2026-10-08T00:53:16.4140736Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-08T00:53:16.4145969Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ailab/ailab
+2026-10-08T00:53:16.4179070Z Removing SSH command configuration
+2026-10-08T00:53:16.4186343Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-08T00:53:16.4232202Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-08T00:53:16.4472852Z Removing HTTP extra header
+2026-10-08T00:53:16.4478085Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-08T00:53:16.4513277Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-08T00:53:16.4764979Z Removing includeIf entries pointing to credentials config files
+2026-10-08T00:53:16.4773383Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-08T00:53:16.4811127Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-08T00:53:16.5212066Z Cleaning up orphan processes
+2026-10-08T00:53:16.5619436Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

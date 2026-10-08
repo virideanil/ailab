@@ -13,13 +13,13 @@ The Mac pack adds a launcher, setup doctor, verified GGUF downloader and Docker 
 Cohorts 001–003 remain untouched. Host-proposals-v1 (004) accepted 1/8 with Coder 1.5B, 4/8 with Coder 3B Research and 2/8 with Qwen3-4B under a 30-second probe.
 Required native tools (005 incomplete;006 full) exposed warmup/serialization failures; Qwen3 reached 7/8 in 006.
 Auto native tools (007) accepted 0/8 for each Coder due to fenced JSON framing, and6/8 for Qwen3. All six Qwen3 coding edits passed; two source-grounded answers were rejected as ordinary assistant prose.
-These failures are preserved. V4 (008) accepted1/8,3/8 and6/8 respectively. The latest v5 cohort adds a controlled warm-prefix baseline and accepts normal native-call commentary. It must pass its own new run and never rewrites earlier scores.
+These failures are preserved. V4 (008) accepted1/8,3/8 and6/8 respectively. V5 (009) uses a warm public prefix and accepts normal native-call commentary: Coder 1.5B passed 0/8, Coder 3B Research passed 3/8, and Qwen3-4B passed 8/8. Qwen3 is selected for the frozen pilot. These are new results; earlier scores are unchanged.
 
-The original smoke checks and all 60 reference/starter admission checks have passed with scripted gold proposals. Scripted success is not model success. No fresh model pilot or acceleration result was available at this handoff's initial preparation; check the linked Actions run and later results before making claims.
+The original smoke checks and all 60 reference/starter admission checks have passed with scripted gold proposals. Scripted success is not model success. The [fresh model pilot and isolated acceleration jobs](https://github.com/virideanil/ailab/actions/runs/37709612799) began after Qwen3 passed the gate. At this handoff snapshot they were still running; context shard 1 failed Docker initialization before producing a task report. Its failure log and provenance are preserved in docs/validation/009/pilot/. Do not interpret missing assignments as accepted or silently drop them.
 
 ## Continue from here
 
-1. Finish/inspect the v5 conventional model tournament. Require 8/8 original smoke before pilot.
+1. Inspect the online pilot and aggregate results. Qwen3-4B now passes all 8 original smoke checks on the recorded CPU host; repeat that integration gate on the Mac.
 2. On Mac, record actual chip/RAM, runtime, GGUF digest and flags. Verify Metal and Docker admission.
 3. Verify the shipped warm-prefix policy on the Mac: initial startup is separate; per-task public re-priming is timed and prevents cross-arm task-content reuse. Keep the task-cold control separate and compare acceptance as well as latency.
 4. Before making controlled latency claims, implement and test server-idle draining after aborted HTTP requests; client cancellation alone is not proof of idle. See docs/ENGINE-PILOT.md. Run the 60-task behavioral pilot, retaining failures and private grading separation.

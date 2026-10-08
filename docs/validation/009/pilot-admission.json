@@ -1,0 +1,2223 @@
+{
+  "fixtureSourceSha256": "d91b4d6e6b9d7c73e577ed382c842a50778b52780abad3b003b81a3518ee7fa3",
+  "manifest": {
+    "schemaVersion": 1,
+    "id": "fresh-pilot-2026-10-v1",
+    "revision": 1,
+    "authoredBeforeModelOutputs": true,
+    "freezePolicy": "Commit and record this manifest hash before new model runs. Later corrections require a new suite revision and a separate comparison cohort; never rewrite completed results.",
+    "scope": "Small JavaScript behavioral repairs and semantic renames plus grounded short answers; diagnostic pilot, not a representative software-engineering benchmark.",
+    "count": 60,
+    "strata": {
+      "coding": 48,
+      "general": 12
+    },
+    "nativeRenameTaskIds": [
+      "p45",
+      "p46",
+      "p47",
+      "p48"
+    ],
+    "taskIds": [
+      "p01",
+      "p02",
+      "p03",
+      "p04",
+      "p05",
+      "p06",
+      "p07",
+      "p08",
+      "p09",
+      "p10",
+      "p11",
+      "p12",
+      "p13",
+      "p14",
+      "p15",
+      "p16",
+      "p17",
+      "p18",
+      "p19",
+      "p20",
+      "p21",
+      "p22",
+      "p23",
+      "p24",
+      "p25",
+      "p26",
+      "p27",
+      "p28",
+      "p29",
+      "p30",
+      "p31",
+      "p32",
+      "p33",
+      "p34",
+      "p35",
+      "p36",
+      "p37",
+      "p38",
+      "p39",
+      "p40",
+      "p41",
+      "p42",
+      "p43",
+      "p44",
+      "p45",
+      "p46",
+      "p47",
+      "p48",
+      "p49",
+      "p50",
+      "p51",
+      "p52",
+      "p53",
+      "p54",
+      "p55",
+      "p56",
+      "p57",
+      "p58",
+      "p59",
+      "p60"
+    ],
+    "caseCount": 281,
+    "categories": {
+      "array": 4,
+      "boundary": 8,
+      "empty": 8,
+      "event-attendance": 1,
+      "filing-deadlines": 1,
+      "inventory-conflicts": 1,
+      "invoicing": 1,
+      "multifile": 8,
+      "museum-conditions": 1,
+      "numeric": 8,
+      "object": 4,
+      "purchasing": 1,
+      "quality-assurance": 1,
+      "ranked-voting": 1,
+      "research-provenance": 1,
+      "semantic-rename": 4,
+      "staffing": 1,
+      "string": 4,
+      "tournament-standings": 1,
+      "travel-connections": 1
+    },
+    "sha256": "990d063e6c472f3e2d70aec2a4cd451bcf836ad3e742ec47c4d647538d3b2c3a"
+  },
+  "evaluator": {
+    "backend": "docker",
+    "imageRequested": "node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20",
+    "imageId": "sha256:470015c1ab1577c19efce2e80cdad4afd9c682cf8f4dcf3dccae5abfd9113397",
+    "hostPlatform": "linux",
+    "imageArchitecture": "amd64",
+    "daemonOs": "linux",
+    "repoDigests": [
+      "node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20"
+    ],
+    "executionTimeoutMs": 8000,
+    "controlTimeoutMs": 3000,
+    "memoryMb": 256,
+    "cpus": 1,
+    "pidsLimit": 64,
+    "maxOutputBytes": 1048576,
+    "workerSha256": "595250fe86bd485d8deb44691bf3c08847b65fdbb992ca3c3221328f5ed784d2",
+    "network": "none",
+    "rootFilesystem": "read-only",
+    "user": "65534:65534"
+  },
+  "results": [
+    {
+      "task": "p01",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p02",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p03",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p04",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p05",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p06",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p07",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p08",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p09",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p10",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p11",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p12",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p13",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p14",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p15",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p16",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p17",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p18",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p19",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p20",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p21",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p22",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p23",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p24",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p25",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p26",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p27",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p28",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p29",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p30",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p31",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p32",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p33",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p34",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p35",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p36",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p37",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p38",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p39",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p40",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p41",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p42",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p43",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p44",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p45",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 7",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 8",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 9",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 10",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 11",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 12",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 13",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 14",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 15",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 16",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p46",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 7",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 8",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 9",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 10",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 11",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 12",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 13",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 14",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 15",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 16",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p47",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 7",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 8",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 9",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 10",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 11",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 12",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 13",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 14",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 15",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 16",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p48",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "required export",
+          "passed": true
+        },
+        {
+          "name": "removed exports",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 1",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 2",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 3",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 4",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 5",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 6",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 7",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 8",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 9",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 10",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 11",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 12",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 13",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 14",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 15",
+          "passed": true
+        },
+        {
+          "name": "private behavioral case 16",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p49",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file request.txt",
+          "passed": true
+        },
+        {
+          "name": "protected file quotes.csv",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p50",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file session.txt",
+          "passed": true
+        },
+        {
+          "name": "protected file availability.csv",
+          "passed": true
+        },
+        {
+          "name": "protected file certificates.csv",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p51",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file loan.txt",
+          "passed": true
+        },
+        {
+          "name": "protected file logger.csv",
+          "passed": true
+        },
+        {
+          "name": "protected file supplement.csv",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p52",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file invoice.txt",
+          "passed": true
+        },
+        {
+          "name": "protected file credits.csv",
+          "passed": true
+        },
+        {
+          "name": "protected file payments.csv",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p53",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file events.csv",
+          "passed": true
+        },
+        {
+          "name": "protected file calendar.txt",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p54",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file counts.csv",
+          "passed": true
+        },
+        {
+          "name": "protected file movements.csv",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p55",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file inbound.txt",
+          "passed": true
+        },
+        {
+          "name": "protected file onward.csv",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p56",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file eligibility.csv",
+          "passed": true
+        },
+        {
+          "name": "protected file ballots.csv",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p57",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file manifest.csv",
+          "passed": true
+        },
+        {
+          "name": "protected file runs.csv",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p58",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file rubrics.csv",
+          "passed": true
+        },
+        {
+          "name": "protected file test.txt",
+          "passed": true
+        },
+        {
+          "name": "protected file calibration.csv",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p59",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file registrations.csv",
+          "passed": true
+        },
+        {
+          "name": "protected file badges.csv",
+          "passed": true
+        },
+        {
+          "name": "protected file scans.csv",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task": "p60",
+      "referenceAccepted": true,
+      "starterRejected": true,
+      "checks": [
+        {
+          "name": "protected file final_a.csv",
+          "passed": true
+        },
+        {
+          "name": "protected file final_b.csv",
+          "passed": true
+        },
+        {
+          "name": "answer matches private expectation",
+          "passed": true
+        }
+      ]
+    }
+  ]
+}

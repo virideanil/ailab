@@ -1,0 +1,33 @@
+{
+  "selected": "qwen3-4b",
+  "gate": "all eight unchanged original smoke checks",
+  "preference": [
+    "qwen3-4b",
+    "coder-3b-research",
+    "coder-1.5b"
+  ],
+  "models": [
+    {
+      "profile": "coder-1.5b",
+      "sourceCommit": "9a2a73e3d37bc0881bcc14201a24f537cb4c3070",
+      "accepted": 0,
+      "total": 8,
+      "complete": true
+    },
+    {
+      "profile": "coder-3b-research",
+      "sourceCommit": "9a2a73e3d37bc0881bcc14201a24f537cb4c3070",
+      "accepted": 3,
+      "total": 8,
+      "complete": true
+    },
+    {
+      "profile": "qwen3-4b",
+      "sourceCommit": "9a2a73e3d37bc0881bcc14201a24f537cb4c3070",
+      "accepted": 8,
+      "total": 8,
+      "complete": true
+    }
+  ],
+  "performanceQualified": false
+}

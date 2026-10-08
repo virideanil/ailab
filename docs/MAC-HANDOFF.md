@@ -25,7 +25,7 @@ Use a trusted native llama.cpp build. If Homebrew is already installed, `brew in
 
 For exact source parity, build llama.cpp commit `d81235049384534c167caea52b85a694f6103d14` with CMake and `GGML_METAL=ON`; do not use the Linux binaries on macOS. Xcode command-line tools are needed to build.
 
-Start with pinned **Qwen3-4B Q4_K_M** (2.50 GB download) as a memory-conscious experiment, not a quality-qualified winner:
+Start with pinned **Qwen3-4B Q4_K_M** (2.50 GB download) as a memory-conscious starting point. It passed the online 8/8 smoke gate in cohort 009; broader coding capability and M5 performance remain unmeasured:
 
 ```sh
 npm run model:fetch -- --profile qwen3-4b

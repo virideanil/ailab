@@ -76,3 +76,20 @@ The Mac handoff is source and evidence, with a tested Node/UI path. M5 Metal inf
 ## Cohort008 and the next warm baseline
 
 [008 reports](docs/validation/008): Coder1.5B1/8, Coder3B Research3/8, Qwen3-4B6/8. No model qualified, so fresh model pilot and acceleration jobs stayed blocked. Qwen3's failures were a rename deadline and rejection of standard commentary accompanying a native call. The v5 baseline now permits that normal API shape and uses a recorded, controlled warm-prefix policy applied equally across arms. This is a new cohort, not a retroactive improvement in008. Read docs/ENGINE-PILOT.md for timed preparation and startup accounting.
+
+
+## Cohort 009 — first qualified smoke baseline
+
+Source [9a2a73e](https://github.com/virideanil/ailab/commit/9a2a73e3d37bc0881bcc14201a24f537cb4c3070); [study run](https://github.com/virideanil/ailab/actions/runs/37709612799); [permanent reports and selection](docs/validation/009).
+
+| Model | Accepted original smoke tasks | Selection |
+| --- | --- | --- |
+| Coder 1.5B | 0/8 | Rejected |
+| Coder 3B Research | 3/8 | Rejected |
+| Qwen3-4B | 8/8 | Admitted to frozen pilot |
+
+Qwen3 ran on an AMD EPYC 9V45 host with four logical CPUs, 4K context and the declared warm-prefix policy. Successful task times ranged from 5.63 to 29.99 seconds, including per-task preparation; initial prefix priming took 8.07 seconds separately. This is an integration result, not a controlled speedup against earlier cohorts or an M5 benchmark. Different CPU hosts and protocol changes prohibit that inference.
+
+All 112 Linux isolation/unit tests passed; all 60 reference solutions passed and all 60 wrong starters failed admission. The subsequent 60-task model pilot and acceleration jobs were in progress when this handoff snapshot was made. Context shard 1 failed during Docker initialization before a task report was produced; its log and provenance are retained under validation/009/pilot. Preserve its missing assignments in aggregate denominators. No acceleration has been promoted.
+
+Native schema-switch costs and missing explicit post-cancellation server-idle draining are documented in docs/ENGINE-PILOT.md; they limit clean latency attribution even when a job completes. Cloud model evidence does not qualify sustained laptop speed.
