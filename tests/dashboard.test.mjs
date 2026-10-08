@@ -72,7 +72,10 @@ import { createDashboard } from "../src/dashboard.mjs";
   });
   test("sixteen report cap visible",async t=>{
     const f=await fixture(t);await Promise.all(Array.from({length:17},(_,i)=>writeFile(join(f.artifactsDir,String(i).padStart(2,"0")+".json"),JSON.stringify(report(i)))));
-    const p=await(await fetch(f.base+"/api/runs")).json();assert.equal(p.runs.length,16);assert.equal(p.runs[0].name,"00.json");assert.equal(p.runs.at(-1).name,"15.json");assert.ok(p.warnings.some(w=>w.includes("Report limit")));
+    // A poll may already be scanning while the seventeen files are written.
+    let p;const until=Date.now()+3000;
+    do{p=await(await fetch(f.base+"/api/runs")).json();if(p.runs.length===16)break;await new Promise(resolve=>setTimeout(resolve,25));}while(Date.now()<until);
+    assert.equal(p.runs.length,16);assert.equal(p.runs[0].name,"00.json");assert.equal(p.runs.at(-1).name,"15.json");assert.ok(p.warnings.some(w=>w.includes("Report limit")));
   });
   test("oversized files rejected without full read",async t=>{
     const f=await fixture(t),file=join(f.artifactsDir,"oversized.json");await writeFile(file,"");await truncate(file,16*1024*1024+1);
