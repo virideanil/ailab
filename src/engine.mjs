@@ -52,7 +52,12 @@ import { createWorkspace } from "./workspace.mjs";
         valid=false;throw new Stop("invalid_config","Invalid task configuration");
       }
       deadline=started+deadlineMs;signal?.addEventListener("abort",parentAbort,{once:true});if(signal?.aborted)parentAbort();gate();
-      timer=setTimeout(()=>controller.abort(new Stop("deadline")),Math.max(0,deadline-performance.now()));
+      const expire=()=>{
+        const remaining=deadline-performance.now();
+        if(remaining>0){timer=setTimeout(expire,Math.ceil(remaining));return;}
+        controller.abort(new Stop("deadline"));
+      };
+      expire();
       workspace=createWorkspace(task.files,workspaceLimits);contract=compileContract(task);gate();
       messages.push({role:"user",content:task.prompt+"\n\nAvailable files:\n"+JSON.stringify([...workspace.list()].sort())+(task.initialContext===undefined?"":"\n\nInitial context:\n"+task.initialContext)});
       if(contextReuse){

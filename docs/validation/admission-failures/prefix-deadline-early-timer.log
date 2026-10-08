@@ -1,0 +1,391 @@
+﻿2026-10-08T00:32:08.1855773Z Current runner version: '2.337.0'
+2026-10-08T00:32:08.1891887Z ##[group]Runner Image Provisioner
+2026-10-08T00:32:08.1893141Z Hosted Compute Agent
+2026-10-08T00:32:08.1893876Z Version: 20260901.588
+2026-10-08T00:32:08.1894569Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-08T00:32:08.1895290Z Build Date: 2026-09-01T19:56:44Z
+2026-10-08T00:32:08.1896047Z Worker ID: {3f57708c-afdd-4684-a7ee-baa60c6af39c}
+2026-10-08T00:32:08.1896786Z Azure Region: northcentralus
+2026-10-08T00:32:08.1897440Z ##[endgroup]
+2026-10-08T00:32:08.1899003Z ##[group]Operating System
+2026-10-08T00:32:08.1899674Z Ubuntu
+2026-10-08T00:32:08.1900635Z 24.04.5
+2026-10-08T00:32:08.1901192Z LTS
+2026-10-08T00:32:08.1901751Z ##[endgroup]
+2026-10-08T00:32:08.1902371Z ##[group]Runner Image
+2026-10-08T00:32:08.1902977Z Image: ubuntu-24.04
+2026-10-08T00:32:08.1903964Z Version: 20260927.320.1
+2026-10-08T00:32:08.1905373Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-08T00:32:08.1907023Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-08T00:32:08.1907989Z ##[endgroup]
+2026-10-08T00:32:08.1909159Z ##[group]GITHUB_TOKEN Permissions
+2026-10-08T00:32:08.1911562Z Contents: read
+2026-10-08T00:32:08.1912310Z Metadata: read
+2026-10-08T00:32:08.1912884Z ##[endgroup]
+2026-10-08T00:32:08.1915287Z Secret source: Actions
+2026-10-08T00:32:08.1916372Z Cache mode: write
+2026-10-08T00:32:08.1917368Z Prepare workflow directory
+2026-10-08T00:32:08.2329031Z Prepare all required actions
+2026-10-08T00:32:08.2398900Z Getting action download info
+2026-10-08T00:32:08.4722886Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-08T00:32:08.5847842Z Download action repository 'actions/setup-node@v6' (SHA:249970729cb0ef3589644e2896645e5dc5ba9c38)
+2026-10-08T00:32:08.6651402Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-08T00:32:08.8836370Z Complete job name: admission
+2026-10-08T00:32:08.9668049Z ##[group]Run actions/checkout@v6
+2026-10-08T00:32:08.9668931Z with:
+2026-10-08T00:32:08.9669392Z   persist-credentials: false
+2026-10-08T00:32:08.9669917Z   repository: virideanil/ailab
+2026-10-08T00:32:08.9674152Z   token: ***
+2026-10-08T00:32:08.9674581Z   ssh-strict: true
+2026-10-08T00:32:08.9675014Z   ssh-user: git
+2026-10-08T00:32:08.9675427Z   clean: true
+2026-10-08T00:32:08.9675872Z   sparse-checkout-cone-mode: true
+2026-10-08T00:32:08.9676393Z   fetch-depth: 1
+2026-10-08T00:32:08.9676811Z   fetch-tags: false
+2026-10-08T00:32:08.9677241Z   show-progress: true
+2026-10-08T00:32:08.9677679Z   lfs: false
+2026-10-08T00:32:08.9678078Z   submodules: false
+2026-10-08T00:32:08.9678518Z   set-safe-directory: true
+2026-10-08T00:32:08.9679024Z   allow-unsafe-pr-checkout: false
+2026-10-08T00:32:08.9679795Z ##[endgroup]
+2026-10-08T00:32:09.0689681Z Syncing repository: virideanil/ailab
+2026-10-08T00:32:09.0692621Z ##[group]Getting Git version info
+2026-10-08T00:32:09.0693800Z Working directory is '/home/runner/work/ailab/ailab'
+2026-10-08T00:32:09.0695531Z [command]/usr/bin/git version
+2026-10-08T00:32:09.0759160Z git version 2.55.0
+2026-10-08T00:32:09.0784500Z ##[endgroup]
+2026-10-08T00:32:09.0800354Z Temporarily overriding HOME='/home/runner/work/_temp/0d152873-ecf7-4a26-a0b5-e42dcb4aef4d' before making global git config changes
+2026-10-08T00:32:09.0802489Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-08T00:32:09.0807323Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ailab/ailab
+2026-10-08T00:32:09.0860514Z Deleting the contents of '/home/runner/work/ailab/ailab'
+2026-10-08T00:32:09.0867581Z ##[group]Determining repository object format
+2026-10-08T00:32:09.0870016Z ##[endgroup]
+2026-10-08T00:32:09.0871212Z ##[group]Initializing the repository
+2026-10-08T00:32:09.0875588Z [command]/usr/bin/git init /home/runner/work/ailab/ailab
+2026-10-08T00:32:09.0977242Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-08T00:32:09.0979334Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-08T00:32:09.0981597Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-08T00:32:09.0982877Z hint: call:
+2026-10-08T00:32:09.0983461Z hint:
+2026-10-08T00:32:09.0983991Z hint: 	git config --global init.defaultBranch <name>
+2026-10-08T00:32:09.0984615Z hint:
+2026-10-08T00:32:09.0985207Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-08T00:32:09.0986429Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-08T00:32:09.0987519Z hint:
+2026-10-08T00:32:09.0987943Z hint: 	git branch -m <name>
+2026-10-08T00:32:09.0988757Z hint:
+2026-10-08T00:32:09.0989671Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-08T00:32:09.0991530Z Initialized empty Git repository in /home/runner/work/ailab/ailab/.git/
+2026-10-08T00:32:09.0993828Z [command]/usr/bin/git remote add origin https://github.com/virideanil/ailab
+2026-10-08T00:32:09.1040968Z ##[endgroup]
+2026-10-08T00:32:09.1041792Z ##[group]Disabling automatic garbage collection
+2026-10-08T00:32:09.1045580Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-08T00:32:09.1076058Z ##[endgroup]
+2026-10-08T00:32:09.1077110Z ##[group]Setting up auth
+2026-10-08T00:32:09.1077960Z Removing SSH command configuration
+2026-10-08T00:32:09.1084942Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-08T00:32:09.1120641Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-08T00:32:09.1475654Z Removing HTTP extra header
+2026-10-08T00:32:09.1491698Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-08T00:32:09.1540356Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-08T00:32:09.1800605Z Removing includeIf entries pointing to credentials config files
+2026-10-08T00:32:09.1807538Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-08T00:32:09.1845760Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-08T00:32:09.2100504Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-08T00:32:09.2152843Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ailab/ailab/.git.path /home/runner/work/_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.2195086Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ailab/ailab/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.2257283Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.2299880Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.2337932Z ##[endgroup]
+2026-10-08T00:32:09.2338969Z ##[group]Fetching the repository
+2026-10-08T00:32:09.2350014Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +efb7a27d9e1636f199692f2f400a0617de2e089e:refs/remotes/origin/main
+2026-10-08T00:32:09.7398157Z From https://github.com/virideanil/ailab
+2026-10-08T00:32:09.7400012Z  * [new ref]         efb7a27d9e1636f199692f2f400a0617de2e089e -> origin/main
+2026-10-08T00:32:09.7419765Z [command]/usr/bin/git branch --list --remote origin/main
+2026-10-08T00:32:09.7438938Z   origin/main
+2026-10-08T00:32:09.7450369Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-10-08T00:32:09.7477657Z efb7a27d9e1636f199692f2f400a0617de2e089e
+2026-10-08T00:32:09.7483729Z ##[endgroup]
+2026-10-08T00:32:09.7485218Z ##[group]Determining the checkout info
+2026-10-08T00:32:09.7489542Z ##[endgroup]
+2026-10-08T00:32:09.7490693Z [command]/usr/bin/git sparse-checkout disable
+2026-10-08T00:32:09.7547208Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-08T00:32:09.7581954Z ##[group]Checking out the ref
+2026-10-08T00:32:09.7585209Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-08T00:32:09.7791123Z Switched to a new branch 'main'
+2026-10-08T00:32:09.7796086Z branch 'main' set up to track 'origin/main'.
+2026-10-08T00:32:09.7804285Z ##[endgroup]
+2026-10-08T00:32:09.7846651Z [command]/usr/bin/git log -1 --format=%H
+2026-10-08T00:32:09.7873819Z efb7a27d9e1636f199692f2f400a0617de2e089e
+2026-10-08T00:32:09.7884568Z ##[group]Removing auth
+2026-10-08T00:32:09.7885478Z Removing SSH command configuration
+2026-10-08T00:32:09.7887759Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-08T00:32:09.7927061Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-08T00:32:09.8150700Z Removing HTTP extra header
+2026-10-08T00:32:09.8155310Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-08T00:32:09.8191899Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-08T00:32:09.8414675Z Removing includeIf entries pointing to credentials config files
+2026-10-08T00:32:09.8417865Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-08T00:32:09.8446698Z includeif.gitdir:/home/runner/work/ailab/ailab/.git.path
+2026-10-08T00:32:09.8449140Z includeif.gitdir:/home/runner/work/ailab/ailab/.git/worktrees/*.path
+2026-10-08T00:32:09.8452163Z includeif.gitdir:/github/workspace/.git.path
+2026-10-08T00:32:09.8454404Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-08T00:32:09.8459792Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ailab/ailab/.git.path
+2026-10-08T00:32:09.8484027Z /home/runner/work/_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.8495849Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ailab/ailab/.git.path /home/runner/work/_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.8535537Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ailab/ailab/.git/worktrees/*.path
+2026-10-08T00:32:09.8562908Z /home/runner/work/_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.8574033Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ailab/ailab/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.8614604Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-08T00:32:09.8644046Z /github/runner_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.8663243Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.8697108Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-08T00:32:09.8722165Z /github/runner_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.8731356Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config
+2026-10-08T00:32:09.8767504Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-08T00:32:09.8985576Z Removing credentials config '/home/runner/work/_temp/git-credentials-c4e39246-5895-4ebb-bdc0-3c5b126962b2.config'
+2026-10-08T00:32:09.8993991Z ##[endgroup]
+2026-10-08T00:32:09.9428649Z ##[group]Run actions/setup-node@v6
+2026-10-08T00:32:09.9429838Z with:
+2026-10-08T00:32:09.9430942Z   node-version: 24
+2026-10-08T00:32:09.9431906Z   check-latest: false
+2026-10-08T00:32:09.9442724Z   token: ***
+2026-10-08T00:32:09.9443708Z   package-manager-cache: true
+2026-10-08T00:32:09.9444796Z ##[endgroup]
+2026-10-08T00:32:10.0875240Z Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+2026-10-08T00:32:10.0877942Z ##[group]Environment details
+2026-10-08T00:32:10.4665726Z node: v24.21.0
+2026-10-08T00:32:10.4666286Z npm: 11.19.0
+2026-10-08T00:32:10.4666664Z yarn: 1.22.22
+2026-10-08T00:32:10.4667293Z ##[endgroup]
+2026-10-08T00:32:10.4803696Z ##[group]Run npm install --ignore-scripts --no-audit --no-fund
+2026-10-08T00:32:10.4804303Z [36;1mnpm install --ignore-scripts --no-audit --no-fund[0m
+2026-10-08T00:32:10.5072400Z shell: /usr/bin/bash -e {0}
+2026-10-08T00:32:10.5072839Z ##[endgroup]
+2026-10-08T00:32:11.4256605Z 
+2026-10-08T00:32:11.4263210Z added 1 package in 852ms
+2026-10-08T00:32:11.4688579Z ##[group]Run docker pull node:24-bookworm-slim
+2026-10-08T00:32:11.4689000Z [36;1mdocker pull node:24-bookworm-slim[0m
+2026-10-08T00:32:11.4689508Z [36;1mDIGEST=$(docker image inspect node:24-bookworm-slim --format '{{index .RepoDigests 0}}')[0m
+2026-10-08T00:32:11.4690036Z [36;1mecho "digest=$DIGEST" >> "$GITHUB_OUTPUT"[0m
+2026-10-08T00:32:11.4690718Z [36;1mecho "EVALUATOR_IMAGE=$DIGEST" >> "$GITHUB_ENV"[0m
+2026-10-08T00:32:11.4757678Z shell: /usr/bin/bash -e {0}
+2026-10-08T00:32:11.4757954Z ##[endgroup]
+2026-10-08T00:32:11.9749522Z 24-bookworm-slim: Pulling from library/node
+2026-10-08T00:32:12.0957002Z 7fd1ebe418b5: Pulling fs layer
+2026-10-08T00:32:12.0958447Z 517d640e3283: Pulling fs layer
+2026-10-08T00:32:12.0959953Z 11ffcabe0f77: Pulling fs layer
+2026-10-08T00:32:12.0961210Z 1a0cf4b1ffc8: Pulling fs layer
+2026-10-08T00:32:12.0961870Z 08489011619d: Pulling fs layer
+2026-10-08T00:32:12.0962471Z 1a0cf4b1ffc8: Waiting
+2026-10-08T00:32:12.0962977Z 08489011619d: Waiting
+2026-10-08T00:32:12.1720389Z 517d640e3283: Verifying Checksum
+2026-10-08T00:32:12.1721189Z 517d640e3283: Download complete
+2026-10-08T00:32:12.2558541Z 7fd1ebe418b5: Verifying Checksum
+2026-10-08T00:32:12.2560638Z 7fd1ebe418b5: Download complete
+2026-10-08T00:32:12.2751797Z 1a0cf4b1ffc8: Verifying Checksum
+2026-10-08T00:32:12.2754014Z 1a0cf4b1ffc8: Download complete
+2026-10-08T00:32:12.3347840Z 08489011619d: Download complete
+2026-10-08T00:32:12.3529523Z 11ffcabe0f77: Verifying Checksum
+2026-10-08T00:32:12.3531041Z 11ffcabe0f77: Download complete
+2026-10-08T00:32:13.4094142Z 7fd1ebe418b5: Pull complete
+2026-10-08T00:32:13.6112116Z 517d640e3283: Pull complete
+2026-10-08T00:32:15.0045111Z 11ffcabe0f77: Pull complete
+2026-10-08T00:32:15.0634445Z 1a0cf4b1ffc8: Pull complete
+2026-10-08T00:32:15.0757810Z 08489011619d: Pull complete
+2026-10-08T00:32:15.0799113Z Digest: sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:32:15.0811281Z Status: Downloaded newer image for node:24-bookworm-slim
+2026-10-08T00:32:15.0818795Z docker.io/library/node:24-bookworm-slim
+2026-10-08T00:32:15.1042969Z ##[group]Run npm test
+2026-10-08T00:32:15.1043253Z [36;1mnpm test[0m
+2026-10-08T00:32:15.1106084Z shell: /usr/bin/bash -e {0}
+2026-10-08T00:32:15.1106358Z env:
+2026-10-08T00:32:15.1106772Z   EVALUATOR_IMAGE: node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:32:15.1107514Z   RUN_DOCKER_EVALUATOR_TESTS: 1
+2026-10-08T00:32:15.1107780Z ##[endgroup]
+2026-10-08T00:32:15.2273937Z 
+2026-10-08T00:32:15.2274535Z > kovan@0.1.0 test
+2026-10-08T00:32:15.2275153Z > node --test tests/*.test.mjs
+2026-10-08T00:32:15.2275508Z 
+2026-10-08T00:32:15.3752253Z ✔ JSON equality preserves types, order and special own keys (5.259644ms)
+2026-10-08T00:32:15.3754448Z ✔ JSON contract rejects cycles, undefined, accessors and non-JSON values (8.646694ms)
+2026-10-08T00:32:15.3781738Z ✔ snapshot validation rejects traversal, collisions and oversize files (1.301796ms)
+2026-10-08T00:32:15.3811879Z ✔ private specs clone JSON without mutating callers and reject leaked fields (1.588307ms)
+2026-10-08T00:32:15.3816683Z ✔ answer grading supports text, JSON and unchanged public files (1.100066ms)
+2026-10-08T00:32:16.2732307Z ▶ private evaluator executes actual candidate snapshots inside Docker
+2026-10-08T00:32:16.2747210Z   ✔ JSON and UTF-8 round-trip through actual code (488.700526ms)
+2026-10-08T00:32:17.1020951Z   ✔ whole submitted module graph matters (833.600811ms)
+2026-10-08T00:32:18.1369041Z   ✔ fixture admission verifies references and broken starters (1035.009921ms)
+2026-10-08T00:32:18.7634576Z   ✔ rename grading checks updated callers and removed old API (626.236996ms)
+2026-10-08T00:32:19.5846357Z   ✔ undefined cyclic throwing and invalid candidates fail (821.003316ms)
+2026-10-08T00:32:19.7827621Z   ✔ actual container cannot write protected mounts or access an external interface (198.108234ms)
+2026-10-08T00:32:20.2060941Z   ✔ expected answers remain outside the candidate container (423.023162ms)
+2026-10-08T00:32:24.3127440Z   ✔ infinite loops are rejected and containers cleaned up (4106.520313ms)
+2026-10-08T00:32:24.3159175Z   ✔ cancellation remains an infrastructure condition (3.336507ms)
+2026-10-08T00:32:24.3161590Z ✔ private evaluator executes actual candidate snapshots inside Docker (8956.515164ms)
+2026-10-08T00:32:24.3233652Z ✔ sorted valid reports; provenance and unrelated JSON excluded (84.342646ms)
+2026-10-08T00:32:24.3234891Z ✔ static allowlist, raw traversal and methods (33.286044ms)
+2026-10-08T00:32:24.3235825Z ✔ foreign Host and Origin rejected (8.284705ms)
+2026-10-08T00:32:24.3237079Z ✔ SSE retains valid snapshot through partial writes and publishes replacement (58.654976ms)
+2026-10-08T00:32:24.3238256Z ✔ server.close terminates SSE and timers (9.675589ms)
+2026-10-08T00:32:24.3239095Z ✔ sixteen report cap visible (23.106433ms)
+2026-10-08T00:32:24.3239986Z ✔ oversized files rejected without full read (7.651557ms)
+2026-10-08T00:32:24.3242431Z ✔ artifact and static symlinks are not followed (8.38658ms)
+2026-10-08T00:32:24.3243501Z ✔ missing artifacts directory explicitly warned (6.679381ms)
+2026-10-08T00:32:24.3244556Z ✔ configuration rejected before opening listener (0.96461ms)
+2026-10-08T00:32:24.3245787Z ✔ host fills versions and formats completion without exposing evaluator (11.20446ms)
+2026-10-08T00:32:24.3247008Z ✔ an unperformed edit cannot be completed by an answer (0.845805ms)
+2026-10-08T00:32:24.3248240Z ✔ versioned context is observed and preparation is inside timer (1.866481ms)
+2026-10-08T00:32:24.3249523Z ✔ atomic writes roll back all files on conflict or budget failure (1.773937ms)
+2026-10-08T00:32:24.3251218Z ✔ all original smoke evaluators accept unchanged gold proposals under the new host (13.856153ms)
+2026-10-08T00:32:24.3252889Z ✔ structured evidence extraction generalizes paths and rejects conflicting or missing dates (0.632022ms)
+2026-10-08T00:32:24.3254374Z ✔ read-only evidence refuses mutations and keeps its initial data (1.567999ms)
+2026-10-08T00:32:24.3255797Z ✔ duplicate applied replacement is diagnosed without a second version change (2.728658ms)
+2026-10-08T00:32:24.3257757Z ✔ same transformation remains usable after a distinct later revision (1.86601ms)
+2026-10-08T00:32:24.3259443Z ✔ evidence questions cannot submit a guessed abstention before inspecting supplied documents (2.041973ms)
+2026-10-08T00:32:24.3261402Z ✔ public format validators reject prose and malformed values without consulting an oracle (1.874817ms)
+2026-10-08T00:32:24.3263447Z ✖ prefix preparation is charged inside the task deadline and never executed as a proposal (24.395298ms)
+2026-10-08T00:32:24.3264818Z ✔ eight smoke fixtures have task-only public envelopes (2.055879ms)
+2026-10-08T00:32:24.3266101Z ✔ smoke-ttl-boundary: gold accepted, wrong answer and extra file rejected (1.414839ms)
+2026-10-08T00:32:24.3267250Z ✔ smoke-ttl-boundary: missing edit rejected (0.232869ms)
+2026-10-08T00:32:24.3268456Z ✔ smoke-preserve-zero: gold accepted, wrong answer and extra file rejected (1.567087ms)
+2026-10-08T00:32:24.3269619Z ✔ smoke-preserve-zero: missing edit rejected (0.150825ms)
+2026-10-08T00:32:24.3271162Z ✔ smoke-empty-guard: gold accepted, wrong answer and extra file rejected (0.412628ms)
+2026-10-08T00:32:24.3272352Z ✔ smoke-empty-guard: missing edit rejected (0.146146ms)
+2026-10-08T00:32:24.3273665Z ✔ smoke-two-file-rename: gold accepted, wrong answer and extra file rejected (0.613257ms)
+2026-10-08T00:32:24.3274924Z ✔ smoke-two-file-rename: missing edit rejected (0.201891ms)
+2026-10-08T00:32:24.3276175Z ✔ smoke-config-change: gold accepted, wrong answer and extra file rejected (0.431084ms)
+2026-10-08T00:32:24.3277307Z ✔ smoke-config-change: missing edit rejected (0.103215ms)
+2026-10-08T00:32:24.3281859Z ✔ smoke-copy-before-sort: gold accepted, wrong answer and extra file rejected (0.197903ms)
+2026-10-08T00:32:24.3283162Z ✔ smoke-copy-before-sort: missing edit rejected (1.106228ms)
+2026-10-08T00:32:24.3284451Z ✔ smoke-grounded-answer: gold accepted, wrong answer and extra file rejected (0.176253ms)
+2026-10-08T00:32:24.3286074Z ✔ smoke-missing-information: gold accepted, wrong answer and extra file rejected (0.136037ms)
+2026-10-08T00:32:24.3287622Z ✔ Mac/portable launcher serves preserved real evidence and shuts down cleanly (222.085354ms)
+2026-10-08T00:32:24.3288961Z ✔ only a complete unambiguous JSON proposal is normalized (3.027572ms)
+2026-10-08T00:32:24.3291807Z ✔ duplicate keys are rejected at every depth and after Unicode unescaping (0.863199ms)
+2026-10-08T00:32:24.3293289Z ✔ public chat, numeric schema and cache policy reach real adapter (59.455208ms)
+2026-10-08T00:32:24.3294430Z ✔ endpoint and numeric settings fail closed (1.481195ms)
+2026-10-08T00:32:24.3295459Z ✔ HTTP failures and redirects never fake success (44.764831ms)
+2026-10-08T00:32:24.3296619Z ✔ malformed, truncated and mismatched action shapes reject (78.751978ms)
+2026-10-08T00:32:24.3297800Z ✔ response byte cap accounts for multibyte text (10.536711ms)
+2026-10-08T00:32:24.3298851Z ✔ numeric CAS deletion and missing usage accepted (4.591443ms)
+2026-10-08T00:32:24.3299912Z ✔ abort before headers and during response body (9.076543ms)
+2026-10-08T00:32:24.3301430Z ✔ rename preserves shadowed locals and does not mutate its snapshot (141.842828ms)
+2026-10-08T00:32:24.3302883Z ✔ comments strings property keys and shorthand shape are preserved (38.745037ms)
+2026-10-08T00:32:24.3304320Z ✔ direct exports and imports are renamed across the virtual module graph (42.679704ms)
+2026-10-08T00:32:24.3305407Z ✔ explicit importer aliases remain stable (17.091882ms)
+2026-10-08T00:32:24.3306259Z ✔ collisions and lexical capture are refused (28.510801ms)
+2026-10-08T00:32:24.3307262Z ✔ invalid names, missing bindings, duplicates and destructuring are refused (28.371143ms)
+2026-10-08T00:32:24.3308061Z ✔ syntax errors, missing bindings, imports and suppressed diagnostics are refused (35.743147ms)
+2026-10-08T00:32:24.3308718Z ✔ typed modules use virtual relative resolution (13.818051ms)
+2026-10-08T00:32:24.3309456Z ✔ declared string, array, Math and Object API subset works (30.11812ms)
+2026-10-08T00:32:24.3311131Z ✔ unsafe paths and accessors are refused without invoking getters (0.988806ms)
+2026-10-08T00:32:24.3312507Z ✔ project access never falls back to TypeScript OS filesystem (14.915131ms)
+2026-10-08T00:32:24.3313766Z ✔ frozen native pilot proposals update every declared caller (96.64766ms)
+2026-10-08T00:32:24.3314960Z ✔ unchanged JS rest forwarding permits a semantic rename (18.800195ms)
+2026-10-08T00:32:24.3316336Z ✔ rest forwarding never bypasses lexical capture checks (8.483176ms)
+2026-10-08T00:32:24.3317963Z ✔ native tools preserve trained transcript, task-local cache and host-owned versions at HTTP boundary (98.608403ms)
+2026-10-08T00:32:24.3319605Z ✔ malformed, extra, parallel and truncated tool calls cannot become actions (79.347586ms)
+2026-10-08T00:32:24.3321503Z ✔ complete JSON serialization uses the same action validator and records normalization (10.511583ms)
+2026-10-08T00:32:24.3323301Z ✔ ordinary final assistant prose is a finish proposal, with evidence and formatting still host-owned (11.997746ms)
+2026-10-08T00:32:24.3325127Z ✔ warm prefix preparation is one discarded token and reuses cache without carrying task content (7.373623ms)
+2026-10-08T00:32:24.3327037Z ✔ native commentary is retained, synthetic IDs avoid collisions, unsupported frames are rejected (22.044252ms)
+2026-10-08T00:32:24.3328537Z ✔ throwing observers cannot change acceptance or see private checks (5.719902ms)
+2026-10-08T00:32:24.3329745Z ✔ tool observations are live and deeply immutable (2.88805ms)
+2026-10-08T00:32:24.3331190Z ✔ rejected observer promises are handled without altering acceptance (2.413223ms)
+2026-10-08T00:32:24.3332342Z ✔ finished artifacts are deeply immutable (7.2964ms)
+2026-10-08T00:32:24.3333304Z ✔ stale CAS recovers without mutating and consumes turns (3.592628ms)
+2026-10-08T00:32:24.3334073Z ✔ deadline fences an uncooperative late action (52.880342ms)
+2026-10-08T00:32:24.3334554Z ✔ already aborted tasks never dispatch (0.581127ms)
+2026-10-08T00:32:24.3334973Z ✔ maxTurns counts every dispatch (0.882064ms)
+2026-10-08T00:32:24.3335583Z ✔ strict action rejection: {"type":"finish","answer":"done","extra":true} (0.870372ms)
+2026-10-08T00:32:24.3336182Z ✔ strict action rejection: {"type":"read_file"} (0.751067ms)
+2026-10-08T00:32:24.3336777Z ✔ strict action rejection: {"type":"unknown"} (0.785392ms)
+2026-10-08T00:32:24.3337357Z ✔ private grading stays isolated and outside product latency (132.226342ms)
+2026-10-08T00:32:24.3337947Z ✔ adapter error remains a measured product outcome (31.032491ms)
+2026-10-08T00:32:24.3338446Z ✔ grader failure invalidates measurement (0.846096ms)
+2026-10-08T00:32:24.3338949Z ✔ grader timeout differs from submission timeout (5009.306501ms)
+2026-10-08T00:32:24.3339403Z ✔ 16 adversarial scoring groups (6.272875ms)
+2026-10-08T00:32:24.3339820Z ✔ normalization and duplicate paths (3.403431ms)
+2026-10-08T00:32:24.3340674Z ✔ reject traversal, absolute, drive, backslash and NUL paths (2.493315ms)
+2026-10-08T00:32:24.3341247Z ✔ CAS changes once; stale writes do not mutate (0.865944ms)
+2026-10-08T00:32:24.3341869Z ✔ reject empty, missing, repeated and overlapping targets atomically (0.986381ms)
+2026-10-08T00:32:24.3342468Z ✔ version/content validation and literal deletion (0.624037ms)
+2026-10-08T00:32:24.3343103Z ✔ detached frozen plain snapshots safely retain special property names (0.411717ms)
+2026-10-08T00:32:24.3343645Z ✔ SHA-256 and UTF8 byte manifest (0.480226ms)
+2026-10-08T00:32:24.3344114Z ✔ literal overlapping search and UTF16 columns (0.528908ms)
+2026-10-08T00:32:24.3344650Z ✔ search truncation accurately marks missing matches (0.416406ms)
+2026-10-08T00:32:24.3345138Z ✔ output cap preserves complete records (0.359368ms)
+2026-10-08T00:32:24.3345574Z ✔ storage limits account for UTF8 bytes (0.67656ms)
+2026-10-08T00:32:24.3346108Z ✔ replacement response overflow is rejected before mutation (0.291499ms)
+2026-10-08T00:32:24.3346667Z ✔ all read APIs enforce serialized output budgets (0.343328ms)
+2026-10-08T00:32:24.3347176Z ✔ invalid records, limits and getters fail closed (0.730508ms)
+2026-10-08T00:32:24.3347531Z ℹ tests 112
+2026-10-08T00:32:24.3347922Z ℹ suites 0
+2026-10-08T00:32:24.3348143Z ℹ pass 111
+2026-10-08T00:32:24.3348341Z ℹ fail 1
+2026-10-08T00:32:24.3348551Z ℹ cancelled 0
+2026-10-08T00:32:24.3348765Z ℹ skipped 0
+2026-10-08T00:32:24.3349010Z ℹ todo 0
+2026-10-08T00:32:24.3349252Z ℹ duration_ms 9065.22524
+2026-10-08T00:32:24.3349398Z 
+2026-10-08T00:32:24.3349642Z ✖ failing tests:
+2026-10-08T00:32:24.3349765Z 
+2026-10-08T00:32:24.3349930Z test at tests/engine.test.mjs:101:1
+2026-10-08T00:32:24.3350858Z ✖ prefix preparation is charged inside the task deadline and never executed as a proposal (24.395298ms)
+2026-10-08T00:32:24.3351523Z   AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+2026-10-08T00:32:24.3351912Z   
+2026-10-08T00:32:24.3352132Z     assert.ok(out.elapsedMs>=15)
+2026-10-08T00:32:24.3352406Z   
+2026-10-08T00:32:24.3352885Z       at TestContext.<anonymous> (file:///home/runner/work/ailab/ailab/tests/engine.test.mjs:105:9)
+2026-10-08T00:32:24.3353503Z       at async Test.run (node:internal/test_runner/test:1409:7)
+2026-10-08T00:32:24.3354044Z       at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+2026-10-08T00:32:24.3354476Z     generatedMessage: true,
+2026-10-08T00:32:24.3354725Z     code: 'ERR_ASSERTION',
+2026-10-08T00:32:24.3354959Z     actual: false,
+2026-10-08T00:32:24.3355172Z     expected: true,
+2026-10-08T00:32:24.3355393Z     operator: '==',
+2026-10-08T00:32:24.3355596Z     diff: 'simple'
+2026-10-08T00:32:24.3355798Z   }
+2026-10-08T00:32:24.3442275Z ##[error]Process completed with exit code 1.
+2026-10-08T00:32:24.3500782Z ##[group]Run node scripts/export-evidence.mjs
+2026-10-08T00:32:24.3501188Z [36;1mnode scripts/export-evidence.mjs[0m
+2026-10-08T00:32:24.3564265Z shell: /usr/bin/bash -e {0}
+2026-10-08T00:32:24.3564525Z env:
+2026-10-08T00:32:24.3564922Z   EVALUATOR_IMAGE: node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:32:24.3565388Z ##[endgroup]
+2026-10-08T00:32:24.3932899Z EVIDENCE_JSON:{"name":"package-lock.json","data":{"name":"kovan","version":"0.1.0","lockfileVersion":3,"requires":true,"packages":{"":{"name":"kovan","version":"0.1.0","dependencies":{"typescript":"5.9.3"},"engines":{"node":">=24"}},"node_modules/typescript":{"version":"5.9.3","resolved":"https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz","integrity":"sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==","license":"Apache-2.0","bin":{"tsc":"bin/tsc","tsserver":"bin/tsserver"},"engines":{"node":">=14.17"}}}}}
+2026-10-08T00:32:24.4035889Z ##[group]Run actions/upload-artifact@v4
+2026-10-08T00:32:24.4036208Z with:
+2026-10-08T00:32:24.4036420Z   name: pilot-admission
+2026-10-08T00:32:24.4036666Z   path: artifacts
+2026-10-08T00:32:24.4036875Z   retention-days: 30
+2026-10-08T00:32:24.4037099Z   if-no-files-found: warn
+2026-10-08T00:32:24.4037333Z   compression-level: 6
+2026-10-08T00:32:24.4037546Z   overwrite: false
+2026-10-08T00:32:24.4037763Z   include-hidden-files: false
+2026-10-08T00:32:24.4037995Z env:
+2026-10-08T00:32:24.4038389Z   EVALUATOR_IMAGE: node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+2026-10-08T00:32:24.4038852Z ##[endgroup]
+2026-10-08T00:32:24.5711564Z (node:4810) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-08T00:32:24.5712705Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-08T00:32:24.5777379Z ##[warning]No files were found with the provided path: artifacts. No artifacts will be uploaded.
+2026-10-08T00:32:24.6021032Z Post job cleanup.
+2026-10-08T00:32:24.6912585Z [command]/usr/bin/git version
+2026-10-08T00:32:24.6957972Z git version 2.55.0
+2026-10-08T00:32:24.7031986Z Temporarily overriding HOME='/home/runner/work/_temp/9dcb1b42-5802-4364-a142-d72f78172801' before making global git config changes
+2026-10-08T00:32:24.7033564Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-08T00:32:24.7039024Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ailab/ailab
+2026-10-08T00:32:24.7070983Z Removing SSH command configuration
+2026-10-08T00:32:24.7085384Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-08T00:32:24.7131830Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-08T00:32:24.7374221Z Removing HTTP extra header
+2026-10-08T00:32:24.7382165Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-08T00:32:24.7423662Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-08T00:32:24.7752650Z Removing includeIf entries pointing to credentials config files
+2026-10-08T00:32:24.7753879Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-08T00:32:24.7808047Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-08T00:32:24.8274165Z Evaluate and set job outputs
+2026-10-08T00:32:24.8282180Z Set output 'image'
+2026-10-08T00:32:24.8284020Z Cleaning up orphan processes
+2026-10-08T00:32:24.8570444Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -21,7 +21,7 @@ The original smoke checks and all 60 reference/starter admission checks have pas
 2. On Mac, record actual chip/RAM, runtime, GGUF digest and flags. Verify Metal and Docker admission.
 3. Verify the shipped warm-prefix policy on the Mac: initial startup is separate; per-task public re-priming is timed and prevents cross-arm task-content reuse. Keep the task-cold control separate and compare acceptance as well as latency.
 4. Run the 60-task behavioral pilot, retaining failures and private grading separation.
-5. Compare context reuse, native rename and prompt-lookup drafting individually. Keep only improvements that reduce accepted-result time without sacrificing quality.
+5. Compare context reuse, native rename and prompt-lookup drafting individually. The current native diagnostic switches tool schemas in one cache slot and charges reprocessing; use separate per-arm server blocks for a clean warm native-speed comparison. Keep only improvements that reduce accepted-result time without sacrificing quality.
 6. Measure unified memory pressure, Docker VM overhead, thermals and sustained operation on the M5 before laptop claims.
 
 Use the GUI and commands in docs/MAC-HANDOFF.md. Source modules under src/, experiments under scripts/, frozen fixtures under fixtures/, tests under tests/, and retained evidence under docs/validation/. No production agent deployment or broad coding competence is claimed.
