@@ -4,6 +4,9 @@ on:
     paths:
       - "src/engine*.mjs"
       - "src/proposal-adapter.mjs"
+      - "src/json-envelope.mjs"
+      - "src/workspace.mjs"
+      - "src/scoring.mjs"
       - "src/task-contract.mjs"
       - "src/behavioral-evaluator.mjs"
       - "src/native-edits.mjs"

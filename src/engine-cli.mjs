@@ -10,13 +10,14 @@ import { createProposalAdapter } from "./proposal-adapter.mjs";
 import { scoreExperiment } from "./scoring.mjs";
 const {values:v}=parseArgs({options:{
  endpoint:{type:"string",default:"http://127.0.0.1:8080"},model:{type:"string",default:"local"},
+ cache:{type:"string",default:"prefix-warm"},
  profile:{type:"string",default:"coder-1.5b"},suite:{type:"string",default:"smoke"},
  arm:{type:"string",default:"baseline"},out:{type:"string",default:"artifacts/engine.json"},
  shard:{type:"string",default:"0"},shards:{type:"string",default:"1"},repeats:{type:"string",default:"1"},
  "system-label":{type:"string",default:""},fake:{type:"boolean",default:false}
 }});
 const shard=Number(v.shard),shards=Number(v.shards),repeats=Number(v.repeats);
-if(!["smoke","pilot","native"].includes(v.suite)||!["baseline","context","native","drafting"].includes(v.arm)||
+if(!["task-local","prefix-warm"].includes(v.cache)||!["smoke","pilot","native"].includes(v.suite)||!["baseline","context","native","drafting"].includes(v.arm)||
  !Number.isInteger(shards)||shards<1||shards>60||!Number.isInteger(shard)||shard<0||shard>=shards||
  !Number.isInteger(repeats)||repeats<1||repeats>5)throw Error("Invalid experiment configuration");
 if(v.fake&&v.suite!=="smoke")throw Error("Fake path is limited to historical smoke self-test");
@@ -37,7 +38,7 @@ for(const p of ["src/engine.mjs","src/workspace.mjs","src/proposal-adapter.mjs",
  sources[p]=sha(await readFile(new URL("../"+p,import.meta.url),"utf8"));
 const sampling=v.profile==="qwen3-4b"?{temperature:0.7,top_p:0.8,top_k:20,min_p:0,presence_penalty:1.5,chat_template_kwargs:{enable_thinking:false}}:{temperature:0};
 const taskSetVersion=manifest?sha({manifest:manifest.sha256,fixtureSource:sources["fixtures/pilot.mjs"]}):sources["fixtures/smoke.mjs"],deadlineMs=v.suite==="smoke"?120000:30000;
-const modelProfile={mode:v.fake?"fake":"real",protocol:"native-tools-v4",profile:v.profile,model:v.profile,maxTokens:512,seed:42,sampling,cachePrompt:"within-task",deadlineMs};
+const modelProfile={mode:v.fake?"fake":"real",protocol:"native-tools-v5",profile:v.profile,model:v.profile,maxTokens:512,seed:42,sampling,cachePrompt:v.cache,deadlineMs};
 const systemVersions=Object.fromEntries(["baseline","candidate"].map(system=>[system,sha({sources,modelProfile,system,arm:v.arm})]));
 const evaluatorVersion=manifest?sha({source:sources["src/behavioral-evaluator.mjs"],image:evaluator.provenance,manifest:taskSetVersion}):taskSetVersion;
 const design={tasks:fixtures.map(f=>({id:f.task.id,version:sha(f.task),clusterId:f.clusterId??f.task.id,stratum:f.task.stratum??f.stratum,deadlineMs})),strataWeights:v.suite==="native"?{coding:1}:{coding:0.8,general:0.2},repeats,systemVersions,evaluatorVersion,taskSetVersion};
@@ -45,9 +46,9 @@ const paired=v.arm==="context"||v.arm==="native";
 const systems=paired?["baseline","candidate"]:[v["system-label"]||"baseline"];
 const report={schemaVersion:1,purpose:"Exploratory engine pilot; no qualified speed claim",mode:modelProfile.mode,performanceClaimEligible:false,
  startedAt:new Date().toISOString(),sourceCommit:process.env.GITHUB_SHA??null,sources,modelProfile,design,manifest,
- suite:v.suite,arm:v.arm,systems,shard,shards,evaluatorProvenance:evaluator?.provenance,
+ phase:"initializing",suite:v.suite,arm:v.arm,systems,shard,shards,evaluatorProvenance:evaluator?.provenance,
  hardware:{platform:os.platform(),arch:os.arch(),release:os.release(),cpu:os.cpus()[0]?.model,logicalCpus:os.availableParallelism(),totalMemoryBytes:os.totalmem(),node:process.version},
- conditions:{prefillCache:"off on first request of every task; on subsequently",warmup:"one request excluded",order:paired?"counterbalanced by task/repeat":"single arm block",baseline:"sequential observed-file proposals",candidate:v.arm,privateGradingTime:"excluded",preparationTime:"included",hostContract:"identical across arms",memory:"Node RSS per outcome; owned server peak RSS in provenance"},
+ conditions:{prefillCache:v.cache==="prefix-warm"?"fixed public prefix primed before study; re-priming inside each task timer prevents cross-arm task-content reuse":"off on first request of every task; on subsequently",warmup:"hardware warmup and initial per-schema prefix priming excluded and recorded",order:paired?"counterbalanced by task/repeat":"single arm block",baseline:"sequential observed-file proposals",candidate:v.arm,privateGradingTime:"excluded",preparationTime:"included",hostContract:"identical across arms",memory:"Node RSS per outcome; owned server peak RSS in provenance"},
  runs:[],outcomes:[],currentTask:null};
 await mkdir(dirname(v.out),{recursive:true});let queue=Promise.resolve();
 function save(){
@@ -59,7 +60,8 @@ function save(){
 await save();
 const adapters={};
 if(!v.fake){
- for(const system of systems)adapters[system]=createProposalAdapter({baseUrl:v.endpoint,model:v.model,sampling,native:system==="candidate"&&v.arm==="native"});
+ report.phase="warming";await save();
+ for(const system of systems)adapters[system]=createProposalAdapter({baseUrl:v.endpoint,model:v.model,sampling,cacheMode:v.cache,native:system==="candidate"&&v.arm==="native"});
  const start=performance.now();
  try{
   const response=await fetch(new URL("/completion",v.endpoint),{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({prompt:"Warmup",n_predict:1,temperature:0,seed:42,cache_prompt:false}),signal:AbortSignal.timeout(60000)});
@@ -68,6 +70,12 @@ if(!v.fake){
   report.warmup={elapsedMs:performance.now()-start,timings:warm.timings,success:true,kind:"one-token hardware warmup without tools"};
  }catch(error){
   report.warmup={elapsedMs:performance.now()-start,success:false,error:error.message,response:error.response??null};
+ }
+ report.prefixPriming=[];
+ if(v.cache==="prefix-warm")for(const system of systems){
+  const before=performance.now();
+  try{const result=await adapters[system].prepare({signal:AbortSignal.timeout(120000)});report.prefixPriming.push({system,success:true,elapsedMs:performance.now()-before,usage:result.usage,discarded:true});}
+  catch(error){report.prefixPriming.push({system,success:false,elapsedMs:performance.now()-before,error:error.message});}
  }
  await save();
 }
@@ -80,7 +88,7 @@ for(let repeat=0;repeat<repeats;repeat++)for(let i=0;i<fixtures.length;i++){
   let at=0;
   const adapter=v.fake?{kind:"fake",async next(){const {expectedVersion,...action}=fixture.script[at++];return {action};}}:adapters[system];
   const evaluate=fixture.evaluate??((submission,options)=>evaluator(submission,fixture.evaluateSpec,options));
-  report.currentTask={taskId:task.id,system,repeat,startedAt:new Date().toISOString(),events:[]};await save();
+  report.phase="running";report.currentTask={taskId:task.id,system,repeat,startedAt:new Date().toISOString(),events:[]};await save();
   const outcome=await runEngineTask({task,adapter,evaluate,contextReuse:system==="candidate"&&v.arm==="context",native:system==="candidate"&&v.arm==="native",
    onEvent(event){report.currentTask.events.push(event);void save().catch(error=>{report.telemetryError=error.message;});}});
   report.currentTask=null;
@@ -92,6 +100,6 @@ for(let repeat=0;repeat<repeats;repeat++)for(let i=0;i<fixtures.length;i++){
 }
 report.complete=report.runs.length===fixtures.length*repeats*systems.length&&report.runs.every(r=>r.valid);
 report.qualityGate=report.complete&&report.runs.every(r=>r.accepted);
-report.finishedAt=new Date().toISOString();await save();
+report.phase="complete";report.finishedAt=new Date().toISOString();await save();
 console.log("ENGINE_SUMMARY:"+JSON.stringify({suite:v.suite,arm:v.arm,profile:v.profile,complete:report.complete,accepted:report.runs.filter(r=>r.accepted).length,total:report.runs.length,qualityGate:report.qualityGate}));
 if(!report.complete||(v.fake&&!report.qualityGate))process.exitCode=1;

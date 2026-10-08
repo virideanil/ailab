@@ -10,13 +10,13 @@ npm test
 npm start
 ```
 
-Requires Node24+. The GUI opens at http://127.0.0.1:8123, seeds actual recorded results, and follows new reports in `artifacts/`. It is read-only; the CLI starts experiments. Scripted checks are explicitly labeled and never presented as AI performance.
+Requires Node 24+. The GUI opens at http://127.0.0.1:8123, seeds actual recorded results, and follows new reports in `artifacts/`. It is read-only; the CLI starts experiments. Scripted checks are explicitly labeled and never presented as AI performance.
 
 ## Engine and experiments
 
 The host owns file versions, atomic edit validation, observed evidence, public output contracts and measured completion. The model proposes actions and reasons about evidence. Private grading runs only after submission.
 
-The [current protocol](docs/ENGINE-PILOT.md) compares conventional pinned GGUF models before a frozen60-task behavioral pilot and isolated context reuse, semantic rename and prompt-lookup experiments. Original smoke prompts/graders remain unchanged. The TypeScript semantic editor uses a pinned dependency installed by npm ci.
+The [current protocol](docs/ENGINE-PILOT.md) compares conventional pinned GGUF models before a frozen 60-task behavioral pilot and isolated context reuse, semantic rename and prompt-lookup experiments. Original smoke prompts/graders remain unchanged. The TypeScript semantic editor uses a pinned dependency installed by npm ci.
 
 ```sh
 npm run engine:self-test
@@ -32,7 +32,7 @@ Read [RESULTS.md](RESULTS.md) and [HANDOFF.md](HANDOFF.md) for accepted outcomes
 
 The workspace is an in-memory fixture store, not a general repository editor. Proposed JavaScript is graded in restricted Docker containers; it is never run directly in the host process. Docker is optional for recorded viewing/original smoke and required for fresh behavioral coding tests. Mac container support requires device validation.
 
-The current study measures task-cold prompt caching: reset on the first request, reused within a task. A properly primed persistent-server baseline is a separate next cohort. No qualified laptop speedup, sustained thermal result or general coding competence is claimed.
+The current default measures controlled model/prefix-warm operation: startup priming is recorded separately, and task-local re-priming is timed to prevent cross-arm task-content reuse. The earlier task-cold regime remains available with --cache task-local; cohorts remain separate. No qualified laptop speedup, sustained thermal result or general coding competence is claimed.
 
 ## Design and research
 

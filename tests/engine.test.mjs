@@ -97,3 +97,10 @@ test("public format validators reject prose and malformed values without consult
  ];
  for(const [prompt,good,bad]of rows){const format=compileAnswerFormat(prompt);assert.ok(format,prompt);for(const v of good)assert.equal(validAnswer(format,v),true,prompt+v);for(const v of bad)assert.equal(validAnswer(format,v),false,prompt+v);}
 });
+
+test("prefix preparation is charged inside the task deadline and never executed as a proposal",async()=>{
+ let requested=false;
+ const out=await runEngineTask({task:{...task,deadlineMs:15},adapter:{kind:"real",prepare:()=>new Promise(resolve=>setTimeout(()=>resolve({usage:{}}),100)),next:()=>{requested=true;throw Error("unreachable");}},evaluate:()=>{throw Error("unreachable");}});
+ assert.equal(out.status,"deadline");assert.equal(requested,false);assert.equal(out.turns,0);
+ assert.ok(out.elapsedMs>=15);assert.equal(out.events[0].type,"prefix_preparation_start");
+});

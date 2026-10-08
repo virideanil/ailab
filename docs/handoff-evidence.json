@@ -27,6 +27,10 @@
     {
       "path": "docs/validation/007/qwen3-4b/real.json",
       "name": "recorded-007-qwen3-4b.json"
+    },
+    {
+      "path": "docs/validation/008/qwen3-4b/real.json",
+      "name": "recorded-008-qwen3-4b.json"
     }
   ]
 }

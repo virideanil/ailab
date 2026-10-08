@@ -35,6 +35,7 @@
       cards.push(metric(`${label} acceptance`,number(stats?.acceptedRate)?percentage(stats.acceptedRate):pending?"Pending":"Unavailable",number(stats?.acceptedRate)?"Weighted acceptance":"Awaiting a complete valid measurement"));
       cards.push(metric(`${label} t50`,number(stats?.t50Ms)?milliseconds(stats.t50Ms):stats?.t50Status==="unreached"?"Not reached":pending?"Pending":"Unavailable","Half of assigned weighted tasks accepted"));
     }
+    if(nodes.summary)nodes.summary.dataset.columns=systemsOf(r).length===1?"3":"4";
     nodes.summary?.replaceChildren(...cards);
   }
   function svgElement(tag,attributes={},content){const n=document.createElementNS("http://www.w3.org/2000/svg",tag);for(const[k,v]of Object.entries(attributes))n.setAttribute(k,text(v));if(content!=null)n.textContent=text(content);return n;}
@@ -117,7 +118,7 @@
   }
   function renderLive(){
     const task=currentReport()?.currentTask;
-    if(!task){put("live-task","Inference activity: idle. Telemetry connection is shown separately.");return;}
+    if(!task){put("live-task",currentReport()?.phase==="warming"?"Warming the model. No measured task is running.":"Inference activity: idle. Telemetry connection is shown separately.");return;}
     const started=typeof task.startedAt==="number"?task.startedAt:Date.parse(task.startedAt);
     const elapsed=Number.isFinite(started)?` · live elapsed ${milliseconds(Math.max(0,Date.now()-started))}`:"";
     put("live-task",`Running ${text(task.taskId)} · ${text(task.system)}${elapsed}. Live wall-clock estimate; not a completed-task metric.`);
@@ -135,7 +136,7 @@
     const fake=r.mode==="fake";
     put("mode-badge",fake?"FAKE · scripted adapters":r.mode==="real"?"REAL · model run":"Mode unspecified");
     if(nodes["mode-badge"])nodes["mode-badge"].dataset.mode=text(r.mode);
-    put("completion-badge",r.complete===true?"Complete":r.currentTask?"Running · measured so far":"Measured so far · incomplete");
+    put("completion-badge",r.complete===true?"Complete":r.phase==="warming"?"Warming model":r.currentTask?"Running · measured so far":"Measured so far · incomplete");
     put("provenance",fake?"Scripted adapter test. These measurements exercise the harness; they are not AI model performance.":r.mode==="real"?"Real model run. Interpret results with the recorded hardware and run configuration.":"This report does not declare whether a real model was used.");
     const provenance=element("details");provenance.append(element("summary","Model, source and measurement conditions"),element("pre",json({suite:r.suite,arm:r.arm,systems:r.systems,manifest:r.manifest,evaluatorProvenance:r.evaluatorProvenance,decision:r.decision,modelProfile:r.modelProfile,sourceCommit:r.sourceCommit,sources:r.sources,conditions:r.conditions}),"code-block"));nodes.provenance?.append(provenance);
     nodes.hardware?.replaceChildren(element("pre",json(r.hardware??"Hardware not reported"),"code-block"));

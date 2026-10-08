@@ -65,3 +65,28 @@ test("ordinary final assistant prose is a finish proposal, with evidence and for
   assert.equal(result.events.filter(e=>e.type==="model_response").at(-1).serialization.mode,"assistant-answer");
  });
 });
+
+test("warm prefix preparation is one discarded token and reuses cache without carrying task content",async()=>{
+ const requests=[];let n=0;
+ await serve(req=>{requests.push(req);return n++===0?{choices:[{finish_reason:"length",message:{content:"<"}}],timings:{cache_n:500,prompt_n:8,predicted_n:1}}:completion("finish",{answer:"ready"});},async baseUrl=>{
+  const adapter=createProposalAdapter({baseUrl,cacheMode:"prefix-warm"});
+  const prime=await adapter.prepare();assert.equal(prime.priming,true);assert.equal(Object.hasOwn(prime,"action"),false);
+  await adapter.next({messages:[{role:"user",content:"Fresh independent task"}],turn:1});
+  assert.equal(requests[0].max_tokens,1);assert.equal(requests[1].max_tokens,512);
+  assert.deepEqual(requests.map(r=>r.cache_prompt),[true,true]);assert.deepEqual(requests[0].tools,requests[1].tools);
+  assert.equal(requests[1].messages.some(m=>m.content.includes("prefix primer")),false);
+ });
+});
+test("native commentary is retained, synthetic IDs avoid collisions, unsupported frames are rejected",async()=>{
+ const native=completion("read_file",{path:"a"});native.choices[0].message.content="I will inspect the evidence.";
+ await serve(()=>native,async baseUrl=>{
+  const r=await createProposalAdapter({baseUrl}).next({messages:[{role:"user",content:"task"}]});assert.equal(r.serialization.rawText,"I will inspect the evidence.");assert.equal(r.action.type,"read_file");
+ });
+ await serve(()=>({choices:[{finish_reason:"stop",message:{content:JSON.stringify({name:"finish",arguments:{answer:"done"}})}}]}),async baseUrl=>{
+  const r=await createProposalAdapter({baseUrl}).next({messages:[{role:"user",content:"task"},{role:"assistant",content:"",tool_calls:[{id:"proposal_3",type:"function",function:{name:"list_files",arguments:"{}"}}]},{role:"tool",tool_call_id:"proposal_3",content:"[]"}],turn:3});
+  assert.equal(r.toolCallId,"proposal_3_1");
+ });
+ for(const content of ['[{"name":"finish","arguments":{"answer":"done"}}]','<tool_call>{"name":"finish"','<function=finish>','<tool_response>broken']){
+  await serve(()=>({choices:[{finish_reason:"stop",message:{content}}]}),async baseUrl=>{await assert.rejects(()=>createProposalAdapter({baseUrl}).next({messages:[{role:"user",content:"task"}]}));});
+ }
+});

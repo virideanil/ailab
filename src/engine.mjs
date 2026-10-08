@@ -69,6 +69,13 @@ import { createWorkspace } from "./workspace.mjs";
         emit("context_reuse",{files:initial.map(({path,version})=>({path,version}))});
       }
       if(!adapter||typeof adapter.next!=="function")throw new Stop("adapter_error","Adapter has no next method");
+      if(typeof adapter.prepare==="function"){
+        emit("prefix_preparation_start");gate();
+        let preparation;
+        try{preparation=await abortable(adapter.prepare({signal:controller.signal}),controller.signal);}
+        catch(error){if(error instanceof Stop)throw error;throw new Stop("adapter_error",errorText(error));}
+        gate();emit("prefix_prepared",{usage:addUsage(usage,preparation.usage),discarded:true});
+      }
       while(turns<maxTurns){
         gate();turns++;emit("model_request",{turn:turns});let response;
         try{
@@ -81,7 +88,7 @@ import { createWorkspace } from "./workspace.mjs";
         if(typeof callId!=="string"||!callId||callId.length>128||callIds.has(callId))throw new Stop("protocol_error","Invalid tool call id");
         callIds.add(callId);
         const {type,...args}=action;
-        messages.push({role:"assistant",content:"",tool_calls:[{id:callId,type:"function",function:{name:type,arguments:JSON.stringify(args)}}]});
+        messages.push({role:"assistant",content:response.serialization?.mode==="native"?response.serialization.rawText:"",tool_calls:[{id:callId,type:"function",function:{name:type,arguments:JSON.stringify(args)}}]});
         const observe=reply=>messages.push({role:"tool",tool_call_id:callId,content:JSON.stringify(reply)});
         if(action.type==="finish"){
           gate();rawAnswer=action.answer;
